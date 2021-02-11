@@ -1,11 +1,10 @@
 import React from 'react';
-import Search from './Search'
 
-const Nav = ({ setMovies }) => {
+
+const Nav = () => {
     return (
         <div>
             <h1> <a href="/">Brando</a> - A Movie Finding Web App</h1>
-            <Search setMovies={setMovies} />
         </div>
     );
 }
