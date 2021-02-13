@@ -8,6 +8,7 @@ import MoviePage from './components/MoviePage'
 
 function App() {
   const [movies, setMovies] = useState([])
+
   const MOVIE_API = process.env.REACT_APP_MOVIE_API
 
   // https://api.themoviedb.org/3/discover/movie?api_key=dca6ba47ee045002b2c647232f48e550
@@ -19,6 +20,10 @@ function App() {
       .then(data => {
         setMovies(data.results)
       })
+
+    // setServer(movies.map(mov => [{ id: mov.id }]))
+    // console.log(server)
+
   }, [])
 
   return (

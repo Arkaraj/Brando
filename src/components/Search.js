@@ -23,8 +23,8 @@ const Search = ({ setMovies }) => {
         <>
             <form onSubmit={Submit}>
                 Search
-            <input placeholder="Search title" type="text" value={text} onChange={e => setText(e.target.value)} />
-                <button>Submit</button>
+            <input id="bar" placeholder="Search title" type="text" value={text} onChange={e => setText(e.target.value)} />
+                <button id="btn">Submit</button>
             </form>
         </>
     );

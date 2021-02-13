@@ -8,8 +8,9 @@ const MoviePage = (props) => {
     const id = props.match.params.id;
     const [name, setName] = useState('')
     const [description, setDescription] = useState('')
-    const [image, setimage] = useState('')
+    const [image, setImage] = useState('')
 
+    const noImage = "https://upload.wikimedia.org/wikipedia/commons/f/fc/No_picture_available.png"
 
     useEffect(() => {
 
@@ -18,19 +19,25 @@ const MoviePage = (props) => {
             .then(data => {
                 setName(data.original_title)
                 setDescription(data.overview)
-                const image_path = poster + data.poster_path
-                setimage(image_path)
+
+                const image_path = data.poster_path ? poster + data.poster_path : ''
+                setImage(image_path)
             })
 
     }, [])
 
     return (
-        <div>
-            <h1>{name}</h1>
-            <img src={image} alt={name} />
-            <p>{description}</p>
-        </div>
-    );
+        <>
+            {name == '' ? (<div className="loading"></div>) :
+                (
+                    <div>
+                        <h1>{name}</h1>
+                        <img src={image == '' ? noImage : image} className={image == '' ? 'noImage' : ''} alt={name} />
+                        <p>{description}</p>
+                    </div>
+                )}
+        </>
+    )
 }
 
 export default MoviePage;
