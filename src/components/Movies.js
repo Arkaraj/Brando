@@ -115,7 +115,7 @@ const Movies = ({ movie }) => {
                 <img src={movie.poster_path ? poster : noImage} className={movie.poster_path ? '' : 'noImage'} alt="Movie Image" />
                 <h1>{movie.original_title}</h1>
                 <p>{movie.vote_average}</p>
-                <Link to={`/${movie.id}`}>View Details</Link>
+                <Link to={`/movies/${movie.id}`}>View Details</Link>
                 <svg fill="currentColor" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" className={fav ? "blue" : "star"} viewBox="0 0 24 24" onClick={() => favourite(movie.id)}>
                     <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
                 </svg>

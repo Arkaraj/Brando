@@ -18,3 +18,12 @@ To Use .env in App.js
 ```javascript
 process.env.REACT_APP_SECRET_KEY
 ```
+
+### To run dummy REST API Server
+
+```sh
+npm run server
+```
+
+Server runs on port 5000
+goto: http://localhost:5000/movies to view the database

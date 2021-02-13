@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react'
-import { BrowserRouter as Router, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 
 import Nav from './components/Nav'
 import Search from './components/Search'
 import Movies from './components/Movies'
 import MoviePage from './components/MoviePage'
+import Favourite from './components/Favourite'
 
 function App() {
   const [movies, setMovies] = useState([])
@@ -43,7 +44,10 @@ function App() {
           </>
         )} />
 
-        <Route exact path="/:id" component={MoviePage} />
+        <Switch>
+          <Route exact path="/movies/:id" component={MoviePage} />
+          <Route exact path="/favourite" component={Favourite} />
+        </Switch>
       </div>
     </Router>
   );
