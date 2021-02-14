@@ -1,10 +1,11 @@
 const mongoose = require('mongoose');
 
-const favMovieSchema = mongoose.Schema({
+const favMovieSchema = new mongoose.Schema({
     id: {
         type: Number,
         default: 0,
-        required: true
+        required: true,
+        unique: true
     },
     fav: {
         type: Boolean,

@@ -10,8 +10,10 @@ mongoose.connect(`mongodb://localhost/Movie`, { useNewUrlParser: true, useUnifie
     console.log('Successfully connected to Database!!');
 });
 
-app.use('/movies', movies)
 
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json())
+app.use('/movies', movies)
 
 const port = process.env.PORT || 8080
 

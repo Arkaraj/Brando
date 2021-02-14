@@ -6,7 +6,7 @@ const Favourite = () => {
     const [cine, setCine] = useState([])
 
     const fetchCine = async () => {
-        const res = await fetch('http://localhost:5000/movies')
+        const res = await fetch(`http://localhost:${process.env.REACT_APP_PORT}/movies`)
         const data = await res.json()
 
         return data

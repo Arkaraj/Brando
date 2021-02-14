@@ -27,3 +27,15 @@ npm run server
 
 Server runs on port 5000
 goto: http://localhost:5000/movies to view the database
+
+### Server with Node Js
+
+To run real REST API Server
+
+Nodemon should be installed for development
+
+```sh
+$ cd server
+
+$ npm start
+```

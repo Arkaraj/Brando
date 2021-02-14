@@ -9,7 +9,7 @@ const Movie_Img = "http://image.tmdb.org/t/p/w154/"
 const Movies = ({ movie }) => {
 
     const getData = async (id) => {
-        fetch(`http://localhost:5000/movies/${id}`)
+        fetch(`http://localhost:${process.env.REACT_APP_PORT}/movies/${id}`)
             .then(async res => {
                 if (res.ok) {
                     const data = await res.json()
@@ -43,7 +43,7 @@ const Movies = ({ movie }) => {
             fav: false
         }
 
-        const res = await fetch(`http://localhost:5000/movies/`, {
+        const res = await fetch(`http://localhost:${process.env.REACT_APP_PORT}/movies/`, {
             method: "POST",
             headers: {
                 "Content-type": "application/json"
@@ -59,7 +59,7 @@ const Movies = ({ movie }) => {
             fav: !fav
         }
 
-        const res = await fetch(`http://localhost:5000/movies/${id}`, {
+        const res = await fetch(`http://localhost:${process.env.REACT_APP_PORT}/movies/${id}`, {
             method: "PUT",
             headers: {
                 "Content-type": "application/json"
@@ -70,13 +70,13 @@ const Movies = ({ movie }) => {
 
     const deleteServer = async (id) => {
 
-        await fetch(`http://localhost:5000/movies/${id}`, {
+        await fetch(`http://localhost:${process.env.REACT_APP_PORT}/movies/${id}`, {
             method: "DELETE"
         })
     }
 
     const getServer = async (id) => {
-        fetch(`http://localhost:5000/movies/${id}`)
+        fetch(`http://localhost:${process.env.REACT_APP_PORT}/movies/${id}`)
             .then(async res => {
                 // if !res.ok delete that entry
                 if (res.ok) {
