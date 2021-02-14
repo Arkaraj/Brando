@@ -77,6 +77,28 @@ body {
   color: #49a6e9;
 }
 
+.tag {
+  background: #22254b;
+  border-radius: 0.25rem;
+  padding: 0.5rem;
+  width: fit-content;
+}
+
+.tag.s {
+  color: green;
+}
+.tag.a {
+  color: orange;
+}
+.tag.f {
+  color: red;
+}
+
+.favgrid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr)
+}
+
 @keyframes spinner {
    100% {
     transform: rotate(1turn);
@@ -89,10 +111,20 @@ body {
 		padding: 0.5rem;
 		grid-row-gap: 0.5rem;
   }
+  .favgrid{
+    grid-template-columns: repeat(3, 1fr);
+		padding: 0.5rem;
+		grid-row-gap: 0.5rem;
+  }
 }
 @media (max-width: 414px) {
   .grid{
     grid-template-columns: repeat(2, 1fr);
+		padding: 0.5rem;
+		grid-row-gap: 0.5rem;
+  }
+  .favgrid{
+    grid-template-columns: repeat(1, 1fr);
 		padding: 0.5rem;
 		grid-row-gap: 0.5rem;
   }

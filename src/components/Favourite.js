@@ -25,9 +25,11 @@ const Favourite = () => {
         <div>
             <h1>Hi, Your Favourite Movies are: </h1>
 
-            {cine.map(mov => (
-                <Favmovie key={mov.id} movie={mov} />
-            ))}
+            <div className="favgrid">
+                {cine.map(mov => (
+                    <Favmovie key={mov.id} movie={mov} />
+                ))}
+            </div>
 
         </div>
     );

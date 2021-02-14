@@ -6,6 +6,7 @@ import Search from './components/Search'
 import Movies from './components/Movies'
 import MoviePage from './components/MoviePage'
 import Favourite from './components/Favourite'
+import Footer from './components/Footer'
 
 function App() {
   const [movies, setMovies] = useState([])
@@ -49,6 +50,7 @@ function App() {
           <Route exact path="/favourite" component={Favourite} />
         </Switch>
       </div>
+      <Footer />
     </Router>
   );
 }
