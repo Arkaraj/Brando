@@ -81,11 +81,12 @@ body {
   background: #22254b;
   border-radius: 0.25rem;
   padding: 0.5rem;
+  font-weight: bold;
   width: fit-content;
 }
 
 .tag.s {
-  color: green;
+  color: rgb(5,184,5);
 }
 .tag.a {
   color: orange;

@@ -15,7 +15,6 @@ router.get('/:id', async (req, res) => {
 
     try {
         const movie = await Movies.find({ id: req.params.id })
-
         if (movie.length == 0) {
             res.status(500).json({ error: "Internal server error" });
         }
