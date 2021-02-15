@@ -28,6 +28,8 @@ function App() {
 
   }, [])
 
+  // Pass the user's credentials to Nav
+
   return (
     <Router>
       <div className="App">

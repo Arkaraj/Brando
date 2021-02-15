@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 require('dotenv').config();
 
 const movies = require('./routes/movies');
+const auth = require('./routes/auth');
 
 mongoose.connect(`mongodb://localhost/Movie`, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true }, () => {
     console.log('Successfully connected to Database!!');
@@ -13,7 +14,9 @@ mongoose.connect(`mongodb://localhost/Movie`, { useNewUrlParser: true, useUnifie
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json())
+// /user_id/movies
 app.use('/movies', movies)
+app.use('/user', auth)
 
 const port = process.env.PORT || 8080
 
