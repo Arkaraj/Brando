@@ -3,6 +3,7 @@ const app = express()
 
 const mongoose = require('mongoose');
 require('dotenv').config();
+const cookieParser = require('cookie-parser');
 
 const movies = require('./routes/movies');
 const auth = require('./routes/auth');
@@ -14,6 +15,7 @@ mongoose.connect(`mongodb://localhost/Movie`, { useNewUrlParser: true, useUnifie
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json())
+app.use(cookieParser())
 // /user_id/movies
 app.use('/movies', movies)
 app.use('/user', auth)

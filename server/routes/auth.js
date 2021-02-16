@@ -1,9 +1,19 @@
 const express = require('express');
 const router = express.Router()
 const Users = require('../modles/User')
+const JWT = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
+const passport = require('passport');
+const passportConfig = require('./passport')
 const Movies = require('../modles/favourite')
 
+
+const signToken = (id) => {
+    return JWT.sign({
+        iss: 'Arkaraj', // issued by
+        sub: id
+    }, `${process.env.SECRET}`, { expiresIn: '1h' })
+}
 
 // Gets all Users
 router.get('/', async (req, res) => {
@@ -16,7 +26,7 @@ router.get('/', async (req, res) => {
 })
 
 // Delete User
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', passport.authenticate('jwt', { session: false }), async (req, res) => {
     try {
         await Users.findByIdAndDelete(req.params.id)
         res.status(200).json({ message: { msg: "User Deleted", msgError: false } })
@@ -26,7 +36,7 @@ router.delete('/:id', async (req, res) => {
 })
 
 // Get deatails of specific User
-router.get('/:id', async (req, res) => {
+router.get('/:id', passport.authenticate('jwt', { session: false }), async (req, res) => {
 
     try {
         const user = await Users.findById(req.params.id)
@@ -62,7 +72,7 @@ router.post('/register', async (req, res) => {
 
 })
 
-// Authorization needed
+// Authorization through passport
 
 // For Loginnig in User
 router.post('/login', (req, res) => {
@@ -85,14 +95,23 @@ router.post('/login', (req, res) => {
             }
             else {
                 // Logged in 
-                res.status(200).json(user)
+                const token = signToken(user._id)
+                // httpOnly doen't let client side js touch the cookie saves from cross scripting attacks
+                res.cookie('access_token', token, { httpOnly: true, sameSite: true })
+                res.status(200).json({ user, isAuthenticated: true })
             }
         })
     })
 })
 
+// Logout Account
+router.get('/t/logout', passport.authenticate('jwt', { session: false }), (req, res) => {
+    res.clearCookie('access_token')
+    res.status(200).json({ msg: "Logged out", success: true })
+})
+
 // To add to favourites of an individual user
-router.post('/:_id/movies', async (req, res) => {
+router.post('/:_id/movies', passport.authenticate('jwt', { session: false }), async (req, res) => {
     const { id, fav } = req.body
     let movie = new Movies({ id, fav })
     const favUser = await Users.findById({ _id: req.params._id })
@@ -110,7 +129,7 @@ router.post('/:_id/movies', async (req, res) => {
 })
 
 // get movies of particular/Specific User
-router.get('/:_id/movies', (req, res) => {
+router.get('/:_id/movies', passport.authenticate('jwt', { session: false }), (req, res) => {
     Users.findById({ _id: req.params._id }).then((document, err) => {
         if (err) {
             console.log('Error: ' + err)
@@ -123,7 +142,7 @@ router.get('/:_id/movies', (req, res) => {
 
 // Rating
 
-router.put('/rating/:id', async (req, res) => {
+router.put('/rating/:id', passport.authenticate('jwt', { session: false }), async (req, res) => {
     const { rating } = req.body
 
     let user = await Users.findById(req.params.id)
