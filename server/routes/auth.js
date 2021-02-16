@@ -6,7 +6,11 @@ const bcrypt = require('bcrypt');
 const passport = require('passport');
 const passportConfig = require('./passport')
 const Movies = require('../modles/favourite')
+const movies = require('./movies')
 
+
+// For movies
+router.use('/movies', passport.authenticate('jwt', { session: false }), movies)
 
 const signToken = (id) => {
     return JWT.sign({
@@ -21,6 +25,7 @@ router.get('/', async (req, res) => {
     try {
         res.status(200).json(user)
     } catch (err) {
+        //console.log('Error ' + err)
         res.status(500).json({ msg: "Error has occured" })
     }
 })
@@ -35,6 +40,12 @@ router.delete('/:id', passport.authenticate('jwt', { session: false }), async (r
     }
 })
 
+// Logout Account
+router.get('/logout', passport.authenticate('jwt', { session: false }), (req, res) => {
+    res.clearCookie('access_token')
+    res.status(200).json({ msg: "Logged out", success: true })
+})
+
 // Get deatails of specific User
 router.get('/:id', passport.authenticate('jwt', { session: false }), async (req, res) => {
 
@@ -46,6 +57,7 @@ router.get('/:id', passport.authenticate('jwt', { session: false }), async (req,
             res.status(400).json({ message: { msg: "Invalid User Id", msgError: true } });
         }
     } catch (err) {
+        //console.log('Error ' + err)
         res.status(500).json({ message: { msg: "Error has occured", msgError: true } });
     }
 
@@ -55,15 +67,19 @@ router.get('/:id', passport.authenticate('jwt', { session: false }), async (req,
 router.post('/register', async (req, res) => {
     const { username, password, email } = req.body
     Users.findOne({ email }, (err, emailPresent) => {
-        if (err)
+        if (err) {
+            //console.log('Error ' + err)
             res.status(500).json({ message: { msg: "Error has occured", msgError: true } });
+        }
         if (emailPresent)
             res.status(400).json({ message: { msg: "email is already taken", msgError: true } });
         else {
             const newUser = new Users({ username, password, email });
             newUser.save(err => {
-                if (err)
+                if (err) {
+                    //console.log('Error ' + err)
                     res.status(500).json({ message: { msg: "Error has occured", msgError: true } });
+                }
                 else
                     res.status(201).json({ message: { msg: "Account successfully created", msgError: false } });
             })
@@ -75,12 +91,14 @@ router.post('/register', async (req, res) => {
 // Authorization through passport
 
 // For Loginnig in User
+// User should not be able to go back once authenticated
 router.post('/login', (req, res) => {
 
     const { email, password } = req.body
 
     Users.findOne({ email }, function (err, user) {
         if (err) {
+            //console.log('Error ' + err)
             res.status(500).json({ message: { msg: "Error has occured", msgError: true } });
         }
         if (!user) {
@@ -88,6 +106,7 @@ router.post('/login', (req, res) => {
         }
         bcrypt.compare(password, user.password, function (err, validate) {
             if (err) {
+                //console.log('Error ' + err)
                 res.status(500).json({ message: { msg: "Error has occured in bcrypt", msgError: true } });
             }
             if (!validate) {
@@ -101,42 +120,6 @@ router.post('/login', (req, res) => {
                 res.status(200).json({ user, isAuthenticated: true })
             }
         })
-    })
-})
-
-// Logout Account
-router.get('/t/logout', passport.authenticate('jwt', { session: false }), (req, res) => {
-    res.clearCookie('access_token')
-    res.status(200).json({ msg: "Logged out", success: true })
-})
-
-// To add to favourites of an individual user
-router.post('/:_id/movies', passport.authenticate('jwt', { session: false }), async (req, res) => {
-    const { id, fav } = req.body
-    let movie = new Movies({ id, fav })
-    const favUser = await Users.findById({ _id: req.params._id })
-
-    favUser.favourites.push(movie)
-
-    try {
-        favUser.save()
-        res.status(200).json(favUser)
-    } catch (err) {
-        console.log('Error: ' + err);
-        res.status(500).json({ error: "Internal server error" })
-    }
-
-})
-
-// get movies of particular/Specific User
-router.get('/:_id/movies', passport.authenticate('jwt', { session: false }), (req, res) => {
-    Users.findById({ _id: req.params._id }).then((document, err) => {
-        if (err) {
-            console.log('Error: ' + err)
-            res.status(500).json({ message: { msg: "Error has occured", msgError: true } });
-        } else {
-            res.status(200).json({ favourites: document.favourites, authenticated: true })
-        }
     })
 })
 

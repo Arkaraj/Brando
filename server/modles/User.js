@@ -27,7 +27,7 @@ const UserSchema = new mongoose.Schema({
         min: 0,
         max: 10
     },
-    favourites: [{ type: mongoose.Schema.Types.Mixed, ref: 'Movies' }]
+    favourites: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Movies' }]
 })
 
 UserSchema.pre('save', function (next) {

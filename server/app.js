@@ -17,7 +17,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json())
 app.use(cookieParser())
 // /user_id/movies
-app.use('/movies', movies)
+// app.use('/movies', movies)
 app.use('/user', auth)
 
 const port = process.env.PORT || 8080

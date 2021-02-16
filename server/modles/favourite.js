@@ -4,8 +4,8 @@ const favMovieSchema = new mongoose.Schema({
     id: {
         type: Number,
         default: 0,
-        required: true,
-        unique: true
+        required: true
+        // unique: true remove this
     },
     fav: {
         type: Boolean,
