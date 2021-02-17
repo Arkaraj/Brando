@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import { AuthContext } from './Context/AuthContext'
 
 import Nav from './components/Nav'
 import Search from './components/Search'
@@ -28,7 +29,10 @@ function App() {
 
   }, [])
 
-  // Pass the user's credentials to Nav
+  const { user, setUser, isAuthenticated, setIsAuthenticated } = useContext(AuthContext)
+
+  console.log(user)
+  console.log(isAuthenticated)
 
   return (
     <Router>

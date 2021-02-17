@@ -32,6 +32,7 @@ router.post('/', async (req, res) => {
 
     movie.save(err => {
         if (err) {
+            console.log('Error: ' + err)
             res.status(500).json({ message: { msg: "Error has occured", msgError: true } })
         }
         else {
@@ -41,19 +42,19 @@ router.post('/', async (req, res) => {
                     res.status(500).json({ message: { msg: "Error has occured", msgError: true } })
                 }
                 else
-                    res.status(200).json({ message: { msg: "Succesfully created todo", msgError: false } });
+                    res.status(200).json({ message: { msg: "Succesfully Added Movie", msgError: false } });
             });
         }
     })
 
 })
 
-router.put('/:id', async (req, res) => {
+router.put('/:_id', async (req, res) => {
     const { id, fav } = req.body
     // Should pass _id instead
     try {
         let movie = await Movies.updateOne(
-            { id: req.params.id },
+            { _id: req.params._id },
             {
                 $set: {
                     id,
@@ -68,7 +69,7 @@ router.put('/:id', async (req, res) => {
     }
 })
 
-router.delete('/:id', async (req, res) => {
+router.delete('/:_id', async (req, res) => {
 
     /*try {
         const favUser = await Users.findOne({ _id: req.params._id })
@@ -85,11 +86,35 @@ router.delete('/:id', async (req, res) => {
     } catch (err) {
         console.log('Error: ' + err);
         res.status(500).json({ error: "Internal server error" })
-    }*/
+    }
+    
+    // For Developers, to Delete all the favourites
+    req.user.favourites = []
+    req.user.save(err => {
+        if (err) {
+            res.status(500).json({ msg: "Internal Error" })
+        }
+        else {
+            res.json({ msg: "done" })
+        }
+    })
+    
+    
+    */
     try {
         // Should pass _id instead
-        await Movies.findOneAndDelete({ id: req.params.id });
-        res.status(200).json({ msg: 'done' })
+        await Movies.findOneAndDelete({ _id: req.params._id });
+        // pop from Users Array
+        req.user.favourites = req.user.favourites.filter(movie => movie.toString() !== req.params._id)
+
+        req.user.save(err => {
+            if (err) {
+                res.status(500).json({ error: "Internal server error" })
+            } else {
+                res.status(200).json({ msg: 'done' })
+            }
+        })
+
     } catch (err) {
         console.log('Error: ' + err)
         res.status(500).json({ error: "Internal server error" })

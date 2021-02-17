@@ -123,8 +123,13 @@ router.post('/login', (req, res) => {
     })
 })
 
-// Rating
+// For checking Authentication
+router.get('/authenticated', passport.authenticate('jwt', { session: false }), (req, res) => {
+    res.status(200).json({ isAuthenticated: true, user: req.user });
+});
 
+// Rating
+// Rating other users, id is _id of other users
 router.put('/rating/:id', passport.authenticate('jwt', { session: false }), async (req, res) => {
     const { rating } = req.body
 

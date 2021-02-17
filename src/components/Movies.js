@@ -63,7 +63,7 @@ const Movies = ({ movie }) => {
             fav: !fav
         }
 
-        const res = await fetch(`/movies/${id}`, {
+        const res = await fetch(`user/movies/${id}`, {
             method: "PUT",
             headers: {
                 "Content-type": "application/json"
@@ -74,13 +74,13 @@ const Movies = ({ movie }) => {
 
     const deleteServer = async (id) => {
 
-        await fetch(`/movies/${id}`, {
+        await fetch(`/user/movies/${id}`, {
             method: "DELETE"
         })
     }
 
     const getServer = async (id) => {
-        fetch(`/movies/${id}`)
+        fetch(`/user/movies/${id}`)
             .then(async res => {
                 // if !res.ok delete that entry
                 if (res.ok) {
