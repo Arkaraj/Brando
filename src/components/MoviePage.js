@@ -17,6 +17,7 @@ const MoviePage = (props) => {
         fetch(`https://api.themoviedb.org/3/movie/${id}?api_key=${process.env.REACT_APP_API_KEY}`)
             .then(res => res.json())
             .then(data => {
+                // console.log(data)
                 setName(data.original_title)
                 setDescription(data.overview)
 
@@ -33,6 +34,8 @@ const MoviePage = (props) => {
                     <div>
                         <h1>{name}</h1>
                         <img src={image == '' ? noImage : image} className={image == '' ? 'noImage' : ''} alt={name} />
+                        <h2>Plot</h2>
+                        <hr />
                         <p>{description}</p>
                     </div>
                 )}

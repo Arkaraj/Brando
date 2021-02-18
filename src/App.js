@@ -1,9 +1,11 @@
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useState, useEffect } from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import { AuthContext } from './Context/AuthContext'
 
 import Nav from './components/Nav'
 import Search from './components/Search'
+import Login from './components/Login'
+import Register from './components/Register'
 import Movies from './components/Movies'
 import MoviePage from './components/MoviePage'
 import Favourite from './components/Favourite'
@@ -29,11 +31,6 @@ function App() {
 
   }, [])
 
-  const { user, setUser, isAuthenticated, setIsAuthenticated } = useContext(AuthContext)
-
-  console.log(user)
-  console.log(isAuthenticated)
-
   return (
     <Router>
       <div className="App">
@@ -50,7 +47,8 @@ function App() {
             </div>
           </>
         )} />
-
+        <Route path="/login" component={Login} />
+        <Route path="/register" component={Register} />
         <Switch>
           <Route exact path="/movies/:id" component={MoviePage} />
           <Route exact path="/favourite" component={Favourite} />

@@ -14,7 +14,7 @@ export default ({ children }) => {
 
         AuthService.isAuthenticated().then(data => {
             setUser(data.user)
-            setIsAuthenticated(true)
+            setIsAuthenticated(data.isAuthenticated)
             setIsLoaded(true)
         })
 
@@ -22,12 +22,11 @@ export default ({ children }) => {
 
     return (
         <div>
-            {!isloaded ? <h1>Loading</h1> : (
-                <AuthContext.Provider value={user, setUser, isAuthenticated, setIsAuthenticated}>
-                    {children}
-                </AuthContext.Provider>
-            )}
+            {!isloaded ? <h1>Loading</h1> : <AuthContext.Provider value={{ user, setUser, isAuthenticated, setIsAuthenticated }}>
+                {children}
+            </AuthContext.Provider>
+            }
         </div>
-    );
+    )
 }
 

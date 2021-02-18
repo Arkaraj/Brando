@@ -35,7 +35,7 @@ export default {
                 if (res.status !== 401)
                     return res.json().then(data => data);
                 else
-                    return { isAuthenticated: false }
+                    return { isAuthenticated: false, user: {} }
             });
     }
 }

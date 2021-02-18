@@ -43,7 +43,7 @@ router.delete('/:id', passport.authenticate('jwt', { session: false }), async (r
 // Logout Account
 router.get('/logout', passport.authenticate('jwt', { session: false }), (req, res) => {
     res.clearCookie('access_token')
-    res.status(200).json({ msg: "Logged out", success: true })
+    res.status(200).json({ msg: "Logged out", user: {}, success: true })
 })
 
 // Get deatails of specific User
@@ -117,7 +117,7 @@ router.post('/login', (req, res) => {
                 const token = signToken(user._id)
                 // httpOnly doen't let client side js touch the cookie saves from cross scripting attacks
                 res.cookie('access_token', token, { httpOnly: true, sameSite: true })
-                res.status(200).json({ user, isAuthenticated: true })
+                res.status(200).json({ user, isAuthenticated: true, message: { msgError: false } })
             }
         })
     })

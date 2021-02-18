@@ -86,13 +86,19 @@ body {
 }
 
 .tag.s {
-  color: rgb(5,184,5);
+  /* color: rgb(5,184,5); */
+  color: #21d07a;
 }
 .tag.a {
   color: orange;
+  /* color: #d2d531; */
 }
 .tag.f {
   color: red;
+  /* color: rgb(217,59,99); */
+}
+.tag.n {
+  color: #666666;
 }
 
 .favgrid {

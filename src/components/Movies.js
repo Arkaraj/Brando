@@ -116,10 +116,13 @@ const Movies = ({ movie }) => {
     const setTagColour = (vote) => {
         if (vote >= 8) {
             return 's'
-        } else if (vote >= 6) {
+        } else if (vote >= 5) {
             return 'a'
-        } else {
+        } else if (vote > 0) {
             return 'f'
+        }
+        else if (vote == 0) {
+            return 'n'
         }
     }
 
