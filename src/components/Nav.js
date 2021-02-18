@@ -38,7 +38,7 @@ const Nav = (props) => {
     const isAuthenticatedNavBar = () => {
         return (
             <>
-                <h4><Link to={`/favourite`} className="fav">Favorites</Link></h4>
+                <h4><Link to="/favourite" className="fav">Favorites</Link></h4>
                 <li>
                     {user.username}
                 </li>
@@ -54,7 +54,7 @@ const Nav = (props) => {
 
     return (
         <div>
-            <h1> <a href="/">Brando</a> - A Movie Finding Web App</h1>
+            <h1> <Link to="/">Brando</Link> - A Movie Finding Web App</h1>
             {isAuthenticated ? isAuthenticatedNavBar() : unAuthenticatedNavBar()
             }
         </div>

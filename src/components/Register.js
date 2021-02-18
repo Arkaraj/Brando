@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useRef, useEffect, useContext } from 'react';
 import AuthService from '../Services/AuthService'
 import { AuthContext } from '../Context/AuthContext'
 import Message from './Message';
@@ -7,6 +7,13 @@ const Register = (props) => {
     const [user, setUser] = useState({ email: "", username: "", password: "" })
     const [message, setMessage] = useState(null);
     const authContext = useContext(AuthContext);
+    let timerID = useRef(null);
+
+    useEffect(() => {
+        return () => {
+            clearTimeout(timerID);
+        }
+    }, []);
 
     const onChange = (e) => {
         setUser({ ...user, [e.target.name]: e.target.value })
@@ -19,8 +26,10 @@ const Register = (props) => {
             setMessage(message)
             if (!message.msgError) {
                 setUser({ username: "", password: "", email: "" })
-
-                props.history.push('./login');
+                // execute after 2 secs
+                timerID = setTimeout(() => {
+                    props.history.push('./login');
+                }, 2000);
             } else {
 
             }

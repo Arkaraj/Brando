@@ -1,24 +1,28 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import Favmovie from './Favmovie'
+import { AuthContext } from '../Context/AuthContext'
 
 const Favourite = () => {
 
     const [cine, setCine] = useState([])
+    const { user, isAuthenticated } = useContext(AuthContext)
 
     const fetchCine = async () => {
-        const res = await fetch(`/movies`)
+        const res = await fetch(`/user/movies/${user._id}`)
         const data = await res.json()
 
-        return data
+        return data.favourites
     }
 
     useEffect(() => {
-        const getCine = async () => {
-            const cineFromServer = await fetchCine()
-            setCine(cineFromServer)
-        }
+        if (isAuthenticated) {
+            const getCine = async () => {
+                const cineFromServer = await fetchCine()
+                setCine(cineFromServer)
+            }
 
-        getCine()
+            getCine()
+        }
     }, [])
 
     return (

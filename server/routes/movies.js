@@ -25,6 +25,26 @@ router.get('/:_id', async (req, res) => {
 
 })
 
+router.get('/:_id/:id', (req, res) => {
+    Users.findById({ _id: req.params._id }).populate('favourites').exec((err, document) => {
+        if (err) {
+            console.log('ERE: ' + err)
+            res.status(500).json({ message: { msg: "Error has occured", msgError: true } })
+        }
+        else {
+            // document.favourites time complex: O(n)
+            const tid = document.favourites.map(fav => fav.id)
+            const check = tid.includes(req.params.id)
+            if (check) {
+                const fav = document.favourites.filter(fav => fav.id == req.params.id)
+                res.status(200).json({ fav: fav[0] })
+            } else {
+                res.status(500).json({ message: { msg: "Error has occured", msgError: true } });
+            }
+        }
+    })
+})
+
 // To add to favourites of an individual user, _id: user's id
 router.post('/', async (req, res) => {
     const { id, fav } = req.body
@@ -42,7 +62,7 @@ router.post('/', async (req, res) => {
                     res.status(500).json({ message: { msg: "Error has occured", msgError: true } })
                 }
                 else
-                    res.status(200).json({ message: { msg: "Succesfully Added Movie", msgError: false } });
+                    res.status(200).json(movie);
             });
         }
     })

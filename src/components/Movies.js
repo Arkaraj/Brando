@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Route, Link } from 'react-router-dom'
-
+import { AuthContext } from '../Context/AuthContext'
 
 // import MoviePage from './MoviePage'
 
@@ -8,16 +8,19 @@ const Movie_Img = "http://image.tmdb.org/t/p/w154/"
 
 const Movies = ({ movie }) => {
 
+    // if user is logged in only then
+    const { user, isAuthenticated } = useContext(AuthContext)
+
     const getData = async (id) => {
-        fetch(`/movies/${id}`)
+        fetch(`user/movies/${user._id}/${id}`)
             .then(async res => {
-                if (res.ok) {
+
+                if (res.status == 200) {
 
                     const data = await res.json()
-
-                    setFav(data[0].fav)
-                    if (!data[0].fav) {
-                        await deleteServer(id)
+                    setFav(data.fav.fav)
+                    if (!data.fav.fav) {
+                        await deleteServer(data.fav._id)
                     } else {
                         return
                     }
@@ -31,11 +34,16 @@ const Movies = ({ movie }) => {
     const [fav, setFav] = useState(false)
 
     useEffect(() => {
-        const fetchData = async () => {
-            await getData(movie.id)
+        if (isAuthenticated) {
+            const fetchData = async () => {
+                await getData(movie.id)
+            }
+            fetchData();
         }
-        fetchData();
-    })
+        else {
+
+        }
+    }, [])
 
     const noImage = "https://upload.wikimedia.org/wikipedia/commons/f/fc/No_picture_available.png"
     const poster = Movie_Img + movie.poster_path
@@ -47,23 +55,25 @@ const Movies = ({ movie }) => {
             fav: false
         }
 
-        const res = await fetch(`/movies`, {
+        const res = await fetch(`/user/movies`, {
             method: "POST",
             headers: {
                 "Content-type": "application/json"
             },
             body: JSON.stringify(cine)
         })
+        const data = res.json()
+        return data;
     }
 
-    const modifyServer = async (id) => {
+    const modifyServer = async (data) => {
 
         const cine = {
-            id: id,
+            id: data.id,
             fav: !fav
         }
 
-        const res = await fetch(`user/movies/${id}`, {
+        const res = await fetch(`user/movies/${data._id}`, {
             method: "PUT",
             headers: {
                 "Content-type": "application/json"
@@ -72,6 +82,7 @@ const Movies = ({ movie }) => {
         })
     }
 
+    // id is the book id
     const deleteServer = async (id) => {
 
         await fetch(`/user/movies/${id}`, {
@@ -80,15 +91,16 @@ const Movies = ({ movie }) => {
     }
 
     const getServer = async (id) => {
-        fetch(`/user/movies/${id}`)
+        fetch(`/user/movies/${user._id}/${id}`)
             .then(async res => {
                 // if !res.ok delete that entry
-                if (res.ok) {
-                    await modifyServer(id)
+                if (res.status == 200) {
+                    const data = await res.json()
+                    await modifyServer(data.fav)
                 } else {
                     // await deleteServer(id)
-                    await postMovie(id)
-                    await modifyServer(id)
+                    const data = await postMovie(id)
+                    await modifyServer(data)
                 }
             })
         // const data = res.json()
