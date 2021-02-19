@@ -124,7 +124,7 @@ router.post('/login', (req, res) => {
 })
 
 // For checking Authentication
-router.get('/authenticated', passport.authenticate('jwt', { session: false }), (req, res) => {
+router.get('/c/authenticated', passport.authenticate('jwt', { session: false }), (req, res) => {
     res.status(200).json({ isAuthenticated: true, user: req.user });
 });
 

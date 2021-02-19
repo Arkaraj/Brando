@@ -28,9 +28,17 @@ export default {
             .then(res => res.json())
             .then(data => data);
     },
+    delete: (_id) => {
+        return fetch(`/user/${_id}`, {
+            method: "delete",
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(res => res.json()).then(data => data)
+    },
     // Sync backend and front end
     isAuthenticated: () => {
-        return fetch('/user/authenticated')
+        return fetch('/user/c/authenticated')
             .then(res => {
                 if (res.status !== 401)
                     return res.json().then(data => data);

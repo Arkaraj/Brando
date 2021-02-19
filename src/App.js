@@ -4,12 +4,16 @@ import { AuthContext } from './Context/AuthContext'
 
 import Nav from './components/Nav'
 import Search from './components/Search'
+import MovieSearch from './components/MovieSearch'
 import Login from './components/Login'
 import Register from './components/Register'
 import Movies from './components/Movies'
 import MoviePage from './components/MoviePage'
 import Favourite from './components/Favourite'
+import Profile from './components/Profile'
 import Footer from './components/Footer'
+import PrivateRoute from './Hocs/PrivateRoutes'
+import PublicRoute from './Hocs/PublicRoute'
 
 function App() {
   const [movies, setMovies] = useState([])
@@ -35,9 +39,9 @@ function App() {
     <Router>
       <div className="App">
         <Nav />
-        <Route path='/' exact render={(props) => (
+        <Route exact path='/' render={(props) => (
           <>
-            <Search setMovies={setMovies} />
+            <Search setMovies={setMovies} history={props.history} />
             <div className="grid">
               {movies.length > 0 ? movies.map(movie => (
                 <Movies key={movie.id} movie={movie} />
@@ -47,12 +51,15 @@ function App() {
             </div>
           </>
         )} />
-        <Route path="/login" component={Login} />
-        <Route path="/register" component={Register} />
-        <Switch>
-          <Route exact path="/movies/:id" component={MoviePage} />
-          <Route exact path="/favourite" component={Favourite} />
-        </Switch>
+
+        <Route path="/search/:movieName" component={MovieSearch} />
+        <PublicRoute path="/login" component={Login} />
+        <PublicRoute path="/register" component={Register} />
+        <PrivateRoute path="/profile" component={Profile} />
+        {/* <Switch>
+        </Switch> */}
+        <Route path="/movies/:id" component={MoviePage} />
+        <PrivateRoute path="/favourite" component={Favourite} />
       </div>
       <Footer />
     </Router>

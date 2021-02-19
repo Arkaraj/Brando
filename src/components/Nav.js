@@ -30,8 +30,6 @@ const Nav = (props) => {
                         Register
                      </Link>
                 </li>
-
-
             </>
         )
     }
@@ -41,6 +39,16 @@ const Nav = (props) => {
                 <h4><Link to="/favourite" className="fav">Favorites</Link></h4>
                 <li>
                     {user.username}
+                </li>
+                <li>
+                    <Link to='/profile'>
+                        Profile
+                    </Link>
+                </li>
+                <li>
+                    <Link to='/connect'>
+                        See other Users
+                    </Link>
                 </li>
                 <li>
                     <button onClick={logoutHandler}>

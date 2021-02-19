@@ -49,6 +49,6 @@ In package.json file add proxy, to remove cors error:
 #### Things To Do
 
 - [] Styling with some css frameworks
-- [] User Authentication and Authorization
+- [x] User Authentication and Authorization
 
 > P.S I know the file structure is messed by the server folder should be outside and the REACT files should be in client.... Also axios could have been used instead of classic fetch
