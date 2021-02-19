@@ -15,7 +15,7 @@ const Profile = (props) => {
 
     return (
         <div>
-            <h1> Your Favourite List Rating is: {user.rating}, It was viewed by {user.views} </h1>
+            <h1> Your Favourite List Rating is: {user.rating}, It was Rated by {user.views} </h1>
             <button onClick={deleteUser}>Delete User</button>
         </div>
     );
