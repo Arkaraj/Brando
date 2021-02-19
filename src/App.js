@@ -11,6 +11,8 @@ import Movies from './components/Movies'
 import MoviePage from './components/MoviePage'
 import Favourite from './components/Favourite'
 import Profile from './components/Profile'
+import Connect from './components/Connect'
+import UserFav from './components/UserFav'
 import Footer from './components/Footer'
 import PrivateRoute from './Hocs/PrivateRoutes'
 import PublicRoute from './Hocs/PublicRoute'
@@ -56,10 +58,12 @@ function App() {
         <PublicRoute path="/login" component={Login} />
         <PublicRoute path="/register" component={Register} />
         <PrivateRoute path="/profile" component={Profile} />
-        {/* <Switch>
-        </Switch> */}
         <Route path="/movies/:id" component={MoviePage} />
         <PrivateRoute path="/favourite" component={Favourite} />
+        <Switch>
+          <PrivateRoute key="1" path="/connect/:id" component={UserFav} />
+          <PrivateRoute key="2" path="/connect" component={Connect} />
+        </Switch>
       </div>
       <Footer />
     </Router>

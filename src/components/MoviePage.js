@@ -5,7 +5,7 @@ const poster = "http://image.tmdb.org/t/p/w154/"
 
 const MoviePage = (props) => {
 
-    const id = props.match.params.id;
+    const id = props.match.params.id
     const [name, setName] = useState('')
     const [description, setDescription] = useState('')
     const [image, setImage] = useState('')

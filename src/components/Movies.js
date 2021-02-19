@@ -12,7 +12,7 @@ const Movies = ({ movie }) => {
     const { user, isAuthenticated } = useContext(AuthContext)
 
     const getData = async (id) => {
-        fetch(`user/movies/${user._id}/${id}`)
+        fetch(`/user/movies/${user._id}/${id}`)
             .then(async res => {
 
                 if (res.status == 200) {
