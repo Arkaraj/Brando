@@ -8,12 +8,13 @@ export default ({ children }) => {
     // Global state
     const [user, setUser] = useState(null)
     const [isAuthenticated, setIsAuthenticated] = useState(false)
-    const [isloaded, setIsLoaded] = useState(false)
+    const [isloaded, setIsLoaded] = useState(true)
 
     useEffect(() => {
 
         AuthService.isAuthenticated().then(data => {
             setUser(data.user)
+            console.log(data);
             setIsAuthenticated(data.isAuthenticated)
             setIsLoaded(true)
         })

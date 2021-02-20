@@ -20,7 +20,7 @@ import PublicRoute from './Hocs/PublicRoute'
 function App() {
   const [movies, setMovies] = useState([])
 
-  const MOVIE_API = process.env.REACT_APP_MOVIE_API
+  const MOVIE_API = process.env.REACT_APP_API_KEY
 
   // https://api.themoviedb.org/3/discover/movie?api_key=dca6ba47ee045002b2c647232f48e550
 
@@ -43,7 +43,7 @@ function App() {
         <Nav />
         <Route exact path='/' render={(props) => (
           <>
-            <Search setMovies={setMovies} history={props.history} />
+           
             <div className="grid">
               {movies.length > 0 ? movies.map(movie => (
                 <Movies key={movie.id} movie={movie} />
