@@ -14,13 +14,13 @@ const Search = ({ history }) => {
         }
         const searchTerm = text.toLowerCase().replace(/ /g, '+')
 
-        //history.push(`/search/${searchTerm}`)
+        history.push(`/search/${searchTerm}`)
 
     }
 
     return (
         <form onSubmit={Submit}>                         
-                <input id="searchbar" placeholder="Search" type="text" value={text} onChange={e => setText(e.target.value)}/><button id="searchbtn">Submit</button>              
+                <input id="searchbar" placeholder="Search for your favourite movies/series" type="text" value={text} onChange={e => setText(e.target.value)}></input><button id="searchbtn">Search</button>              
         </form>
     );
 }

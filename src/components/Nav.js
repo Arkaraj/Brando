@@ -3,11 +3,6 @@ import { Route, Link } from 'react-router-dom'
 import AuthService from '../Services/AuthService'
 import { AuthContext } from '../Context/AuthContext'
 
-
-
-
-
-
 import Search from './Search'
 
 const Nav = (props) => {
@@ -25,13 +20,10 @@ const Nav = (props) => {
 
     const unAuthenticatedNavBar = () => {
         return (
-            <>
-                
-                <ul class="nav">                    
+            <>                                  
                     <li><Link to='/register'>Register</Link></li>
                     <li><Link to='/login'>Login</Link></li>
-                    <li><Search/></li>                    
-                </ul>
+                    <li><Search/></li>                   
             </>
         )
     }
@@ -57,10 +49,12 @@ const Nav = (props) => {
 
     return (
         <>
-            <div class="main-title">
-                <h1> <Link to="/">Brando</Link> - A Movie Finding Web App</h1>                
-            </div>
-            {isAuthenticated ? isAuthenticatedNavBar() : unAuthenticatedNavBar()}
+            <div>
+                <ul class="nav">                    
+                    {isAuthenticated ? isAuthenticatedNavBar() : unAuthenticatedNavBar()}
+                    <li><Link to="/">Brando</Link><span class="main-tagline">   A Movie Finding Web App</span></li>
+                </ul>      
+            </div>            
         </>
     );
 }

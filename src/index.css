@@ -49,16 +49,18 @@ cd .body {
 #searchbtn{  
   height: 3rem;
   padding: 1rem;
-  border-radius: 2rem;
-  border: 1px solid #000;
+  border-radius: 2rem;  
   background: transparent;
   cursor: pointer;
   margin-left: 1rem;
+  color: rgb(255, 255, 255);
+  font-size: 15px;
+  text-align: center;
   
 }
 
 #searchbtn:hover{
-  background-color: #111;
+  background-color: rgb(66, 66, 66);
 }
 
 .star {
@@ -142,7 +144,12 @@ cd .body {
 
 .nav {
   overflow: hidden;
-  background-color: #333;  
+  background-color: rgb(86, 86, 86);
+  opacity: 0.5;
+}
+
+.nav:hover{
+  opacity: 1;
 }
 
 .nav li {
@@ -158,12 +165,10 @@ cd .body {
   margin: 0;
   padding: 0;
   overflow: hidden;
-  background-color: #333;
   vertical-align: middle;
 }
 
-.nav li a {
- 
+.nav li a { 
   color: white;
   text-align: center;
   padding: 14px 16px;
@@ -173,7 +178,7 @@ cd .body {
 }
 
 .nav li a:hover {
-  background-color: #111;
+  background-color: rgb(66, 66, 66);
 }
 
 .nav a:active {
@@ -181,8 +186,12 @@ cd .body {
   color: white;
 }
 
-.main-title{
-  background-color: #f1f1f1;
-  padding: 30px;
-  text-align: center;
+.nav > li:last-child 
+{
+    float:left;
+    font-size: 27px;
+}
+
+.main-tagline{
+  font-size: 15px;
 }
