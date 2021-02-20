@@ -4,6 +4,7 @@ import { AuthContext } from './Context/AuthContext'
 
 import Nav from './components/Nav'
 import Search from './components/Search'
+import Slider from './components/Slider'
 import MovieSearch from './components/MovieSearch'
 import Login from './components/Login'
 import Register from './components/Register'
@@ -43,6 +44,7 @@ function App() {
         <Nav />
         <Route exact path='/' render={(props) => (
           <>
+            <Slider />
             <Search setMovies={setMovies} history={props.history} />
             <div className="grid">
               {movies.length > 0 ? movies.map(movie => (

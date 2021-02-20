@@ -62,7 +62,7 @@ const Nav = (props) => {
 
     return (
         <div>
-            <h1> <Link to="/">Brando</Link> - A Movie Finding Web App</h1>
+            <h1 className="text-xl font-extrabold leading-none text-black sm:text-3xl md:text-xl"> <Link to="/">Brando</Link> - A Movie Finding Web App</h1>
             {isAuthenticated ? isAuthenticatedNavBar() : unAuthenticatedNavBar()
             }
         </div>

@@ -51,13 +51,33 @@ const UserFav = (props) => {
         <div>
             <h1>{username}'s List </h1>
             <h4>User's Score: {rating} ({views})</h4>
-            <form onSubmit={Submit}>
+            <div className="container w-32 mx-4">
+                <div className="vertical-center">
+                    <div className="custom-number-input h-10 w-32">
+                        <label htmlFor="custom-input-number" className="w-full text-gray-700 text-sm font-semibold">Rate User</label>
+                        <form onSubmit={Submit}>
+                            <div className="flex flex-row h-10 w-full rounded-lg relative bg-transparent mt-1">
+                                <submit onClick={() => setRate(prev => prev - 1)} className=" bg-gray-300 text-gray-600 hover:text-gray-700 hover:bg-gray-400 h-full w-20 rounded-l cursor-pointer outline-none border-r border-gray-50">
+                                    <span className="ml-2 text-2xl font-thin">−</span>
+                                </submit>
+                                <input type="number" className="outline-none focus:outline-none text-center w-full bg-gray-300 font-semibold text-md hover:text-black focus:text-black  md:text-basecursor-default flex items-center text-gray-700 outline-none" custom-input-number min="0" max="10" value={rate} onChange={giveRating} />
+                                <submit onClick={() => setRate(prev => prev + 1)} className="bg-gray-300 text-gray-600 hover:text-gray-700 hover:bg-gray-400 h-full w-20 rounded-r cursor-pointer border-l border-gray-50">
+                                    <span className="ml-2 text-2xl font-thin">+</span>
+                                </submit>
+                            </div>
+                            <button>Submit Rating</button>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+            {/* <form onSubmit={Submit}>
                 <p>Rate User: <input type="number" min="0" max="10" value={rate} onChange={giveRating} />
                     <button>Submit Rating</button>
                 </p>
 
-            </form>
-            <div className="grid">
+            </form> */}
+            <div className="grid mt-12">
                 {
                     fav.length > 0 ? fav.map(fav => (
                         <Movies key={fav._id} movie={fav} />

@@ -104,22 +104,24 @@ router.post('/login', (req, res) => {
         if (!user) {
             res.status(400).json({ message: { msg: "Invalid Email", msgError: true } });
         }
-        bcrypt.compare(password, user.password, function (err, validate) {
-            if (err) {
-                //console.log('Error ' + err)
-                res.status(500).json({ message: { msg: "Error has occured in bcrypt", msgError: true } });
-            }
-            if (!validate) {
-                res.status(400).json({ message: { msg: "Invalid Password", msgError: true } });
-            }
-            else {
-                // Logged in 
-                const token = signToken(user._id)
-                // httpOnly doen't let client side js touch the cookie saves from cross scripting attacks
-                res.cookie('access_token', token, { httpOnly: true, sameSite: true })
-                res.status(200).json({ user, isAuthenticated: true, message: { msgError: false } })
-            }
-        })
+        else {
+            bcrypt.compare(password, user.password, function (err, validate) {
+                if (err) {
+                    //console.log('Error ' + err)
+                    res.status(500).json({ message: { msg: "Error has occured in bcrypt", msgError: true } });
+                }
+                if (!validate) {
+                    res.status(400).json({ message: { msg: "Invalid Password", msgError: true } });
+                }
+                else {
+                    // Logged in 
+                    const token = signToken(user._id)
+                    // httpOnly doen't let client side js touch the cookie saves from cross scripting attacks
+                    res.cookie('access_token', token, { httpOnly: true, sameSite: true })
+                    res.status(200).json({ user, isAuthenticated: true, message: { msgError: false } })
+                }
+            })
+        }
     })
 })
 
