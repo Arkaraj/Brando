@@ -1,7 +1,10 @@
 import React from 'react'
 import { Splide, SplideSlide } from '@splidejs/react-splide';
 import pic1 from '../Images/image1.jpg'
-import pic2 from '../Images/image2.jpg'
+import pic2 from '../Images/image2.png'
+import pic3 from '../Images/image3.jpg'
+import pic4 from '../Images/image4.png'
+import pic5 from '../Images/image5.png'
 import '@splidejs/splide/dist/css/themes/splide-default.min.css';
 // or
 // import '@splidejs/splide/dist/css/themes/splide-sea-green.min.css';
@@ -34,6 +37,15 @@ export default function Slider() {
             </SplideSlide>
             <SplideSlide>
                 <img src={pic2} alt="Avengers" />
+            </SplideSlide>
+            <SplideSlide>
+                <img src={pic3} alt="Avengers" />
+            </SplideSlide>
+            <SplideSlide>
+                <img src={pic4} alt="Avengers" />
+            </SplideSlide>
+            <SplideSlide>
+                <img src={pic5} alt="Avengers" />
             </SplideSlide>
         </Splide>
     )

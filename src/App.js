@@ -44,8 +44,8 @@ function App() {
         <Nav />
         <Route exact path='/' render={(props) => (
           <>
-            <Slider />
             <Search setMovies={setMovies} history={props.history} />
+            <Slider />
             <div className="grid">
               {movies.length > 0 ? movies.map(movie => (
                 <Movies key={movie.id} movie={movie} />

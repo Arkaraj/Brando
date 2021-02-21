@@ -48,7 +48,7 @@ const Login = (props) => {
                 about your mission. We're revolutionizing the way customers and businesses interact.</p>
                             </div>
                             <div className="w-full mt-16 md:mt-0 md:w-2/5">
-                                <div className="relative z-10 h-auto p-8 py-10 overflow-hidden bg-white border-b-2 border-gray-300 rounded-lg shadow-2xl px-7" id>
+                                <div className="relative z-10 h-auto p-8 py-10 overflow-hidden bg-white border-b-2 border-gray-300 rounded-lg shadow-2xl px-7">
                                     <h3 className="mb-6 text-2xl font-medium text-center">Sign in to your Account</h3>
                                     <label className="font-medium text-gray-900">Email</label>
                                     <div className="block mb-4 border border-gray-200 rounded-lg">

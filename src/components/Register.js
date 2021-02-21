@@ -40,7 +40,7 @@ const Register = (props) => {
     return (
         <Route>
             <form onSubmit={Submit}>
-                <section className="w-full bg-white">
+                <section className="w-full bg-gradient-to-r from-white via-white to-gray-100">
                     <div className="mx-auto max-w-7xl">
                         <div className="flex flex-col lg:flex-row">
                             <div className="relative w-full bg-cover lg:w-6/12 xl:w-7/12 bg-gradient-to-r from-white via-white to-gray-100">
@@ -57,8 +57,8 @@ const Register = (props) => {
                                     </div>
                                 </div>
                             </div>
-                            <div className="w-full bg-white lg:w-6/12 xl:w-5/12">
-                                <div className="flex flex-col items-start justify-start w-full h-full p-10 lg:p-16 xl:p-24">
+                            <div className="w-full bg-gray-100 lg:w-6/12 xl:w-5/12">
+                                <div className="relative z-10 h-auto p-8 py-10 overflow-hidden bg-white border-b-2 border-gray-300 rounded-lg shadow-2xl px-7">
                                     <h4 className="w-full text-3xl font-bold">Signup</h4>
                                     <p className="text-lg text-gray-500">or, if you have an account you can <Link to="/login" className="text-blue-600 underline">sign in</Link></p>
                                     <div className="relative w-full mt-10 space-y-8">
