@@ -94,21 +94,26 @@ router.put('/rate/:_id', (req, res) => {
 router.put('/:_id', async (req, res) => {
     const { id, fav } = req.body
     // Should pass _id instead
-    try {
-        let movie = await Movies.updateOne(
-            { _id: req.params._id },
-            {
-                $set: {
-                    id,
-                    fav
+
+    Movies.findById(req.params._id, (err, movie) => {
+        if (err) {
+            console.log('Error: ' + err)
+            res.status(500).json({ error: "Internal server error" })
+        }
+        else {
+
+            movie.id = id
+            movie.fav = fav
+
+            movie.save(err => {
+                if (err) {
+                    res.status(500).json({ error: "Internal server error" })
+                } else {
+                    res.status(200).json(movie)
                 }
-            }
-        )
-        res.status(200).json(movie)
-    } catch (err) {
-        console.log('Error: ' + err)
-        res.status(500).json({ error: "Internal server error" })
-    }
+            })
+        }
+    })
 })
 
 router.delete('/:_id', async (req, res) => {

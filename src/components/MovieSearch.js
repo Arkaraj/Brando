@@ -14,10 +14,10 @@ const MovieSearch = (props) => {
             .then(res => res.json())
             .then(data => {
                 setFlim(data.results)
-
+                console.log('runs')
             })
 
-    }, [flim])
+    }, [])
 
     return (
         <>

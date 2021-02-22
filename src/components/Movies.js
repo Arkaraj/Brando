@@ -52,10 +52,10 @@ const Movies = ({ movie }) => {
 
         const cine = {
             id,
-            fav: false
+            fav: false // it will change in the modifyServer
         }
 
-        const res = await fetch(`/user/movies`, {
+        const res = await fetch(`/user/movies/`, {
             method: "POST",
             headers: {
                 "Content-type": "application/json"
@@ -73,7 +73,7 @@ const Movies = ({ movie }) => {
             fav: !fav
         }
 
-        const res = await fetch(`user/movies/${data._id}`, {
+        const res = await fetch(`/user/movies/${data._id}`, {
             method: "PUT",
             headers: {
                 "Content-type": "application/json"
@@ -97,6 +97,7 @@ const Movies = ({ movie }) => {
                 if (res.status == 200) {
                     const data = await res.json()
                     await modifyServer(data.fav)
+
                 } else {
                     // await deleteServer(id)
                     const data = await postMovie(id)

@@ -18,7 +18,11 @@ const MoviePage = (props) => {
 
     const [genre, setGenre] = useState([])
 
+    const [trailer, settrailer] = useState('')
+
     const noImage = "https://upload.wikimedia.org/wikipedia/commons/f/fc/No_picture_available.png"
+
+    const youtube = 'https://www.youtube.com/embed/'
 
     useEffect(() => {
 
@@ -34,11 +38,22 @@ const MoviePage = (props) => {
                 setImage(image_path)
             })
 
-        // fetch(`https://api.themoviedb.org/3/movie/${id}/videos?api_key=${process.env.REACT_APP_API_KEY}`)
-        //     .then(res => res.json())
-        //     .then(data => {
-        //         console.log(data)
-        //     })
+        fetch(`https://api.themoviedb.org/3/movie/${id}/videos?api_key=${process.env.REACT_APP_API_KEY}`)
+            .then(res => res.json())
+            .then(data => {
+
+                // List of all videos data.results
+
+                //https://youtu.be/data.results[0].key
+                if (data.results[0]) {
+                    if (data.results[0].key != null) {
+                        settrailer(youtube + data.results[0].key)
+                    }
+                } else {
+                    return
+                }
+
+            })
 
     }, [])
 
@@ -53,7 +68,7 @@ const MoviePage = (props) => {
 
     const bgImage = {
         backgroundImage: `url(${BackDrop_Path + data.backdrop_path})`,
-        backgroundSize: 'cover'
+        backgroundSize: 'contain'
     }
 
     return (
@@ -83,7 +98,14 @@ const MoviePage = (props) => {
                                     <h4>Tag Line</h4>
                                     <hr />
                                     <p>{tag}</p>
-                                    <p> {isAuthenticated ? 'Your Rating:' : null}</p>
+                                    <h4 className="font-bold text-xl">Trailer</h4>
+                                    <hr />
+                                    {/* <p> {isAuthenticated ? 'Your Rating:' : null}</p> */}
+                                    <div>
+                                        {
+                                            trailer ? <iframe width="560" height="315" src={`${trailer}`} allowFullScreen></iframe> : null
+                                        }
+                                    </div>
                                 </div>
                             </div>
                         </div>
