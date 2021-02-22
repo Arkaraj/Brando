@@ -8,8 +8,6 @@ win.on('scroll', function () {
 
     } else {
         sticky_id.addClass("scroll-header");
-
-
     }
 });
 

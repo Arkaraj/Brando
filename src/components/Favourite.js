@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import Favmovie from './Favmovie'
 import { AuthContext } from '../Context/AuthContext'
+import NoMovie from '../Images/noMovies.svg'
 
 const Favourite = () => {
 
@@ -27,17 +28,19 @@ const Favourite = () => {
 
     return (
         <div>
-            <h1>Hi, Your Favourite Movies are: </h1>
+            <h1 className="text-center text-2xl font-bold">Hi, Your Favourite Movies are: </h1>
 
-            <div className="favgrid">
-                {cine.length > 0 ? (
-                    cine.map(mov => (
+            {cine.length > 0 ? (
+                <div className="favgrid">
+                    {cine.map(mov => (
                         <Favmovie key={mov.id} movie={mov} />
-                    ))
-                ) : (
-                        <p>You Have got No Favourite Movies yet!!</p>
-                    )}
-            </div>
+                    ))}
+                </div>
+            ) : (
+                    <p className="text-center text-2xl font-bold">
+                        <img className="mx-auto" src={NoMovie} alt="No Favourites" />
+                            Looks Like you have not Marked any Movies as Favourite yet!</p>
+                )}
 
         </div>
     );

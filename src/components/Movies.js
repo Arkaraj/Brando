@@ -141,7 +141,7 @@ const Movies = ({ movie }) => {
     return (
         <Route path="/">
             <div>
-                <img src={movie.poster_path ? poster : noImage} className={movie.poster_path ? '' : 'noImage'} alt="Movie Image" />
+                <img src={movie.poster_path ? poster : noImage} className={movie.poster_path ? '' : 'noImage'} className="rounded-lg" alt="Movie Image" />
                 <h1>{movie.original_title}</h1>
                 <p className={`tag ${setTagColour(movie.vote_average)}`}>{movie.vote_average}</p>
                 <Link to={`/movies/${movie.id}`}>View Details</Link>

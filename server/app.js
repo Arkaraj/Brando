@@ -16,7 +16,7 @@ mongoose.connect(`mongodb://localhost/Movie`, { useNewUrlParser: true, useUnifie
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json())
 app.use(cookieParser())
-// /user_id/movies
+
 // app.use('/movies', movies)
 app.use('/user', auth)
 

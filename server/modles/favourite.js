@@ -10,6 +10,13 @@ const favMovieSchema = new mongoose.Schema({
     fav: {
         type: Boolean,
         default: false
+    },
+    rating: {
+        type: Number,
+        min: 0,
+        max: 10,
+        required: false,
+        default: 0
     }
 })
 

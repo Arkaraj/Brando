@@ -1,10 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Route, Link } from 'react-router-dom'
+import { AuthContext } from '../Context/AuthContext'
 import Tag from './Tag'
 
 const poster = "http://image.tmdb.org/t/p/w154/"
 
 const MoviePage = (props) => {
+
+    const { user, isAuthenticated } = useContext(AuthContext)
+
 
     const id = props.match.params.id
 
@@ -38,7 +42,7 @@ const MoviePage = (props) => {
 
     }, [])
 
-    const { original_title, title, overview, release_date, tagline } = data
+    const { original_title, title, overview, release_date, tagline, vote_average } = data
 
     let tag = tagline ? tagline : 'None'
 
@@ -57,21 +61,6 @@ const MoviePage = (props) => {
             {original_title == '' ? (<div className="loading"></div>) :
                 (
                     <div>
-                        {/* <h1>{original_title}</h1>
-                        <img src={image == '' ? noImage : image} className={image == '' ? 'noImage' : ''} alt={original_title} />
-                        <h2>Plot</h2>
-                        <hr />
-                        <p>{overview}</p>
-                        <h2>Tagline</h2>
-                        <hr />
-                        <p>{tag}</p>
-                        <h2>Genre</h2>
-                        <hr />
-                        {
-                            genre.map(gen => (
-                                <p>{gen.name}</p>
-                            ))
-                        } */}
                         <div className="MovieWrapper" style={bgImage}>
                             <div className="MovieInfo">
                                 <img
@@ -86,11 +75,15 @@ const MoviePage = (props) => {
                                             <Tag key={index} genre={gen.name} />
                                         ))}
                                     </div>
+                                    <h3>Rating: {vote_average}</h3>
                                     <h3>Date of Release: {release_date}</h3>
                                     <h4>Plot</h4>
                                     <hr />
                                     <p>{overview}</p>
-                                    <p>Tag Line: {tag}</p>
+                                    <h4>Tag Line</h4>
+                                    <hr />
+                                    <p>{tag}</p>
+                                    <p> {isAuthenticated ? 'Your Rating:' : null}</p>
                                 </div>
                             </div>
                         </div>

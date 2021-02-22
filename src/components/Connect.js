@@ -20,16 +20,17 @@ const Connect = () => {
 
     return (
         <>
-            {
-                others.length > 0 ?
-                    others.map(other => (
-                        <div className="grid">
-                            <Other key={other._id} other={other} />
-                        </div>
-                    ))
-                    : <p>No Users are there</p>
-            }
+            <div className="grid profile">
+                {
+                    others.length > 0 ?
+                        others.map(other => (
 
+                            <Other key={other._id} other={other} />
+
+                        ))
+                        : <p>No Users are there</p>
+                }
+            </div>
         </>
     );
 }

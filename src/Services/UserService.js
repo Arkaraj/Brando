@@ -21,7 +21,22 @@ export default {
 
             })
     },
-    // Cors error
+    rateMovies: (id, score) => {
+
+        const rate = {
+            rating: score
+        }
+
+        return fetch(`/user/movies/rating/${id}`, {
+            method: "PUT",
+            headers: {
+                'Content-Type': "application/json"
+            },
+            body: JSON.stringify(rate)
+        }).then(res => res.json()).then(data => data)
+
+    }
+    ,
     rateUser: (id, score) => {
 
         const rate = {

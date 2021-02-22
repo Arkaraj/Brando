@@ -186,6 +186,7 @@ nav .menu .menu_icon:hover .icon:after {
     grid-template-columns: repeat(6,1fr);
     padding: 1rem;
     grid-row-gap: 1rem;
+    grid-column-gap: 2rem;
   }
   
   .loading {
@@ -276,7 +277,8 @@ nav .menu .menu_icon:hover .icon:after {
   
   .favgrid {
     display: grid;
-    grid-template-columns: repeat(5, 1fr)
+    grid-template-columns: repeat(5, 1fr);
+    grid-column-gap: 2rem;
   }
 
 /* Movie Page */
@@ -284,7 +286,8 @@ nav .menu .menu_icon:hover .icon:after {
 .MovieWrapper {
   position: relative;
 	padding-top: 50vh;
-	background-size: cover;
+  background-size: cover;
+  background-color: #111;
 }
   
 .MovieInfo {
@@ -330,6 +333,11 @@ border-radius: 1rem;
           padding: 0.5rem;
           grid-row-gap: 0.5rem;
     }
+    .grid.profile{
+      grid-template-columns: repeat(1, 1fr);
+          padding: 0.5rem;
+          grid-row-gap: 0.5rem;
+    }
     .favgrid{
       grid-template-columns: repeat(3, 1fr);
           padding: 0.5rem;
@@ -339,6 +347,11 @@ border-radius: 1rem;
   @media (max-width: 414px) {
     .grid{
       grid-template-columns: repeat(2, 1fr);
+          padding: 0.5rem;
+          grid-row-gap: 0.5rem;
+    }
+    .grid.profile{
+      grid-template-columns: repeat(1, 1fr);
           padding: 0.5rem;
           grid-row-gap: 0.5rem;
     }

@@ -13,9 +13,11 @@ const Profile = (props) => {
         })
     }
 
+    const rating = user.rating ? user.rating.toFixed(2) : 0
+
     return (
         <div>
-            <h1> Your Favourite List Rating is: {user.rating}, It was Rated by {user.views} </h1>
+            <h1> Your Favourite List Rating is: {rating}, It was Rated {user.views} times</h1>
             <button onClick={deleteUser}>Delete User</button>
         </div>
     );

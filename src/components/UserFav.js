@@ -5,12 +5,16 @@ import Movies from './Movies'
 const UserFav = (props) => {
     const id = props.match.params.id
 
-    const { username, rating, views } = props.location.state
+    const dummy = {
+        username: "",
+        rating: 0,
+        views: 0
+    }
+
+    const { username, rating, views } = props.location.state ? props.location.state : dummy
 
     const [fav, setFav] = useState([])
     const [rate, setRate] = useState(0)
-
-    let send = []
 
     useEffect(() => {
 

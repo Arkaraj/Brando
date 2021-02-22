@@ -69,6 +69,28 @@ router.post('/', async (req, res) => {
 
 })
 
+router.put('/rate/:_id', (req, res) => {
+
+    const { rating } = req.body
+
+    Movies.findById(req.params._id).then((err, movie) => {
+        if (err) {
+            res.status(500).json({ error: "Internal server error" })
+        }
+        else {
+            movie.rating = rating
+            movie.save(err => {
+                if (err) {
+                    res.status(500).json({ error: "Could not Update Rating", msgError: true })
+                } else {
+                    res.status(200).json(movie)
+                }
+            })
+        }
+    })
+
+})
+
 router.put('/:_id', async (req, res) => {
     const { id, fav } = req.body
     // Should pass _id instead
@@ -118,9 +140,7 @@ router.delete('/:_id', async (req, res) => {
             res.json({ msg: "done" })
         }
     })
-    
-    
-    */
+  */
     try {
         // Should pass _id instead
         await Movies.findOneAndDelete({ _id: req.params._id });
