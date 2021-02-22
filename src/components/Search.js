@@ -13,9 +13,11 @@ const Search = ({ history }) => {
             return;
         }
         const searchTerm = text.toLowerCase().replace(/ /g, '+')
-
-        history.push(`/search/${searchTerm}`)
-
+        
+        fetch(`https://api.themoviedb.org/3/search/movie?api_key=${process.env.REACT_APP_API_KEY}&query=${searchTerm}`)
+            .then(res => res.json())
+            .then(data => {setMovies(data.results)
+            })
     }
 
     return (
