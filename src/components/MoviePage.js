@@ -43,11 +43,15 @@ const MoviePage = (props) => {
             .then(data => {
 
                 // List of all videos data.results
-
                 //https://youtu.be/data.results[0].key
-                if (data.results[0]) {
-                    if (data.results[0].key != null) {
-                        settrailer(youtube + data.results[0].key)
+                if (data.results) {
+                    if (data.results[0]) {
+                        if (data.results[0].key != null) {
+                            settrailer(youtube + data.results[0].key)
+                        }
+                    }
+                    else {
+                        return
                     }
                 } else {
                     return
@@ -86,9 +90,11 @@ const MoviePage = (props) => {
                                 <div>
                                     <div className="flex justify-between">
                                         <h2 className="font-bold text-2xl">{title}</h2>
-                                        {genre.map((gen, index) => (
-                                            <Tag key={index} genre={gen.name} />
-                                        ))}
+                                        {
+                                            genre ? genre.map((gen, index) => (
+                                                <Tag key={index} genre={gen.name} />
+                                            )) : null
+                                        }
                                     </div>
                                     <h3>Rating: {vote_average}</h3>
                                     <h3>Date of Release: {release_date}</h3>
@@ -101,7 +107,7 @@ const MoviePage = (props) => {
                                     <h4 className="font-bold text-xl">Trailer</h4>
                                     <hr />
                                     {/* <p> {isAuthenticated ? 'Your Rating:' : null}</p> */}
-                                    <div>
+                                    <div id="video">
                                         {
                                             trailer ? <iframe width="560" height="315" src={`${trailer}`} allowFullScreen></iframe> : null
                                         }

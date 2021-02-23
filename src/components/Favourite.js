@@ -28,7 +28,7 @@ const Favourite = () => {
 
     return (
         <div>
-            <h1 className="text-center text-2xl font-bold">Hi, Your Favourite Movies are: </h1>
+            <h1 className="text-center text-2xl font-bold">Your Favourite Movies are: </h1>
 
             {cine.length > 0 ? (
                 <div className="favgrid">

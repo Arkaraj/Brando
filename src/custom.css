@@ -186,7 +186,7 @@ nav .menu .menu_icon:hover .icon:after {
     grid-template-columns: repeat(6,1fr);
     padding: 1rem;
     grid-row-gap: 1rem;
-    grid-column-gap: 2rem;
+    grid-column-gap: 1.2rem;
   }
   
   .loading {
@@ -241,14 +241,14 @@ nav .menu .menu_icon:hover .icon:after {
   
   }
   .star:hover {
-    color: #49a6e9;
+    color: #f4c534;
   }
   
   .blue{
     width: 1rem;
     height: 1rem;
     cursor: pointer;
-    color: #49a6e9;
+    color: #f4c534;
   }
   
   .tag {
@@ -274,6 +274,31 @@ nav .menu .menu_icon:hover .icon:after {
   .tag.n {
     color: #666666;
   }
+
+  .dot{
+    display: inline-block;
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 9999px;
+    margin-right: 0.5rem;
+  }
+  .dot.s {
+    /* color: rgb(5,184,5); */
+    background-color: #21d07a;
+  }
+  .dot.a {
+    background-color: orange;
+    /* background-color: #d2d531; */
+  }
+  .dot.f {
+    background-color: red;
+    /* background-color: rgb(217,59,99); */
+  }
+  .dot.n {
+    background-color: #666666;
+  }
+
+
   
   .favgrid {
     display: grid;
@@ -304,7 +329,7 @@ nav .menu .menu_icon:hover .icon:after {
 .MovieInfo img {
   position: relative;
   top: -5rem;
-  max-height: 252px;
+  max-height: 232px;
   box-shadow:
   0 2.8px 2.2px rgba(0, 0, 0, 0.034),
   0 6.7px 5.3px rgba(0, 0, 0, 0.048),

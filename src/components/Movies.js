@@ -4,7 +4,7 @@ import { AuthContext } from '../Context/AuthContext'
 
 // import MoviePage from './MoviePage'
 
-const Movie_Img = "http://image.tmdb.org/t/p/w154/"
+const Movie_Img = "http://image.tmdb.org/t/p/w220_and_h330_face/"
 
 const Movies = ({ movie }) => {
 
@@ -138,18 +138,40 @@ const Movies = ({ movie }) => {
             return 'n'
         }
     }
-
     return (
         <Route path="/">
-            <div>
-                <img src={movie.poster_path ? poster : noImage} className={movie.poster_path ? '' : 'noImage'} className="rounded-lg" alt="Movie Image" />
-                <h1>{movie.original_title}</h1>
-                <p className={`tag ${setTagColour(movie.vote_average)}`}>{movie.vote_average}</p>
-                <Link to={`/movies/${movie.id}`}>View Details</Link>
-                {isAuthenticated ? <svg fill="currentColor" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" className={fav ? "blue" : "star"} viewBox="0 0 24 24" onClick={() => favourite(movie.id)}>
-                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
-                </svg> : null}
-                {/* <MoviePage id={movie.id} /> */}
+            <div className="card flex-col justify-items-center">
+                <div className="container max-h-1/6 mx-auto rounded-lg overflow-hidden shadow-2xl my-2 bg-white" style={{ maxWidth: '13.7rem', }}>
+                    {/* background: '#22254b' */}
+                    <div className="relative overflow-hidden z-10" style={{ clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0 calc(100% - 4vh))' }}>
+                        <img className src={movie.poster_path ? poster : noImage} alt="Movie Image" />
+                    </div>
+                    <div className="relative flex justify-between items-center flex-row px-2 z-50 -mt-8">
+                        <p className="flex items-center text-gray-400" className={`tag ${setTagColour(movie.vote_average)}`}>
+                            {/* className={`tag ${setTagColour(movie.vote_average)}`} */}
+                            <span className={`dot ${setTagColour(movie.vote_average)}`} />{(movie.vote_average.toFixed(2)) * 10}%</p>
+                        {isAuthenticated ? <button className="p-4 bg-blue-600 rounded-full hover:bg-blue-500 focus:bg-blue-700 transition ease-in duration-200 focus:outline-none" onClick={() => favourite(movie.id)}>
+                            <svg fill="currentColor" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" className={fav ? "blue" : "star"} viewBox="0 0 24 24" >
+                                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
+                            </svg>
+                        </button> : null}
+                    </div>
+                    <div className="pt-2 pb-2 text-gray-600 text-center">
+                        <p>{movie.title}</p>
+                        <p className="text-sm">{movie.release_date}</p>
+                    </div>
+                    <div className="pb-1 capitalize text-center tracking-wide flex justify-evenly bg-blue-200">
+                        <div className="posts">
+                            <p className=" border-t-2 w-screen border-blue-400" />
+                            <Link to={`/movies/${movie.id}`} className="text-lg underline cursor-pointer hover:text-blue-600 font-semibold text-blue-500">view details</Link>
+                        </div>
+                    </div>
+                </div>
+                {/*                 
+                    {isAuthenticated ? <svg fill="currentColor" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" className={fav ? "blue" : "star"} viewBox="0 0 24 24" onClick={() => favourite(movie.id)}>
+                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
+                    </svg> : null}
+                */}
             </div>
         </Route>
     );

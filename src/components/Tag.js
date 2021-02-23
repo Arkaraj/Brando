@@ -1,4 +1,5 @@
 import React from 'react';
+import { Route, Link } from 'react-router-dom'
 
 const Tag = ({ genre }) => {
 
@@ -16,7 +17,7 @@ const Tag = ({ genre }) => {
     }
 
     return (
-        <p className={`text-xs inline-flex items-center font-bold leading-sm uppercase px-3 py-1 bg-${clr}-200 text-${clr}-700 rounded-full cursor-pointer`}>{genre}</p>
+        <Link to={`/genres/${genre}`} className={`text-xs inline-flex items-center font-bold leading-sm uppercase px-3 py-1 bg-${clr}-200 text-${clr}-700 rounded-full cursor-pointer mx-4`}>{genre}</Link>
     );
 }
 

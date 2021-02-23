@@ -54,7 +54,7 @@ const UserFav = (props) => {
     return (
         <div>
             <h1>{username}'s List </h1>
-            <h4>User's Score: {rating} ({views})</h4>
+            <h4>User's Score: {rating.toFixed(2)} ({views})</h4>
             <div className="container w-32 mx-4">
                 <div className="vertical-center">
                     <div className="custom-number-input h-10 w-32">

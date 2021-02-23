@@ -28,7 +28,7 @@ router.get('/:_id', async (req, res) => {
 router.get('/:_id/:id', (req, res) => {
     Users.findById({ _id: req.params._id }).populate('favourites').exec((err, document) => {
         if (err) {
-            console.log('ERE: ' + err)
+            console.log('ERR: ' + err)
             res.status(500).json({ message: { msg: "Error has occured", msgError: true } })
         }
         else {

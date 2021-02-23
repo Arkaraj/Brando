@@ -17,6 +17,8 @@ import UserFav from './components/UserFav'
 import Footer from './components/Footer'
 import PrivateRoute from './Hocs/PrivateRoutes'
 import PublicRoute from './Hocs/PublicRoute'
+import Genres from './components/Genres'
+import SGenres from './components/SGenres'
 
 function App() {
   const [movies, setMovies] = useState([])
@@ -66,6 +68,12 @@ function App() {
           <PrivateRoute key="1" path="/connect/:id" component={UserFav} />
           <PrivateRoute key="2" path="/connect" component={Connect} />
         </Switch>
+
+        <Switch>
+          <Route path="/genres/:name" component={SGenres} />
+          <Route path="/genres" component={Genres} />
+        </Switch>
+
       </div>
       <Footer />
     </Router>

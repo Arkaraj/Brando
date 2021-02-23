@@ -12,10 +12,3 @@ win.on('scroll', function () {
         sticky_id.classList.add("scroll-header");
     }
 });
-
-win.on('load', () => {
-    let backDrop = $('.MovieWrapper')
-    if (backDrop) {
-        backDrop.style.backgroundSize = 'cover'
-    }
-})
