@@ -16,7 +16,7 @@ const MovieSearch = (props) => {
                 setFlim(data.results)
             })
 
-    }, [name]) // Runs only once
+    }, [name]) // Runs when name changes
 
     return (
         <>
@@ -30,6 +30,7 @@ const MovieSearch = (props) => {
                         )
                 }
             </div>
+            {/* Pagination needed */}
         </>
     );
 }

@@ -72,7 +72,8 @@ const MoviePage = (props) => {
 
     const bgImage = {
         backgroundImage: `url(${BackDrop_Path + data.backdrop_path})`,
-        backgroundSize: 'contain'
+        backgroundSize: 'contain',
+        backgroundRepeat: 'no-repeat'
     }
 
     return (

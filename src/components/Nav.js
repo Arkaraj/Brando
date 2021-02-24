@@ -43,8 +43,8 @@ const Nav = (props) => {
         <nav>
             <div className="menu">
                 <p className="website_name text-xl font-extrabold leading-none text-black sm:text-3xl md:text-xl"><Link to="/">Brando</Link></p>
-                <p className="website_name text-xl font-extrabold leading-none text-black sm:text-3xl md:text-xl"><Link to="/">Popular</Link></p>
-                <p className="website_name text-xl font-extrabold leading-none text-black sm:text-3xl md:text-xl"><Link to="/">TV Shows</Link></p>
+                <p className="website_name text-xl font-extrabold leading-none text-black sm:text-3xl md:text-xl"><Link to="/popular/1">Popular</Link></p>
+                <p className="website_name text-xl font-extrabold leading-none text-black sm:text-3xl md:text-xl"><Link to="/rated/1">Top Rated</Link></p>
                 <p className="website_name text-xl font-extrabold leading-none text-black sm:text-3xl md:text-xl"><Link to="/genres">Genres</Link></p>
                 {/* <Search /> */}
                 <div className="menu_links">

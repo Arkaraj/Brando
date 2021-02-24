@@ -17,7 +17,7 @@ const Tag = ({ genre }) => {
     }
 
     return (
-        <Link to={`/genres/${genre}`} className={`text-xs inline-flex items-center font-bold leading-sm uppercase px-3 py-1 bg-${clr}-200 text-${clr}-700 rounded-full cursor-pointer mx-4`}>{genre}</Link>
+        <Link to={`/genres/${genre}`} className={`text-xs inline-flex items-center font-bold leading-sm uppercase px-3 py-1 bg-${clr}-200 text-${clr}-700 rounded-full cursor-pointer mx-4 my-2`}>{genre}</Link>
     );
 }
 

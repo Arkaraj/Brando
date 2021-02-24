@@ -19,6 +19,7 @@ import PrivateRoute from './Hocs/PrivateRoutes'
 import PublicRoute from './Hocs/PublicRoute'
 import Genres from './components/Genres'
 import SGenres from './components/SGenres'
+import Popular from './components/Popular'
 
 function App() {
   const [movies, setMovies] = useState([])
@@ -73,7 +74,12 @@ function App() {
           <Route path="/genres/:name" component={SGenres} />
           <Route path="/genres" component={Genres} />
         </Switch>
-
+        <Route path="/popular/:page" render={(props) => (
+          <Popular case="popular" {...props} />
+        )} />
+        <Route path="/rated/:page" render={(props) => (
+          <Popular case="top_rated" {...props} />
+        )} />
       </div>
       <Footer />
     </Router>

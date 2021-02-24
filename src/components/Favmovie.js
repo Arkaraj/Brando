@@ -56,7 +56,7 @@ const Favmovie = ({ movie }) => {
 
         UserService.rateMovies(movie._id, rate).then(data => {
             alert('Updated Rating!!')
-            console.log(data)
+            window.location.reload()
         })
     }
 
@@ -71,7 +71,7 @@ const Favmovie = ({ movie }) => {
                     <div className="relative flex justify-between items-center flex-row px-2 z-50 -mt-8">
                         <p className="flex items-center text-gray-400" className={`tag ${setTagColour(flim.vote_average)}`}>
                             {/* className={`tag ${setTagColour(flim.vote_average)}`} */}
-                            <span className={`dot ${setTagColour(flim.vote_average)}`} />{(flim.vote_average.toFixed(2)) * 10}%</p>
+                            <span className={`dot ${setTagColour(flim.vote_average)}`} />{flim.vote_average ? (flim.vote_average.toFixed(2)) * 10 : 0}%</p>
 
                     </div>
                     <div className="pt-2 pb-2 text-gray-600 text-center">
@@ -102,7 +102,6 @@ const Favmovie = ({ movie }) => {
                 </div>
                 <button>Submit Rating</button>
             </form>
-            <Link to={`/movies/${movie.id}`}>View Details</Link>
         </div>
     );
 }

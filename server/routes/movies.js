@@ -69,11 +69,11 @@ router.post('/', async (req, res) => {
 
 })
 
-router.put('/rate/:_id', (req, res) => {
+router.put('/rating/:_id', (req, res) => {
 
     const { rating } = req.body
 
-    Movies.findById(req.params._id).then((err, movie) => {
+    Movies.findById(req.params._id, (err, movie) => {
         if (err) {
             res.status(500).json({ error: "Internal server error" })
         }

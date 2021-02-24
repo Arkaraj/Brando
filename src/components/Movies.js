@@ -141,7 +141,7 @@ const Movies = ({ movie }) => {
     return (
         <Route path="/">
             <div className="card flex-col justify-items-center">
-                <div className="container max-h-1/6 mx-auto rounded-lg overflow-hidden shadow-2xl my-2 bg-white" style={{ maxWidth: '13.7rem', }}>
+                <div className="container max-h-1/6 mx-auto rounded-lg overflow-hidden hover:shadow-2xl my-2 bg-white" style={{ maxWidth: '13.7rem', }}>
                     {/* background: '#22254b' */}
                     <div className="relative overflow-hidden z-10" style={{ clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0 calc(100% - 4vh))' }}>
                         <img className src={movie.poster_path ? poster : noImage} alt="Movie Image" />
