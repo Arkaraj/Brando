@@ -50,6 +50,19 @@ export default {
             },
             body: JSON.stringify(rate)
         }).then(res => res.json()).then(data => data)
+    },
+    updateStatus: (status, id) => {
+        const feel = {
+            status
+        }
+
+        return fetch(`/user/status/${id}`, {
+            method: "PUT",
+            headers: {
+                'Content-Type': "application/json"
+            },
+            body: JSON.stringify(feel)
+        }).then(res => res.json()).then(data => data)
     }
 
 }

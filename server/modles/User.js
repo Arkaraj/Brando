@@ -17,6 +17,11 @@ const UserSchema = new mongoose.Schema({
         required: true,
         unique: true
     },
+    status: {
+        type: String,
+        required: true,
+        default: "Casual Movie Watcher 🎬"
+    },
     views: {
         type: Number,
         default: 0
@@ -28,6 +33,7 @@ const UserSchema = new mongoose.Schema({
         max: 10
     },
     favourites: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Movies' }]
+    // Wishlist types can also be made
 })
 
 UserSchema.pre('save', function (next) {

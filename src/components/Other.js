@@ -2,16 +2,15 @@ import React from 'react';
 import { Route, Link } from 'react-router-dom'
 
 const Other = ({ other }) => {
-
-    const { username, rating, _id, views } = other
+    const { username, rating, _id, views, status } = other
     return (
         <Route>
             <div className="bg-white shadow p-4 rounded lg:w-64">
                 <div className="text-center mt-4">
                     <p className="text-gray-600 font-bold">{username}
                     </p>
-                    <p className="text-sm font-hairline text-gray-600 mt-1">Status of the user
-          </p>
+                    <p className="text-sm font-hairline text-gray-600 mt-1">{status}
+                    </p>
                 </div>
                 <div className="flex justify-center mt-4">
                     <img className="shadow sm:w-12 sm:h-12 w-10 h-10 rounded-full" src="https://tailwindtemplates.io/wp-content/uploads/2019/03/link.jpg" alt="Avatar" />

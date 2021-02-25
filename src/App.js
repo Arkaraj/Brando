@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
-import { AuthContext } from './Context/AuthContext'
 
 import Nav from './components/Nav'
 import Search from './components/Search'

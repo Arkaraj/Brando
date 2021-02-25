@@ -5,7 +5,6 @@ const JWT = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const passport = require('passport');
 const passportConfig = require('./passport')
-const Movies = require('../modles/favourite')
 const movies = require('./movies')
 
 
@@ -149,6 +148,30 @@ router.put('/rating/:id', passport.authenticate('jwt', { session: false }), asyn
         console.log('Error: ' + err)
         res.status(500).json({ message: { msg: "Error has occured", msgError: true } });
     }
+})
+
+// Status
+
+router.put('/status/:_id', (req, res) => {
+
+    const { status } = req.body
+
+    Users.findById(req.params._id, (err, user) => {
+        if (err) {
+            res.status(500).json({ error: "Internal server error" })
+        }
+        else {
+            user.status = status
+            user.save(err => {
+                if (err) {
+                    res.status(500).json({ error: "Could not Update Status", msgError: true })
+                } else {
+                    res.status(200).json(user)
+                }
+            })
+        }
+    })
+
 })
 
 module.exports = router
