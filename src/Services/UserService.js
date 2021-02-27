@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-anonymous-default-export
 export default {
 
     view: (_id) => {
@@ -62,6 +63,21 @@ export default {
                 'Content-Type': "application/json"
             },
             body: JSON.stringify(feel)
+        }).then(res => res.json()).then(data => data)
+    },
+    updateVote: (vote, id) => {
+
+        const n = vote ? -1 : 1
+        const upvote = {
+            vote: n
+        }
+
+        return fetch(`/user/vote/${id}`, {
+            method: "PUT",
+            headers: {
+                'Content-Type': "application/json"
+            },
+            body: JSON.stringify(upvote)
         }).then(res => res.json()).then(data => data)
     }
 

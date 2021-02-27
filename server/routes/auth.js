@@ -173,5 +173,26 @@ router.put('/status/:_id', (req, res) => {
     })
 
 })
+router.put('/vote/:_id', (req, res) => {
+
+    const { vote } = req.body
+
+    Users.findById(req.params._id, (err, user) => {
+        if (err) {
+            res.status(500).json({ error: "Internal server error" })
+        }
+        else {
+            user.upvotes += vote
+            user.save(err => {
+                if (err) {
+                    res.status(500).json({ error: "Could not Update Status", msgError: true })
+                } else {
+                    res.status(200).json(user)
+                }
+            })
+        }
+    })
+
+})
 
 module.exports = router

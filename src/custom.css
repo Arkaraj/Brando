@@ -306,6 +306,30 @@ nav .menu .menu_icon:hover .icon:after {
     grid-column-gap: 1.2rem;
   }
 
+  .upvote {
+    padding: 0.1875rem;
+    border-radius: 0.625rem;
+    font-size: 1.5rem;
+  }
+  .liked {
+    padding: 0.1875rem;
+    border-radius: 0.625rem;
+    font-size: 1.5rem;
+    background: rgba(4, 180, 53, 0.24);
+    color: rgb(57, 229, 140);
+  }
+  .upvote:hover{
+    background: rgba(4, 180, 53, 0.24);
+    color: rgb(57, 229, 140);
+  }
+
+  .upvote:focus{
+    outline: none;
+  }
+  .liked:focus{
+    outline: none;
+  }
+
 /* Movie Page */
 
 .MovieWrapper {

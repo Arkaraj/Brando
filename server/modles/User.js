@@ -24,7 +24,13 @@ const UserSchema = new mongoose.Schema({
     },
     views: {
         type: Number,
-        default: 0
+        default: 0,
+        min: 0
+    },
+    upvotes: {
+        type: Number,
+        default: 0,
+        min: 0
     },
     rating: {
         type: Number,

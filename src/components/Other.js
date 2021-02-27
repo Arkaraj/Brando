@@ -1,8 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Route, Link } from 'react-router-dom'
+import UserService from '../Services/UserService'
 
 const Other = ({ other }) => {
-    const { username, rating, _id, views, status } = other
+    const { username, rating, _id, views, status, upvotes } = other
+
+    const [vote, setVote] = useState(false)
+    const [upvote, setUpVote] = useState(upvotes)
+
+    const updateUpvote = () => {
+        UserService.updateVote(vote, _id).then(data => {
+            setVote(!vote)
+
+        })
+        vote ? setUpVote(vote => vote - 1) : setUpVote(vote => vote + 1)
+    }
+
     return (
         <Route>
             <div className="bg-white shadow p-4 rounded lg:w-64">
@@ -29,10 +42,11 @@ const Other = ({ other }) => {
             </p>
                     </div>
                     <div>
-                        <p className="text-gray-700 font-bold">530
-            </p>
-                        <p className="text-xs mt-2 text-gray-700 font-hairline">Shares
-            </p>
+                        <p className="text-gray-700 font-bold"><button onClick={updateUpvote} title="Upvote" className={vote ? "liked" : "upvote"}><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" className="icon"><path d="M13.162 3.813a2 2 0 01.465.465l6.674 9.343a1 1 0 01-1.102 1.539l-4.032-1.21a1 1 0 00-1.277.816l-.767 5.375a1 1 0 01-.99.859h-.266a1 1 0 01-.99-.859l-.767-5.375a1 1 0 00-1.278-.816l-4.031 1.21a1 1 0 01-1.102-1.54l6.674-9.342a2 2 0 012.79-.465z" fill="currentcolor" fillRule="evenodd" /></svg></button>
+                            {upvote}
+                        </p>
+                        <p className="text-xs mt-2 text-gray-700 font-hairline">Upvotes
+                        </p>
                     </div>
                 </div>
                 <div className="mt-6">
