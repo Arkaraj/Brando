@@ -166,5 +166,11 @@ router.delete('/:_id', async (req, res) => {
     }
 })
 
+// WishList
+
+router.get('/wishlist/:id', (req, res) => {
+
+})
+
 
 module.exports = router;

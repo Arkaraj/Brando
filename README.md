@@ -19,12 +19,6 @@ To Use .env in App.js
 process.env.REACT_APP_SECRET_KEY
 ```
 
-### To run dummy REST API Server
-
-```sh
-npm run server
-```
-
 Server runs on port 5000
 goto: http://localhost:5000/movies to view the database
 
@@ -35,8 +29,7 @@ To run real REST API Server
 Nodemon should be installed for development
 
 ```sh
-$ cd server
-$ npm start
+$ npm run server
 ```
 Runs in port 8080
 
@@ -48,7 +41,7 @@ In package.json file add proxy, to remove cors error:
 
 #### Things To Do
 
-- [] Styling with some css frameworks
+- [x] Styling with some css frameworks
 - [x] User Authentication and Authorization
 
 > P.S I know the file structure is messed by the server folder should be outside and the REACT files should be in client.... Also axios could have been used instead of classic fetch

@@ -2,6 +2,8 @@ import React, { useState, useEffect, useContext } from 'react';
 import { Route, Link } from 'react-router-dom'
 import { AuthContext } from '../Context/AuthContext'
 import Tag from './Tag'
+import Actor from './Actor';
+import Movies from './Movies';
 
 const poster = "http://image.tmdb.org/t/p/w154/"
 
@@ -19,6 +21,10 @@ const MoviePage = (props) => {
     const [genre, setGenre] = useState([])
 
     const [trailer, settrailer] = useState('')
+
+    const [cast, setCast] = useState([])
+
+    const [similar, setSimilar] = useState([])
 
     const noImage = "https://upload.wikimedia.org/wikipedia/commons/f/fc/No_picture_available.png"
 
@@ -59,9 +65,37 @@ const MoviePage = (props) => {
 
             })
 
-    }, [])
+        // /movie/{movie_id}/credits
 
-    const { original_title, title, overview, release_date, tagline, vote_average } = data
+        fetch(`https://api.themoviedb.org/3/movie/${id}/credits?api_key=${process.env.REACT_APP_API_KEY}`)
+            .then(res => res.json())
+            .then(data => {
+
+                if (data.cast) {
+                    setCast(data.cast)
+                } else {
+                    return
+                }
+
+            })
+
+        // /movie/{movie_id}/similar
+
+        fetch(`https://api.themoviedb.org/3/movie/${id}/similar?api_key=${process.env.REACT_APP_API_KEY}`)
+            .then(res => res.json())
+            .then(data => {
+
+                if (data.results) {
+                    setSimilar(data.results)
+                } else {
+                    return
+                }
+
+            })
+
+    }, [id])
+
+    const { original_title, title, overview, release_date, tagline, vote_average, runtime } = data
 
     let tag = tagline ? tagline : 'None'
 
@@ -76,41 +110,73 @@ const MoviePage = (props) => {
         backgroundRepeat: 'no-repeat'
     }
 
+    const minToHrs = (minutes) => {
+        let hour = Math.floor(minutes / 60)
+        let seconds = minutes - (60 * hour)
+
+        return `${hour}hr ${seconds}min`
+    }
+
     return (
         <>
             {original_title == '' ? (<div className="loading"></div>) :
                 (
                     <div>
                         <div className="MovieWrapper" style={bgImage}>
-                            <div className="MovieInfo">
-                                <img
-                                    src={image == '' ? noImage : image}
-                                    className={image == '' ? 'noImage' : ''}
-                                    alt={data.title}
-                                />
-                                <div>
-                                    <div className="flex justify-between">
-                                        <h2 className="font-bold text-2xl">{title}</h2>
+                            <div className="flex-col">
+                                <div className="MovieInfo">
+                                    <img
+                                        src={image == '' ? noImage : image}
+                                        className={image == '' ? 'noImage' : ''}
+                                        alt={data.title}
+                                    />
+                                    <div>
+                                        <div className="flex justify-between">
+                                            <h2 className="font-bold text-2xl">{title} {release_date ? <span>({release_date.split('-')[0]})</span> : ''}</h2>
+                                            {
+                                                genre ? genre.map((gen, index) => (
+                                                    <Tag key={index} genre={gen.name} />
+                                                )) : null
+                                            }
+                                        </div>
+                                        <h3>Rating: {vote_average}</h3>
+                                        {/* <h3>Date of Release: {release_date}</h3> */}
+                                        <h3>Run Time: {minToHrs(runtime)}</h3>
+                                        <h4>Plot</h4>
+                                        <hr />
+                                        <p>{overview}</p>
+                                        <h4>Tag Line</h4>
+                                        <hr />
+                                        <p>{tag}</p>
+                                        <h4 className="font-bold text-xl">Trailer</h4>
+                                        <hr />
+                                        {/* <p> {isAuthenticated ? 'Your Rating:' : null}</p> */}
+                                        <div id="video">
+                                            {
+                                                trailer ? <iframe width="560" height="315" className="mt-2" src={`${trailer}`} allowFullScreen></iframe> : null
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="bg-white">
+                                    <h1 className="font-bold text-2xl underline">Actors</h1>
+                                    <div className="grid">
                                         {
-                                            genre ? genre.map((gen, index) => (
-                                                <Tag key={index} genre={gen.name} />
-                                            )) : null
+                                            cast.length > 0 ?
+                                                cast.slice(0, 6).map((actor, index) => (
+                                                    <Actor key={index} actor={actor} />
+                                                ))
+                                                : "Couldn't find any Actors for the movie"
                                         }
                                     </div>
-                                    <h3>Rating: {vote_average}</h3>
-                                    <h3>Date of Release: {release_date}</h3>
-                                    <h4>Plot</h4>
-                                    <hr />
-                                    <p>{overview}</p>
-                                    <h4>Tag Line</h4>
-                                    <hr />
-                                    <p>{tag}</p>
-                                    <h4 className="font-bold text-xl">Trailer</h4>
-                                    <hr />
-                                    {/* <p> {isAuthenticated ? 'Your Rating:' : null}</p> */}
-                                    <div id="video">
+                                    <h1 className="font-bold text-2xl underline">Similar Movies:</h1>
+                                    <div className="grid">
                                         {
-                                            trailer ? <iframe width="560" height="315" src={`${trailer}`} allowFullScreen></iframe> : null
+                                            similar.length > 0 ?
+                                                similar.map((movies, index) => (
+                                                    <Movies key={index} movie={movies} />
+                                                ))
+                                                : "Couldn't find any Similar movies for the movie"
                                         }
                                     </div>
                                 </div>

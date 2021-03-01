@@ -7,6 +7,7 @@ const Profile = (props) => {
 
     const { user, setIsAuthenticated } = useContext(AuthContext)
     const [status, setStatus] = useState('')
+    const [currStatus, setCurrStatus] = useState(user.status)
 
     const deleteUser = () => {
         authService.delete(user._id).then(data => {
@@ -20,6 +21,7 @@ const Profile = (props) => {
 
         UserService.updateStatus(status, user._id)
             .then(data => {
+                setCurrStatus(status)
                 alert('Updated!')
             })
 
@@ -30,6 +32,7 @@ const Profile = (props) => {
     return (
         <div>
             <h1> Your Favourite List Rating is: {rating}, It was Rated {user.views} times</h1>
+            <h3>Status: {currStatus}</h3>
             <form onSubmit={updateStatus}>
                 <label>Update Status:</label>
                 <input type="text" placeholder="Update Status" value={status} onChange={e => setStatus(e.target.value)} />

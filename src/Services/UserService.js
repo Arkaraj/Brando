@@ -36,8 +36,7 @@ export default {
             body: JSON.stringify(rate)
         }).then(res => res.json()).then(data => data)
 
-    }
-    ,
+    },
     rateUser: (id, score) => {
 
         const rate = {

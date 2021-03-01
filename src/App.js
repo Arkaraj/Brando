@@ -19,17 +19,16 @@ import PublicRoute from './Hocs/PublicRoute'
 import Genres from './components/Genres'
 import SGenres from './components/SGenres'
 import Popular from './components/Popular'
+import WishList from './components/WishList'
 
 function App() {
   const [movies, setMovies] = useState([])
-
-  const MOVIE_API = process.env.REACT_APP_MOVIE_API
 
   // https://api.themoviedb.org/3/discover/movie?api_key=dca6ba47ee045002b2c647232f48e550
 
   // useEffect's effect can't be async function, we have to use .then to resolve the promise
   useEffect(() => {
-    fetch(MOVIE_API)
+    fetch(process.env.REACT_APP_MOVIE_API)
       .then(res => res.json())
       .then(data => {
         setMovies(data.results)
@@ -64,6 +63,7 @@ function App() {
         <PrivateRoute path="/profile" component={Profile} />
         <Route path="/movies/:id" component={MoviePage} />
         <PrivateRoute path="/favourite" component={Favourite} />
+        <PrivateRoute path="/wishlist" component={WishList} />
         <Switch>
           <PrivateRoute key="1" path="/connect/:id" component={UserFav} />
           <PrivateRoute key="2" path="/connect" component={Connect} />

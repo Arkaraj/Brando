@@ -30,6 +30,7 @@ const Nav = (props) => {
             <>
                 <Link to="/profile" className="link">{user.username}</Link>
                 <Link to="/favourite" className="link">Favorites</Link>
+                <Link to="/wishlist" className="link">WishList</Link>
                 <Link to='/connect' className="link">See other Users</Link>
                 <Link className="link btn" onClick={logoutHandler}>
                     Logout

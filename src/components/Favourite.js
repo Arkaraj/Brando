@@ -16,14 +16,14 @@ const Favourite = () => {
     }
 
     useEffect(() => {
-        if (isAuthenticated) {
-            const getCine = async () => {
-                const cineFromServer = await fetchCine()
-                setCine(cineFromServer)
-            }
 
-            getCine()
+        const getCine = async () => {
+            const cineFromServer = await fetchCine()
+            setCine(cineFromServer)
         }
+
+        getCine()
+
     }, [])
 
     return (

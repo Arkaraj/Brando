@@ -365,6 +365,10 @@ nav .menu .menu_icon:hover .icon:after {
 border-radius: 1rem;
 }
 
+img.actorImg {
+  top: 0;
+}
+
 
   /* Slider */
   .splide--nav>.splide__track>.splide__list>.splide__slide.is-active{
@@ -393,6 +397,13 @@ border-radius: 1rem;
           padding: 0.5rem;
           grid-row-gap: 0.5rem;
     }
+    .MovieInfo{
+      flex-direction: column;
+    }
+    .MovieInfo img{
+      max-height:  100%;
+    }
+  
   }
   @media (max-width: 500px) {
     .grid{
@@ -409,5 +420,15 @@ border-radius: 1rem;
       grid-template-columns: repeat(1, 1fr);
           padding: 0.5rem;
           grid-row-gap: 0.5rem;
+    }
+    .MovieInfo{
+      flex-direction: column;
+    }
+    .MovieInfo img{
+      max-height:  100%;
+    }
+    .MovieInfo iframe{
+      max-height:  100%;
+      max-width:  100%;
     }
   }

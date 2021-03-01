@@ -21,7 +21,7 @@
     "build": "craco build",
     "test": "craco test",
     "eject": "craco eject",
-    "server": "json-server --watch db.json --port 5000"
+    "server": "cd server && npm start"
   },
   "eslintConfig": {
     "extends": [
