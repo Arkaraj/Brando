@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Route, Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import UserService from '../Services/UserService'
 
 const noImage = "https://upload.wikimedia.org/wikipedia/commons/f/fc/No_picture_available.png"

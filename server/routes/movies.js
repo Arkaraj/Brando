@@ -3,6 +3,11 @@ const router = express.Router()
 const Movies = require('../modles/favourite')
 const Users = require('../modles/User')
 
+const wish = require('./wishlist')
+
+// WishList
+router.use('/wishlist', wish)
+
 // For all entries, Not necessery
 router.get('/', async (req, res) => {
 
@@ -147,7 +152,6 @@ router.delete('/:_id', async (req, res) => {
     })
   */
     try {
-        // Should pass _id instead
         await Movies.findOneAndDelete({ _id: req.params._id });
         // pop from Users Array
         req.user.favourites = req.user.favourites.filter(movie => movie.toString() !== req.params._id)
@@ -166,11 +170,6 @@ router.delete('/:_id', async (req, res) => {
     }
 })
 
-// WishList
-
-router.get('/wishlist/:id', (req, res) => {
-
-})
 
 
 module.exports = router;

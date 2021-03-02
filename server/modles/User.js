@@ -39,7 +39,7 @@ const UserSchema = new mongoose.Schema({
         max: 10
     },
     favourites: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Movies' }],
-    wislist: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Wishlist' }]
+    wishlist: [{ type: mongoose.Schema.Types.ObjectId, ref: 'WishList' }]
     // Wishlist types can also be made
 })
 

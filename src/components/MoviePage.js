@@ -122,7 +122,7 @@ const MoviePage = (props) => {
             {original_title == '' ? (<div className="loading"></div>) :
                 (
                     <div>
-                        <div className="MovieWrapper" style={bgImage}>
+                        <div className="MovieWrapper" id="Movie" style={bgImage}>
                             <div className="flex-col">
                                 <div className="MovieInfo">
                                     <img

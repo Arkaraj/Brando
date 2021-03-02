@@ -33,6 +33,7 @@ body {
     z-index: 99;
     padding-top: 1.25rem;
     padding-bottom: 1.25rem;
+    transition: all ease-in-out 0.2s;
 }
 
 .menu.scroll-header {
@@ -201,8 +202,8 @@ nav .menu .menu_icon:hover .icon:after {
   }
   
   .noImage{
-    width: 154px;
-    height: 231px;
+    width: 220px;
+    height: 330px;
     display: block;
     object-fit: cover;
   }
