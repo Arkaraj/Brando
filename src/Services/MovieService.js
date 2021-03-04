@@ -11,6 +11,19 @@ export default {
             })
     },
 
+    getMovieWishList: (userId, tmdbId) => {
+
+        return fetch(`/user/movies/wishlist/${userId}/${tmdbId}`)
+            .then(res => res.json())
+            .then(data => {
+                if (data.msgError) {
+                    return false;
+                } else {
+                    return data.wish
+                }
+            })
+    },
+
     postWish: (tmdbId) => {
 
         const schemaWish = {

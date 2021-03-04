@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import Search from './Search'
 import { Route, Link } from 'react-router-dom'
 import AuthService from '../Services/AuthService'
@@ -39,6 +39,19 @@ const Nav = (props) => {
             </>
         )
     }
+
+    // const [fixed, setFixed] = useState('');
+
+    // useEffect(() => {
+
+    //     if (window.location.pathname == '/') {
+    //         setFixed('fixed z-50 w-full')
+    //     }
+    //     else {
+    //         setFixed('')
+    //     }
+
+    // }, [])
 
     return (
         <nav>

@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-undef
 let win = $(window);
 
 // Jquery wans't working for some reasons
@@ -12,3 +13,14 @@ win.on('scroll', function () {
         sticky_id.classList.add("scroll-header");
     }
 });
+/*win.on('load', function () {
+    // eslint-disable-next-line no-undef
+    let nav = document.querySelector('nav')
+
+    if (window.location.pathname == '/') {
+        nav.classList.add("main")
+    }
+    else {
+        nav.classList.remove("main")
+    }
+});*/

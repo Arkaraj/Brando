@@ -51,7 +51,7 @@ function App() {
               {movies.length > 0 ? movies.map(movie => (
                 <Movies key={movie.id} movie={movie} />
               )) : (
-                  <p>No Movies</p>
+                  <p className="loading"></p>
                 )}
             </div>
           </>

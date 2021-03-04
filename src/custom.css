@@ -22,7 +22,7 @@ body {
     box-sizing: border-box;
     z-index: 3; */
     
-    background: rgba(246, 246, 248, 0.9) none repeat scroll 0 0;
+    background: rgba(246, 246, 248, 0.1) none repeat scroll 0 0;
     
     display: flex;
     align-items: center;
@@ -36,8 +36,15 @@ body {
     transition: all ease-in-out 0.2s;
 }
 
+nav.main {
+  position: fixed;
+  z-index: 99;
+  width: 100%;
+}
+
 .menu.scroll-header {
-    position: fixed;
+  position: fixed;
+  background: rgba(246, 246, 248, 0.9) none repeat scroll 0 0;
     animation: 300ms ease-in-out 0s normal none 1 running fadeInDown;box-shadow: 0 0 15px rgb(0 0 0 / 10%);
 }
 /* 

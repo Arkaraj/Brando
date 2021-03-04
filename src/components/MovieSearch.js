@@ -26,7 +26,7 @@ const MovieSearch = (props) => {
                     flim.length > 0 ? flim.map(flim => (
                         <Movies key={flim.id} movie={flim} />
                     )) : (
-                            <p>No Movies</p>
+                            <p className="loading">No Movies</p>
                         )
                 }
             </div>

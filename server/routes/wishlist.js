@@ -18,6 +18,28 @@ router.get('/:_id', (req, res) => {
 
 })
 
+// Check if the movie is in the user's wishlist or not
+// _id => userid, id => moviesid(tmdbid)
+router.get('/:_id/:id', (req, res) => {
+    Users.findById({ _id: req.params._id }).populate('wishlist').exec((err, document) => {
+        if (err) {
+            console.log('ERR: ' + err)
+            res.status(500).json({ msg: "Error has occured", msgError: true })
+        }
+        else {
+            // document.wishlist time complex: O(n)
+            const tid = document.wishlist.map(w => w.id)
+            const check = tid.includes(req.params.id)
+            if (check) {
+                const wish = document.wishlist.filter(w => w.id == req.params.id)
+                res.status(200).json({ msg: "Done", msgError: false, wish: wish[0] })
+            } else {
+                res.status(500).json({ msg: "Error has occured", msgError: true });
+            }
+        }
+    })
+})
+
 // Add movies to favourites, id=> tmdb movie id
 router.post('/:id', (req, res) => {
     // wish is gonna be true

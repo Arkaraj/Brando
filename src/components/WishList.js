@@ -19,7 +19,7 @@ const WishList = () => {
 
     return (
         <div>
-            <h1>WishList here</h1>
+            <h1 className="text-xl font-bold mb-2 capitalize">WishList here</h1>
 
             {
                 towatch.length > 0 ? towatch.map((wish, index) => (

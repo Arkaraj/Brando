@@ -3,6 +3,7 @@ import AuthService from '../Services/AuthService';
 
 export const AuthContext = createContext()
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default ({ children }) => {
 
     // Global state
@@ -21,7 +22,7 @@ export default ({ children }) => {
 
     return (
         <div>
-            {!isloaded ? <h1>Loading</h1> : <AuthContext.Provider value={{ user, setUser, isAuthenticated, setIsAuthenticated }}>
+            {!isloaded ? <p className="loading"></p> : <AuthContext.Provider value={{ user, setUser, isAuthenticated, setIsAuthenticated }}>
                 {children}
             </AuthContext.Provider>
             }

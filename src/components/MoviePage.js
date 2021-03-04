@@ -26,6 +26,8 @@ const MoviePage = (props) => {
 
     const [similar, setSimilar] = useState([])
 
+    const [loaded, isLoaded] = useState(false)
+
     const noImage = "https://upload.wikimedia.org/wikipedia/commons/f/fc/No_picture_available.png"
 
     const youtube = 'https://www.youtube.com/embed/'
@@ -42,6 +44,7 @@ const MoviePage = (props) => {
                 setGenre(data.genres)
                 const image_path = data.poster_path ? poster + data.poster_path : ''
                 setImage(image_path)
+                isLoaded(true)
             })
 
         fetch(`https://api.themoviedb.org/3/movie/${id}/videos?api_key=${process.env.REACT_APP_API_KEY}`)
@@ -90,7 +93,6 @@ const MoviePage = (props) => {
                 } else {
                     return
                 }
-
             })
 
     }, [id])
@@ -119,71 +121,72 @@ const MoviePage = (props) => {
 
     return (
         <>
-            {original_title == '' ? (<div className="loading"></div>) :
-                (
-                    <div>
-                        <div className="MovieWrapper" id="Movie" style={bgImage}>
-                            <div className="flex-col">
-                                <div className="MovieInfo">
-                                    <img
-                                        src={image == '' ? noImage : image}
-                                        className={image == '' ? 'noImage' : ''}
-                                        alt={data.title}
-                                    />
-                                    <div>
-                                        <div className="flex justify-between">
-                                            <h2 className="font-bold text-2xl">{title} {release_date ? <span>({release_date.split('-')[0]})</span> : ''}</h2>
-                                            {
-                                                genre ? genre.map((gen, index) => (
-                                                    <Tag key={index} genre={gen.name} />
-                                                )) : null
-                                            }
-                                        </div>
-                                        <h3>Rating: {vote_average}</h3>
-                                        {/* <h3>Date of Release: {release_date}</h3> */}
-                                        <h3>Run Time: {minToHrs(runtime)}</h3>
-                                        <h4>Plot</h4>
-                                        <hr />
-                                        <p>{overview}</p>
-                                        <h4>Tag Line</h4>
-                                        <hr />
-                                        <p>{tag}</p>
-                                        <h4 className="font-bold text-xl">Trailer</h4>
-                                        <hr />
-                                        {/* <p> {isAuthenticated ? 'Your Rating:' : null}</p> */}
-                                        <div id="video">
-                                            {
-                                                trailer ? <iframe width="560" height="315" className="mt-2" src={`${trailer}`} allowFullScreen></iframe> : null
-                                            }
+            {loaded ?
+                original_title == '' ? (<div className="loading"></div>) :
+                    (
+                        <div>
+                            <div className="MovieWrapper" id="Movie" style={bgImage}>
+                                <div className="flex-col">
+                                    <div className="MovieInfo">
+                                        <img
+                                            src={image == '' ? noImage : image}
+                                            className={image == '' ? 'noImage' : ''}
+                                            alt={data.title}
+                                        />
+                                        <div>
+                                            <div className="flex justify-between">
+                                                <h2 className="font-bold text-2xl">{title} {release_date ? <span>({release_date.split('-')[0]})</span> : ''}</h2>
+                                                {
+                                                    genre ? genre.map((gen, index) => (
+                                                        <Tag key={index} genre={gen.name} />
+                                                    )) : null
+                                                }
+                                            </div>
+                                            <h3>Rating: {vote_average}</h3>
+                                            {/* <h3>Date of Release: {release_date}</h3> */}
+                                            <h3>Run Time: {minToHrs(runtime)}</h3>
+                                            <h4>Plot</h4>
+                                            <hr />
+                                            <p>{overview}</p>
+                                            <h4>Tag Line</h4>
+                                            <hr />
+                                            <p>{tag}</p>
+                                            <h4 className="font-bold text-xl">Trailer</h4>
+                                            <hr />
+                                            {/* <p> {isAuthenticated ? 'Your Rating:' : null}</p> */}
+                                            <div id="video">
+                                                {
+                                                    trailer ? <iframe width="560" height="315" className="mt-2" src={`${trailer}`} allowFullScreen></iframe> : null
+                                                }
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div className="bg-white">
-                                    <h1 className="font-bold text-2xl underline">Actors</h1>
-                                    <div className="grid">
-                                        {
-                                            cast.length > 0 ?
-                                                cast.slice(0, 6).map((actor, index) => (
-                                                    <Actor key={index} actor={actor} />
-                                                ))
-                                                : "Couldn't find any Actors for the movie"
-                                        }
-                                    </div>
-                                    <h1 className="font-bold text-2xl underline">Similar Movies:</h1>
-                                    <div className="grid">
-                                        {
-                                            similar.length > 0 ?
-                                                similar.map((movies, index) => (
-                                                    <Movies key={index} movie={movies} />
-                                                ))
-                                                : "Couldn't find any Similar movies for the movie"
-                                        }
+                                    <div className="bg-white">
+                                        <h1 className="font-bold text-2xl underline">Actors</h1>
+                                        <div className="grid">
+                                            {
+                                                cast.length > 0 ?
+                                                    cast.slice(0, 6).map((actor, index) => (
+                                                        <Actor key={index} actor={actor} />
+                                                    ))
+                                                    : "Couldn't find any Actors for the movie"
+                                            }
+                                        </div>
+                                        <h1 className="font-bold text-2xl underline">Similar Movies:</h1>
+                                        <div className="grid">
+                                            {
+                                                similar.length > 0 ?
+                                                    similar.map((movies, index) => (
+                                                        <Movies key={index} movie={movies} />
+                                                    ))
+                                                    : "Couldn't find any Similar movies for the movie"
+                                            }
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                )}
+                    ) : <p className="loading"></p>}
         </>
     )
 }
