@@ -1,4 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import { BsFillBookmarksFill } from 'react-icons/bs';
+import { FiArrowRight } from "react-icons/fi";
+import { Link } from 'react-router-dom';
 
 const Wish = ({ tmdbId }) => {
 
@@ -40,7 +43,7 @@ const Wish = ({ tmdbId }) => {
         return `${hour}hr ${seconds}min`
     }
 
-    const { title, overview, vote_average: rating, runtime } = flim
+    const { id, title, overview, vote_average: rating, runtime } = flim
 
     return (
 
@@ -54,17 +57,22 @@ const Wish = ({ tmdbId }) => {
                             <p id="job" className="text-gray-800 mt-2">{overview}</p>
                             <div className="flex mt-5">
                                 {/* svg */}
-                                <img alt="avatar" className="w-6 rounded-full border-2 border-gray-300" src="https://picsum.photos/seed/picsum/200" />
+                                {/* <img alt="avatar" className="w-6 rounded-full border-2 border-gray-300" src="https://picsum.photos/seed/picsum/200" /> */}
+                                <BsFillBookmarksFill className="cursor-pointer rounded mt-1 hover:text-green-400" />
+                                {/* <input type="checkbox" className="w-6 rounded-full" /> */}
                                 <p className="ml-3">Watched?</p>
                                 <p className="ml-3">Rating: {rating}</p>
                                 <p className="ml-3">Run Time: {minToHrs(runtime)}</p>
                             </div>
+                            <Link to={`/movies/${id}/#Movie`} className=" ml-auto hover:text-blue-500 hover:underline">
+                                Show more <FiArrowRight className=" inline-flex" />
+                            </Link>
                         </div>
                     </div>
                 </div>
             </>) :
                 (<div className="w-full flex items-center flex-col">
-                    <div className="flex bg-white shadow-md p-4 rounded-md">
+                    <div className="flex bg-white shadow-md p-4 rounded-md mb-4">
                         <div data-placeholder className="mr-2 h-20 w-20 rounded-full overflow-hidden relative bg-gray-200">
                         </div>
                         <div className="flex flex-col justify-between">

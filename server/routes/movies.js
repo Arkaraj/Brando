@@ -24,7 +24,7 @@ router.get('/:_id', async (req, res) => {
         if (err)
             res.status(500).json({ message: { msg: "Error has occured", msgError: true } });
         else {
-            res.status(200).json({ favourites: document.favourites, authenticated: true })
+            res.status(200).json({ favourites: document.favourites, authenticated: true, message: { msgError: false } })
         }
     })
 

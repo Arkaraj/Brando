@@ -16,9 +16,9 @@ export default {
             .then(res => res.json())
             .then(data => {
                 // data.favourites gives array of all the fav movies
-                const list = data.favourites
+                // const list = data.favourites
 
-                return list
+                return data
 
             })
     },

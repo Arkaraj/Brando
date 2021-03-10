@@ -6,6 +6,8 @@ import Movies from './Movies'
 const MovieSearch = (props) => {
 
     const [flim, setFlim] = useState([])
+
+    const [isLoaded, setIsLoaded] = useState(false)
     // get flim
     const name = props.match.params.movieName
 
@@ -14,6 +16,7 @@ const MovieSearch = (props) => {
             .then(res => res.json())
             .then(data => {
                 setFlim(data.results)
+                setIsLoaded(true)
             })
 
     }, [name]) // Runs when name changes
@@ -23,11 +26,12 @@ const MovieSearch = (props) => {
             <Search history={props.history} />
             <div className="grid">
                 {
-                    flim.length > 0 ? flim.map(flim => (
-                        <Movies key={flim.id} movie={flim} />
-                    )) : (
-                            <p className="loading">No Movies</p>
-                        )
+                    isLoaded ?
+                        flim.length > 0 ? flim.map(flim => (
+                            <Movies key={flim.id} movie={flim} />
+                        )) : (
+                            <p>No Moives</p>
+                        ) : (<p className="loading"></p>)
                 }
             </div>
             {/* Pagination needed */}

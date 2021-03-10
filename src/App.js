@@ -20,6 +20,7 @@ import Genres from './components/Genres'
 import SGenres from './components/SGenres'
 import Popular from './components/Popular'
 import WishList from './components/WishList'
+import page404 from './components/page404'
 
 function App() {
   const [movies, setMovies] = useState([])
@@ -43,44 +44,45 @@ function App() {
     <Router>
       <div className="App">
         <Nav />
-        <Route exact path='/' render={(props) => (
-          <>
-            <Search setMovies={setMovies} history={props.history} />
-            <Slider />
-            <div className="grid">
-              {movies.length > 0 ? movies.map(movie => (
-                <Movies key={movie.id} movie={movie} />
-              )) : (
+        <Switch>
+
+          <Route exact path='/' render={(props) => (
+            <>
+              <Search setMovies={setMovies} history={props.history} />
+              <Slider />
+              <div className="grid">
+                {movies.length > 0 ? movies.map(movie => (
+                  <Movies key={movie.id} movie={movie} />
+                )) : (
                   <p className="loading"></p>
                 )}
-            </div>
-          </>
-        )} />
+              </div>
+            </>
+          )} />
 
-        <Route path="/search/:movieName" component={MovieSearch} />
-        <PublicRoute path="/login" component={Login} />
-        <PublicRoute path="/register" component={Register} />
-        <PrivateRoute path="/profile" component={Profile} />
-        <Route path="/movies/:id" component={MoviePage} />
-        <PrivateRoute path="/favourite" component={Favourite} />
-        <PrivateRoute path="/wishlist" component={WishList} />
-        <Switch>
-          <PrivateRoute key="1" path="/connect/:id" component={UserFav} />
-          <PrivateRoute key="2" path="/connect" component={Connect} />
-        </Switch>
+          <Route path="/search/:movieName" exact component={MovieSearch} />
+          <PublicRoute path="/login" exact component={Login} />
+          <PublicRoute path="/register" exact component={Register} />
+          <PrivateRoute path="/profile" exact component={Profile} />
+          <Route path="/movies/:id" exact component={MoviePage} />
+          <PrivateRoute path="/favourite" exact component={Favourite} />
+          <PrivateRoute path="/wishlist" exact component={WishList} />
+          <Route path="/popular/:page" exact render={(props) => (
+            <Popular case="popular" {...props} />
+          )} />
+          <Route path="/rated/:page" exact render={(props) => (
+            <Popular case="top_rated" {...props} />
+          )} />
+          <Route path="/genres/:name" exact component={SGenres} />
+          <Route path="/genres" exact component={Genres} />
+          <PrivateRoute key="1" exact path="/connect/:id" component={UserFav} />
+          <PrivateRoute key="2" exact path="/connect" component={Connect} />
 
-        <Switch>
-          <Route path="/genres/:name" component={SGenres} />
-          <Route path="/genres" component={Genres} />
+          <Route component={page404} />
+
         </Switch>
-        <Route path="/popular/:page" render={(props) => (
-          <Popular case="popular" {...props} />
-        )} />
-        <Route path="/rated/:page" render={(props) => (
-          <Popular case="top_rated" {...props} />
-        )} />
+        <Footer />
       </div>
-      <Footer />
     </Router>
   );
 }

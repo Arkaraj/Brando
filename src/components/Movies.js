@@ -2,6 +2,8 @@ import React, { useState, useEffect, useContext } from 'react';
 import { Route, Link } from 'react-router-dom'
 import { AuthContext } from '../Context/AuthContext'
 import MovieService from '../Services/MovieService';
+import { TiStarFullOutline } from "react-icons/ti";
+import { BsFillBookmarkFill } from "react-icons/bs";
 
 // import MoviePage from './MoviePage'
 
@@ -197,11 +199,9 @@ const Movies = ({ movie }) => {
                             <span className={`dot ${setTagColour(movie.vote_average)}`} />{(movie.vote_average.toFixed(2)) * 10}%</p>
 
                         {isAuthenticated ? <>
-                            {fav ? null : <svg onClick={() => wishList(movie.id)} className={wish ? "text-yellow-500 rounded-full cursor-pointer" : "text-green-400 hover:bg-yellow-300 hover:text-yellow-500 active:text-yellow-500 rounded-full cursor-pointer"} width="2em" height="2em" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M7.828 4h8.343a2 2 0 011.996 1.878l.83 13.591a.5.5 0 01-.795.433l-5.608-4.144a1 1 0 00-1.189 0l-5.608 4.144a.5.5 0 01-.796-.433l.83-13.591A2 2 0 017.829 4z" fill="currentcolor" fillRule="evenodd" /></svg>}
+                            {fav ? null : < BsFillBookmarkFill onClick={() => wishList(movie.id)} className={wish ? "text-yellow-500 text-3xl rounded-full cursor-pointer" : "text-green-400 hover:bg-yellow-300 text-3xl hover:text-yellow-500 active:text-yellow-500 rounded-full cursor-pointer"} />}
                             {!wish ? <button className="p-4 bg-blue-600 rounded-full hover:bg-blue-500 focus:bg-blue-700 transition ease-in duration-200 focus:outline-none" onClick={() => favourite(movie.id)}>
-                                <svg fill="currentColor" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" className={fav ? "blue" : "star"} viewBox="0 0 24 24" >
-                                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
-                                </svg>
+                                <TiStarFullOutline className={fav ? "blue" : "star"} />
                             </button> : null}
                         </> : null}
                     </div>
