@@ -63,10 +63,12 @@ const Favmovie = ({ movie }) => {
     return (
         <div>
             <div className="card flex-col justify-items-center">
-                <div className="container max-h-1/6 mx-auto rounded-lg overflow-hidden shadow-2xl my-2 bg-white" style={{ maxWidth: '13.7rem', }}>
+                <div id="movieCard" className="container max-h-1/6 mx-auto rounded-lg overflow-hidden shadow-2xl my-2 bg-white" style={{ maxWidth: '13.7rem', }}>
                     {/* background: '#22254b' */}
                     <div className="relative overflow-hidden z-10" style={{ clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0 calc(100% - 4vh))' }}>
-                        <img className src={flim.poster_path ? poster : noImage} alt="Movie Image" />
+                        <Link to={`/movies/${flim.id}/#Movie`}>
+                            <img className src={flim.poster_path ? poster : noImage} alt="Movie Image" />
+                        </Link>
                     </div>
                     <div className="relative flex justify-between items-center flex-row px-2 z-50 -mt-8">
                         <p className="flex items-center text-gray-400" className={`tag ${setTagColour(flim.vote_average)}`}>

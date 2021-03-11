@@ -18,7 +18,7 @@ const Wish = ({ tmdbId }) => {
     const fetchMovie = async () => {
         const res = await fetch(`https://api.themoviedb.org/3/movie/${tmdbId}?api_key=${process.env.REACT_APP_API_KEY}`)
         const data = await res.json()
-        console.log(data)
+        // console.log(data)
         const image_path = data.poster_path ? poster + data.poster_path : ''
         setImage(image_path)
         setLoaded(true)
@@ -49,7 +49,7 @@ const Wish = ({ tmdbId }) => {
 
         <>
             {loaded ? (<>
-                <div className="max-w-2xl bg-white border-2 border-gray-300 p-5 rounded-md tracking-wide shadow-lg">
+                <div className="max-w-2xl bg-white border-2 border-gray-300 p-5 rounded-md tracking-wide shadow-lg mb-2">
                     <div id="header" className="flex">
                         <img alt="mountain" className="w-45 rounded-md border-2 border-gray-300" src={image} />
                         <div id="body" className="flex flex-col ml-5">

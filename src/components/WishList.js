@@ -18,7 +18,7 @@ const WishList = () => {
     }, [])
 
     return (
-        <div>
+        <div className="m-10">
             <h1 className="text-xl font-bold mb-2 capitalize">WishList here</h1>
 
             {

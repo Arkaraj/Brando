@@ -74,6 +74,18 @@ nav .menu .menu_links:hover {
     opacity: 1;
 } */
 
+#movieCard{
+  transition: .3s transform cubic-bezier(0.155, 1.105, 0.295, 1.12);
+  cursor: pointer;
+}
+
+#movieCard:hover{
+  
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+  margin: 0.25rem 0;
+  transform: scale(1.1);
+}
+
 @media screen and (max-width: 799px) {
     nav .menu .menu_links {
         display: none;

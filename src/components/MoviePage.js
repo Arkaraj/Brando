@@ -26,6 +26,8 @@ const MoviePage = (props) => {
 
     const [similar, setSimilar] = useState([])
 
+    const [crew, setCrew] = useState([])
+
     const [loaded, isLoaded] = useState(false)
 
     const noImage = "https://upload.wikimedia.org/wikipedia/commons/f/fc/No_picture_available.png"
@@ -74,6 +76,7 @@ const MoviePage = (props) => {
             .then(res => res.json())
             .then(data => {
 
+                setCrew(data.crew.filter(crew => crew.job == "Director"))
                 if (data.cast) {
                     setCast(data.cast)
                 } else {
@@ -142,6 +145,10 @@ const MoviePage = (props) => {
                                                     )) : null
                                                 }
                                             </div>
+
+                                            <h3>Director: {crew.map((crw, index) => (
+                                                <span className="pl-1">{crw.name}{index == crew.length - 1 ? null : ','}</span>
+                                            ))}</h3>
                                             <h3>Rating: {vote_average}</h3>
                                             {/* <h3>Date of Release: {release_date}</h3> */}
                                             <h3>Run Time: {minToHrs(runtime)}</h3>
@@ -156,7 +163,7 @@ const MoviePage = (props) => {
                                             {/* <p> {isAuthenticated ? 'Your Rating:' : null}</p> */}
                                             <div id="video">
                                                 {
-                                                    trailer ? <iframe width="560" height="315" className="mt-2" src={`${trailer}`} allowFullScreen></iframe> : null
+                                                    trailer ? <iframe width="560" height="315" className="mt-2" src={`${trailer}`} allowFullScreen></iframe> : <p>The Trailer couldn't be loaded</p>
                                                 }
                                             </div>
                                         </div>

@@ -24,7 +24,7 @@ const Favourite = () => {
 
         getCine()
 
-    }, [])
+    }, [isAuthenticated])
 
     return (
         <div>
@@ -37,10 +37,10 @@ const Favourite = () => {
                     ))}
                 </div>
             ) : (
-                    <p className="text-center text-2xl font-bold">
-                        <img className="mx-auto" src={NoMovie} alt="No Favourites" />
+                <p className="text-center text-2xl font-bold">
+                    <img className="mx-auto" src={NoMovie} alt="No Favourites" />
                             Looks Like you have not Marked any Movies as Favourite yet!</p>
-                )}
+            )}
 
         </div>
     );

@@ -21,6 +21,7 @@ import SGenres from './components/SGenres'
 import Popular from './components/Popular'
 import WishList from './components/WishList'
 import page404 from './components/page404'
+import Person from './components/Person'
 
 function App() {
   const [movies, setMovies] = useState([])
@@ -51,11 +52,12 @@ function App() {
               <Search setMovies={setMovies} history={props.history} />
               <Slider />
               <div className="grid">
-                {movies.length > 0 ? movies.map(movie => (
-                  <Movies key={movie.id} movie={movie} />
-                )) : (
-                  <p className="loading"></p>
-                )}
+                {
+                  movies.length > 0 ? movies.map(movie => (
+                    <Movies key={movie.id} movie={movie} />
+                  )) : (
+                    <p className="loading mx-auto"></p>
+                  )}
               </div>
             </>
           )} />
@@ -73,6 +75,7 @@ function App() {
           <Route path="/rated/:page" exact render={(props) => (
             <Popular case="top_rated" {...props} />
           )} />
+          <Route path="/person/:id" component={Person} />
           <Route path="/genres/:name" exact component={SGenres} />
           <Route path="/genres" exact component={Genres} />
           <PrivateRoute key="1" exact path="/connect/:id" component={UserFav} />

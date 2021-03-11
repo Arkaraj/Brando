@@ -188,10 +188,12 @@ const Movies = ({ movie }) => {
     return (
         <Route path="/">
             <div className="card flex-col justify-items-center">
-                <div className="max-h-1/6 mx-auto rounded-lg overflow-hidden hover:shadow-2xl bg-white" style={{ maxWidth: '13.7rem', }}>
+                <div id="movieCard" className="max-h-1/6 mx-auto rounded-lg overflow-hidden bg-white" style={{ maxWidth: '13.7rem', }}>
                     {/* background: '#22254b' */}
                     <div className="relative overflow-hidden z-10" style={{ clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0 calc(100% - 3vh))' }}>
-                        <img className src={movie.poster_path ? poster : noImage} alt="Movie Image" />
+                        <Link to={`/movies/${movie.id}/#Movie`}>
+                            <img className src={movie.poster_path ? poster : noImage} alt="Movie Image" />
+                        </Link>
                     </div>
                     <div className="relative flex justify-between items-center flex-row px-2 z-50 -mt-8">
                         <p className="flex items-center text-gray-400" className={`tag ${setTagColour(movie.vote_average)}`}>
