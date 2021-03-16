@@ -28,13 +28,7 @@ const Person = (props) => {
             .then(res => res.json())
             .then(data => {
                 // console.log(data.cast)
-                if (data.name) {
-                    setActorMovies(data.cast)
-                    return
-                } else {
-                    return
-                }
-
+                let x = data.cast ? setActorMovies(data.cast) : null
             })
 
     }
@@ -65,7 +59,7 @@ const Person = (props) => {
                 Biography:
                 <h3>{biography}</h3>
                 Known For:
-                <div className="grid">
+                <div className="gridx">
                             {
                                 actorMovies.length > 0 ?
                                     actorMovies.slice(0, 8).map(mov => (

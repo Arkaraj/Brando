@@ -22,6 +22,7 @@ import Popular from './components/Popular'
 import WishList from './components/WishList'
 import page404 from './components/page404'
 import Person from './components/Person'
+import pic5 from './Images/image5.png'
 
 function App() {
   const [movies, setMovies] = useState([])
@@ -51,13 +52,15 @@ function App() {
             <>
               <Search setMovies={setMovies} history={props.history} />
               <Slider />
-              <div className="grid">
-                {
-                  movies.length > 0 ? movies.map(movie => (
-                    <Movies key={movie.id} movie={movie} />
-                  )) : (
-                    <p className="loading mx-auto"></p>
-                  )}
+              <div className="showcase">
+                <div className="gridx">
+                  {
+                    movies.length > 0 ? movies.map(movie => (
+                      <Movies key={movie.id} movie={movie} />
+                    )) : (
+                      <p className="loading mx-auto"></p>
+                    )}
+                </div>
               </div>
             </>
           )} />
@@ -66,7 +69,7 @@ function App() {
           <PublicRoute path="/login" exact component={Login} />
           <PublicRoute path="/register" exact component={Register} />
           <PrivateRoute path="/profile" exact component={Profile} />
-          <Route path="/movies/:id" exact component={MoviePage} />
+          <Route path="/movies/:id" setMovies={setMovies} exact component={MoviePage} />
           <PrivateRoute path="/favourite" exact component={Favourite} />
           <PrivateRoute path="/wishlist" exact component={WishList} />
           <Route path="/popular/:page" exact render={(props) => (

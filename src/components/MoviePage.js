@@ -4,6 +4,7 @@ import { AuthContext } from '../Context/AuthContext'
 import Tag from './Tag'
 import Actor from './Actor';
 import Movies from './Movies';
+import Search from './Search';
 
 const poster = "http://image.tmdb.org/t/p/w154/"
 
@@ -137,7 +138,7 @@ const MoviePage = (props) => {
                                             alt={data.title}
                                         />
                                         <div>
-                                            <div className="flex justify-between">
+                                            <div className="sm:flex sm:justify-between">
                                                 <h2 className="font-bold text-2xl">{title} {release_date ? <span>({release_date.split('-')[0]})</span> : ''}</h2>
                                                 {
                                                     genre ? genre.map((gen, index) => (
@@ -170,7 +171,7 @@ const MoviePage = (props) => {
                                     </div>
                                     <div className="bg-white">
                                         <h1 className="font-bold text-2xl underline">Actors</h1>
-                                        <div className="grid">
+                                        <div className="gridx">
                                             {
                                                 cast.length > 0 ?
                                                     cast.slice(0, 6).map((actor, index) => (
@@ -180,7 +181,7 @@ const MoviePage = (props) => {
                                             }
                                         </div>
                                         <h1 className="font-bold text-2xl underline">Similar Movies:</h1>
-                                        <div className="grid">
+                                        <div className="gridx">
                                             {
                                                 similar.length > 0 ?
                                                     similar.map((movies, index) => (
@@ -188,6 +189,10 @@ const MoviePage = (props) => {
                                                     ))
                                                     : "Couldn't find any Similar movies for the movie"
                                             }
+                                        </div>
+                                        <h1 className="mb-1 text-2xl font-medium text-center">Looking for something else? Search our reviews:</h1>
+                                        <div className="">
+                                            <Search setMovies={props.setMovies} history={props.history} />
                                         </div>
                                     </div>
                                 </div>

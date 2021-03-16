@@ -31,7 +31,7 @@ const Popular = (props) => {
     return (
         <>
             <Search history={props.history} />
-            <div className="grid">
+            <div className="gridx">
                 {
                     movies ? movies.length > 0 ? movies.map(movie => (
                         <Movies key={movie.id} movie={movie} />

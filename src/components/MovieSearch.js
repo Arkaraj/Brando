@@ -24,7 +24,7 @@ const MovieSearch = (props) => {
     return (
         <>
             <Search history={props.history} />
-            <div className="grid">
+            <div className="gridx">
                 {
                     isLoaded ?
                         flim.length > 0 ? flim.map(flim => (

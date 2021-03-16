@@ -39,5 +39,20 @@ In package.json file add proxy, to remove cors error:
 "proxy": "http://localhost:8080"
 ```
 
+### To Do
+
+All front end works...
+
+- [ ] Dedicated Actors List page, (list of famous actors, with search button)
+- [ ] Contact Page
+- [ ] About Page
+- [ ] TV shows
+- [ ] Search button in NavBar
+- [ ] Profile SideBar
+- [ ] App Logo
+- [ ] Fix Styling in Actors page
+- [ ] Fix Profile Edit page
+
+
 
 > P.S I know the file structure is messed by the server folder should be outside and the REACT files should be in client.... Also axios could have been used instead of classic fetch

@@ -20,7 +20,7 @@ const Connect = () => {
 
     return (
         <>
-            <div className="grid profile">
+            <div className="gridx profile">
                 {
                     others.length > 0 ?
                         others.map(other => (

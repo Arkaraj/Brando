@@ -70,7 +70,7 @@ const Favmovie = ({ movie }) => {
                             <img className src={flim.poster_path ? poster : noImage} alt="Movie Image" />
                         </Link>
                     </div>
-                    <div className="relative flex justify-between items-center flex-row px-2 z-50 -mt-8">
+                    <div className="relative flex justify-between items-center flex-row px-2 z-10 -mt-8">
                         <p className="flex items-center text-gray-400" className={`tag ${setTagColour(flim.vote_average)}`}>
                             {/* className={`tag ${setTagColour(flim.vote_average)}`} */}
                             <span className={`dot ${setTagColour(flim.vote_average)}`} />{flim.vote_average ? (flim.vote_average.toFixed(2)) * 10 : 0}%</p>

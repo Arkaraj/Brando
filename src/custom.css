@@ -6,6 +6,7 @@ body {
     height: auto;
     font-family: "Barlow", sans-serif;
     background: #ebf7ff;
+    /* background: #051A2A; */
     /* background: #FB8500; */
   }
 
@@ -23,7 +24,6 @@ body {
     z-index: 3; */
     
     background: rgba(246, 246, 248, 0.1) none repeat scroll 0 0;
-    
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -218,7 +218,7 @@ nav .menu .menu_icon:hover .icon:after {
     color: #000;
 }
   
-  .grid{
+  .gridx{
     display: grid;
     grid-template-columns: repeat(6,1fr);
     padding: 1rem;
@@ -255,7 +255,6 @@ nav .menu .menu_icon:hover .icon:after {
       border-radius: .25rem;
       border-radius: 0.25em;
       color: #324d67;
-      color: #324d67;
       margin-top: 1rem;
   }
   
@@ -269,6 +268,24 @@ nav .menu .menu_icon:hover .icon:after {
       cursor: pointer;
   }
   
+  .showcase {
+
+  display: block;
+  position: relative;
+  }
+
+  .showcase::after {
+    content: "";
+  background: url('./Images/image5.png');
+  opacity: 0.5;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  position: absolute;
+  z-index: -1; 
+  }
+
   .star {
     /* w-4 h-4 text-blue-500 */
     width: 1rem;
@@ -419,12 +436,12 @@ img.actorImg {
   }
   
   @media (max-width: 1200px) {
-    .grid{
+    .gridx{
       grid-template-columns: repeat(3, 1fr);
           padding: 0.5rem;
           grid-row-gap: 0.5rem;
     }
-    .grid.profile{
+    .gridx.profile{
       grid-template-columns: repeat(1, 1fr);
           padding: 0.5rem;
           grid-row-gap: 0.5rem;
@@ -443,12 +460,12 @@ img.actorImg {
   
   }
   @media (max-width: 500px) {
-    .grid{
+    .gridx{
       grid-template-columns: repeat(2, 1fr);
           padding: 0.5rem;
           grid-row-gap: 0.5rem;
     }
-    .grid.profile{
+    .gridx.profile{
       grid-template-columns: repeat(1, 1fr);
           padding: 0.5rem;
           grid-row-gap: 0.5rem;
