@@ -61,13 +61,19 @@ const Movies = ({ movie }) => {
     useEffect(() => {
 
         const fetchData = async () => {
-            await getData(movie.id)
-            await getWish(movie.id)
+            if (isAuthenticated) {
+                await getData(movie.id)
+                await getWish(movie.id)
+                return
+            }
+            else {
+                return;
+            }
         }
 
         fetchData();
 
-    }, [getData, movie.id])
+    }, [getData, getWish, isAuthenticated, movie.id])
 
     const noImage = "https://upload.wikimedia.org/wikipedia/commons/f/fc/No_picture_available.png"
     const poster = Movie_Img + movie.poster_path

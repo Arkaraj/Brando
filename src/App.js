@@ -22,7 +22,7 @@ import Popular from './components/Popular'
 import WishList from './components/WishList'
 import page404 from './components/page404'
 import Person from './components/Person'
-import pic5 from './Images/image5.png'
+import Artist from './components/Artist'
 
 function App() {
   const [movies, setMovies] = useState([])
@@ -66,6 +66,7 @@ function App() {
           )} />
 
           <Route path="/search/:movieName" exact component={MovieSearch} />
+          <Route path="/actor/search/:actorName" exact component={Artist} />
           <PublicRoute path="/login" exact component={Login} />
           <PublicRoute path="/register" exact component={Register} />
           <PrivateRoute path="/profile" exact component={Profile} />
@@ -79,6 +80,7 @@ function App() {
             <Popular case="top_rated" {...props} />
           )} />
           <Route path="/person/:id" component={Person} />
+          <Route path="/actor" exact component={Artist} />
           <Route path="/genres/:name" exact component={SGenres} />
           <Route path="/genres" exact component={Genres} />
           <PrivateRoute key="1" exact path="/connect/:id" component={UserFav} />
