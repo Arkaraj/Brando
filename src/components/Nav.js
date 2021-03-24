@@ -787,13 +787,13 @@ const Nav = (props) => {
                                     TV shows
                   </Link>
                                 <Link
-                                    to="/"
+                                    to="/actor"
                                     className="text-base font-medium text-gray-900 hover:text-gray-700"
                                 >
                                     Actors
                   </Link>
                                 <Link
-                                    to="/"
+                                    to="/about"
                                     className="text-base font-medium text-gray-900 hover:text-gray-700"
                                 >
                                     About

@@ -93,7 +93,7 @@ const UserFav = (props) => {
                     </p>
     
                 </form> */}
-                        <div className="grid mt-12">
+                        <div className="gridx mt-12">
                             {
                                 fav.length > 0 ? fav.map(fav => (
                                     <Movies key={fav._id} movie={fav} />

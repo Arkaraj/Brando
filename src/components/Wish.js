@@ -55,7 +55,7 @@ const Wish = ({ tmdbId }) => {
                         <div id="body" className="flex flex-col ml-5">
                             <h4 id="name" className="text-xl font-semibold mb-2">{title}</h4>
                             <p id="job" className="text-gray-800 mt-2">{overview}</p>
-                            <div className="flex mt-5">
+                            <div className="flex flex-col sm:flex-row mt-5">
                                 {/* svg */}
                                 {/* <img alt="avatar" className="w-6 rounded-full border-2 border-gray-300" src="https://picsum.photos/seed/picsum/200" /> */}
                                 <BsFillBookmarksFill className="cursor-pointer rounded mt-1 hover:text-green-400" />

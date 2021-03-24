@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import Movies from './Movies'
 
 const Person = (props) => {
 
@@ -54,19 +55,24 @@ const Person = (props) => {
             {
                 loaded ?
                     <div>
-                        <img src={image} alt={name} />
-                        <h1>Name: {name}</h1>
-                Biography:
-                <h3>{biography}</h3>
-                Known For:
-                <div className="gridx">
+                        <div className="flex flex-row m-4">
+                            <div className="">
+                                <img src={image} className="rounded-md" alt={name} />
+                            </div>
+                            <div className=" w-full text-justify mx-3">
+                                <h1 className="text-xl font-bold leading-none text-black sm:text-2xl md:text-4xl">{name}</h1>
+                                <h4 className="mt-8 text-2xl font-medium">Biography:</h4>
+                                <p>
+                                    {biography}
+                                </p>
+                            </div>
+                        </div>
+                        <h4 className="m-4 mt-6 text-2xl font-medium">Known For:</h4>
+                        <div className="gridx">
                             {
                                 actorMovies.length > 0 ?
-                                    actorMovies.slice(0, 8).map(mov => (
-                                        <>
-                                            <h1>{mov.title}</h1>
-                                            <p>{mov.vote_average}</p>
-                                        </>
+                                    actorMovies.map(mov => (
+                                        <Movies movie={mov} />
                                     ))
                                     : <p>No Movies</p>
                             }
