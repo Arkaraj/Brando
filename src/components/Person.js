@@ -55,12 +55,12 @@ const Person = (props) => {
             {
                 loaded ?
                     <div>
-                        <div className="flex flex-row m-4">
-                            <div className="">
+                        <div className="flex sm:flex-row flex-col m-4">
+                            <div className="mx-auto">
                                 <img src={image} className="rounded-md" alt={name} />
                             </div>
-                            <div className=" w-full text-justify mx-3">
-                                <h1 className="text-xl font-bold leading-none text-black sm:text-2xl md:text-4xl">{name}</h1>
+                            <div className="w-full text-justify mx-3">
+                                <h1 className="text-xl font-bold leading-none text-black sm:text-2xl md:text-4xl text-center sm:text-left">{name}</h1>
                                 <h4 className="mt-8 text-2xl font-medium">Biography:</h4>
                                 <p>
                                     {biography}

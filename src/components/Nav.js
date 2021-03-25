@@ -128,7 +128,7 @@ const Nav = (props) => {
     const unAuthenticatedMobileNavBar = () => {
         return (
             <>
-                <div>
+                <div className="menu">
                     <Link
                         to="/register"
                         className="w-full flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-blue-600 hover:bg-blue-700"
@@ -194,6 +194,13 @@ const Nav = (props) => {
     const [open, setOpen] = useState(false);
     const [flyer, setFlyer] = useState(false);
     const [flyerTwo, setFlyerTwo] = useState(false);
+
+    // useEffect(() => {
+
+    //     unAuthenticatedNavBar()
+    //     isAuthenticatedNavBar()
+
+    // }, [])
 
     return (
         <nav className="transition delay-150 duration-300 ease-in-out">
@@ -475,7 +482,7 @@ const Nav = (props) => {
                                     <div className="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 overflow-hidden">
                                         <div className="relative grid gap-6 bg-white px-5 py-6 sm:gap-8 sm:p-8">
                                             <Link
-                                                to="/"
+                                                to="/contact"
                                                 className="-m-3 p-3 flex items-start rounded-lg hover:bg-gray-50"
                                             >
                                                 {/* Heroicon name: outline/support */}
@@ -526,11 +533,10 @@ const Nav = (props) => {
                                                 </svg>
                                                 <div className="ml-4">
                                                     <p className="text-base font-medium text-gray-900">
-                                                        Guides
+                                                        Popular TV shows
                             </p>
                                                     <p className="mt-1 text-sm text-gray-500">
-                                                        Learn how to maximize our platform to get the most
-                                                        out of it.
+                                                        Get the most popular shows that ever existed. Rated by TMDB users
                             </p>
                                                 </div>
                                             </Link>
@@ -556,11 +562,10 @@ const Nav = (props) => {
                                                 </svg>
                                                 <div className="ml-4">
                                                     <p className="text-base font-medium text-gray-900">
-                                                        Events
+                                                        Top Rated
                             </p>
                                                     <p className="mt-1 text-sm text-gray-500">
-                                                        See what meet-ups and other events we might be
-                                                        planning near you.
+                                                        Get the top rated TV shows.
                             </p>
                                                 </div>
                                             </Link>
@@ -586,10 +591,10 @@ const Nav = (props) => {
                                                 </svg>
                                                 <div className="ml-4">
                                                     <p className="text-base font-medium text-gray-900">
-                                                        Security
+                                                        On The Air
                             </p>
                                                     <p className="mt-1 text-sm text-gray-500">
-                                                        Understand how we take your privacy seriously.
+                                                        Get the latest, ongoing episodes and TV series.
                             </p>
                                                 </div>
                                             </Link>
@@ -799,7 +804,7 @@ const Nav = (props) => {
                                     About
                   </Link>
                                 <Link
-                                    to="/"
+                                    to="/contact"
                                     className="text-base font-medium text-gray-900 hover:text-gray-700"
                                 >
                                     Help Center

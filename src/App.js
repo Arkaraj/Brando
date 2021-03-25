@@ -23,6 +23,8 @@ import WishList from './components/WishList'
 import page404 from './components/page404'
 import Person from './components/Person'
 import Artist from './components/Artist'
+import About from './components/About'
+import Contact from './components/Contact'
 
 function App() {
   const [movies, setMovies] = useState([])
@@ -84,6 +86,10 @@ function App() {
           <Route path="/genres/:name" exact component={SGenres} />
           <Route path="/genres" exact component={Genres} />
           <PrivateRoute key="1" exact path="/connect/:id" component={UserFav} />
+
+          <Route path="/about" exact component={About} />
+          <Route path="/contact" exact component={Contact} />
+
           <PrivateRoute key="2" exact path="/connect" component={Connect} />
 
           <Route component={page404} />
