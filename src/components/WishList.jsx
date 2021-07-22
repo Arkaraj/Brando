@@ -13,7 +13,7 @@ const WishList = () => {
       setToWatch(data);
       // console.log(data)
     });
-  }, []);
+  }, [user._id]);
 
   return (
     <div className="m-10">

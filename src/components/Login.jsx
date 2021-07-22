@@ -45,7 +45,7 @@ const Login = (props) => {
                 </h2>
                 <p className="text-xl text-gray-600 md:pr-16">
                   Learn how to engage with your visitors and teach them about
-                  your mission. We're revolutionizing the way customers and
+                  your mission. We're rev olutionizing the way customers and
                   businesses interact.
                 </p>
               </div>

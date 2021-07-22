@@ -7,8 +7,9 @@ const cookieParser = require("cookie-parser");
 
 const auth = require("./routes/auth");
 
+// mongodb://localhost/Movie
 mongoose.connect(
-  `mongodb://localhost/Movie`,
+  `${process.env.URI}`,
   { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true },
   () => {
     console.log("Successfully connected to Database!!");

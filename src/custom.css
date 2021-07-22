@@ -22,7 +22,6 @@ nav .menu {
     padding: 0 5%;
     box-sizing: border-box;
     z-index: 3; */
-
   background: rgba(246, 246, 248, 0.1) none repeat scroll 0 0;
   display: flex;
   align-items: center;
@@ -36,9 +35,10 @@ nav .menu {
   transition: all ease-in-out 0.2s;
 }
 
+/* nav.main */
 nav.main {
   position: fixed;
-  z-index: 99;
+  z-index: 100;
   width: 100%;
 }
 
@@ -528,6 +528,14 @@ img.actorImg {
   100% {
     transform: rotate(1turn);
   }
+}
+
+/* Footer */
+
+footer {
+  /* position: absolute; */
+  bottom: 0;
+  width: 100%;
 }
 
 @media (max-width: 1200px) {
