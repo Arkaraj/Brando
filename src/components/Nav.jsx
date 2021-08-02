@@ -1,10 +1,11 @@
 import React, { useState, useContext } from "react";
-import Search from "./Search";
+import { BsSearch } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import AuthService from "../Services/AuthService";
 import { AuthContext } from "../Context/AuthContext";
 import { FiSearch } from "react-icons/fi";
-import { SiThemoviedatabase } from "react-icons/si";
+// import { SiThemoviedatabase } from "react-icons/si";
+import brandoLogo from "../Images/brando.png";
 
 // const Nav = (props) => {
 
@@ -49,6 +50,9 @@ const Nav = (props) => {
         {/* <Link to="/login" className="link">Login</Link>
                 <Link to='/register' className="link">Register</Link> */}
         <div className="hidden md:flex items-center justify-end md:flex-1 lg:w-0">
+          <div className="cursor-pointer mx-auto">
+            <BsSearch style={{ fontWeight: "bold", fontSize: 18 }} />
+          </div>
           <Link
             to="/login"
             className="whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-900"
@@ -77,6 +81,9 @@ const Nav = (props) => {
                     Logout
                     </Link> */}
         <div className="hidden md:flex items-center justify-end md:flex-1 lg:w-0">
+          <div className="cursor-pointer mx-auto items-center">
+            <BsSearch style={{ fontWeight: "bold", fontSize: 18 }} />
+          </div>
           <Link
             to="/profile"
             className="whitespace-nowrap font-bold text-lg text-gray-500 hover:text-gray-900"
@@ -199,15 +206,15 @@ const Nav = (props) => {
             <div className="flex justify-start lg:w-0 lg:flex-1">
               <Link to="/">
                 <span className="sr-only">Brando</span>
-                {/* <img
-                                    className="h-8 w-auto sm:h-10"
-                                    src="https://tailwindui.com/img/logos/workflow-mark-blue-600.svg"
-                                    alt="Brando"
-                                /> */}
-                <SiThemoviedatabase
+                <img
+                  className="h-8 w-auto sm:h-10"
+                  src={brandoLogo}
+                  alt="Brando"
+                />
+                {/* <SiThemoviedatabase
                   className="text-blue-500"
                   style={{ transform: "scale(3)" }}
-                />
+                /> */}
               </Link>
             </div>
             <div className="-mr-2 -my-2 md:hidden">
@@ -644,6 +651,10 @@ const Nav = (props) => {
                 </div>
               </div>
               {/* <Search setMovies={[]} history={props.history} /> */}
+              {/* Search */}
+              {/* <div className="md:flex items-center justify-end md:flex-1">
+                <BsSearch />
+              </div> */}
             </nav>
             {/* Unauthbar */}
             {isAuthenticated
@@ -665,7 +676,7 @@ const Nav = (props) => {
         <div
           className={
             open
-              ? "opacity-100 scale-100 transition ease-out duration-200 absolute top-0 inset-x-0 p-2 transition transform origin-top-right md:hidden"
+              ? "opacity-100 scale-100 transition ease-out duration-200 absolute top-0 inset-x-0 p-2 transform origin-top-right md:hidden"
               : "hidden opacity-0 scale-95 absolute top-0 inset-x-0 p-2 transition transform origin-top-right md:hidden"
           }
         >

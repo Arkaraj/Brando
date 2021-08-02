@@ -91,6 +91,10 @@ nav .menu .menu_links:hover {
   nav .menu .menu_links {
     display: none;
   }
+  #movieCard:hover {
+    transform: none;
+    margin: auto;
+  }
 }
 
 nav .menu .menu_links .link {
@@ -240,6 +244,11 @@ nav .menu .menu_icon:hover .icon:after {
   border-top: 3px solid #49a6e9;
   -webkit-animation: spinner 0.6s linear infinite;
   animation: spinner 0.6s linear infinite;
+}
+
+.button404 {
+  margin-left: 40%;
+  margin-right: 40%;
 }
 
 .noImage {
