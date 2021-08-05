@@ -2,8 +2,9 @@ import React, { useState, useEffect } from "react";
 import { BsFillBookmarksFill } from "react-icons/bs";
 import { FiArrowRight } from "react-icons/fi";
 import { Link } from "react-router-dom";
+import MovieService from "../Services/MovieService";
 
-const Wish = ({ tmdbId }) => {
+const Wish = ({ _id, tmdbId, setToWatch }) => {
   const [flim, setFlim] = useState([]);
 
   const [loaded, setLoaded] = useState(false);
@@ -22,7 +23,7 @@ const Wish = ({ tmdbId }) => {
       `https://api.themoviedb.org/3/movie/${tmdbId}?api_key=${process.env.REACT_APP_API_KEY}`
     );
     const data = await res.json();
-    console.log(data);
+    // console.log(data);
     const image_path = data.poster_path ? poster + data.poster_path : "";
     const backdrop_path = data.backdrop_path ? poster + data.backdrop_path : "";
     setBackdrop(backdrop_path);
@@ -62,6 +63,16 @@ const Wish = ({ tmdbId }) => {
 
   const { id, title, overview, vote_average: rating, runtime } = flim;
 
+  const handleRemoveFromWishList = () => {
+    MovieService.deleteWish(_id).then((data) => {
+      if (data.done) {
+        setToWatch((towatch) => towatch.filter((wish) => wish._id !== _id));
+      } else {
+        alert(data.error);
+      }
+    });
+  };
+
   return (
     <>
       {loaded ? (
@@ -97,7 +108,10 @@ const Wish = ({ tmdbId }) => {
                     </Link>
                   </li>
                   <li>
-                    <i className="material-icons"></i>
+                    <BsFillBookmarksFill
+                      style={{ cursor: "pointer" }}
+                      onClick={handleRemoveFromWishList}
+                    />
                   </li>
                 </ul>
               </div>

@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 import Nav from "./components/Nav";
-import Search from "./components/Search";
 import Slider from "./components/Slider";
 import MovieSearch from "./components/MovieSearch";
 import Login from "./components/Login";
@@ -38,7 +37,6 @@ function App() {
       .then((data) => {
         setMovies(data.results);
       });
-
     // setServer(movies.map(mov => [{ id: mov.id }]))
     // console.log(server)
   }, []);
@@ -46,15 +44,19 @@ function App() {
   return (
     <Router>
       <div className="App">
-        <Nav />
+        <Route
+          render={(props) => (
+            <Nav history={props.history} setMovies={setMovies} />
+          )}
+        />
         <Switch>
           <Route
             exact
             path="/"
             render={(props) => (
               <>
-                <Search setMovies={setMovies} history={props.history} />
                 <Slider />
+                {/* <Search setMovies={setMovies} history={props.history} /> */}
                 <div className="showcase">
                   <div className="gridx">
                     {movies.length > 0 ? (

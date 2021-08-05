@@ -6,12 +6,17 @@ const WishList = require("../models/wishList");
 // Get all wishLists of an individual, id is mongo _id of user
 router.get("/:_id", (req, res) => {
   Users.findById({ _id: req.params._id })
-    .populate("wishlist")
+    .populate({
+      path: "wishlist",
+      options: {
+        sort: { created_at: -1 }, // will work with _id as well
+      },
+    })
     .exec((err, document) => {
       if (err) {
         res
           .status(500)
-          .json({ message: { msg: "Error has occured", msgError: true } });
+          .json({ message: { msg: "Error has occured", msgError: true, err } });
       } else {
         res
           .status(200)
@@ -34,6 +39,7 @@ router.get("/:_id/:id", (req, res) => {
         const tid = document.wishlist.map((w) => w.id);
         const check = tid.includes(req.params.id);
         if (check) {
+          // eslint-disable-next-line eqeqeq
           const wish = document.wishlist.filter((w) => w.id == req.params.id);
           res.status(200).json({ msg: "Done", msgError: false, wish: wish[0] });
         } else {
@@ -74,21 +80,21 @@ router.delete("/:_id", async (req, res) => {
 
   try {
     await WishList.findOneAndDelete({ _id: req.params._id });
-    // pop from Users Array
+    // pop from Users Array;
     req.user.wishlist = req.user.wishlist.filter(
       (movie) => movie.toString() !== req.params._id
     );
 
     req.user.save((err) => {
       if (err) {
-        res.status(500).json({ error: "Internal server error" });
+        res.status(500).json({ error: "Internal server error", done: false });
       } else {
         res.status(200).json({ done: true, wishlist: req.user.wishlist });
       }
     });
   } catch (err) {
     console.log("Error: " + err);
-    res.status(500).json({ error: "Internal server error" });
+    res.status(500).json({ error: "Internal server error", done: false });
   }
 });
 

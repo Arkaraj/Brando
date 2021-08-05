@@ -4,36 +4,19 @@ import { Link } from "react-router-dom";
 import AuthService from "../Services/AuthService";
 import { AuthContext } from "../Context/AuthContext";
 import { FiSearch } from "react-icons/fi";
+import { AiOutlineCloseCircle } from "react-icons/ai";
 // import { SiThemoviedatabase } from "react-icons/si";
 import brandoLogo from "../Images/brando.png";
+import Search from "./Search";
 
-// const Nav = (props) => {
-
-//     return (
-//         <nav>
-
-//             <div className="menu">
-//                 <p className="website_name text-xl font-extrabold leading-none text-black sm:text-3xl md:text-xl"><Link to="/">Brando</Link></p>
-//                 <p className="website_name text-xl font-extrabold leading-none text-black sm:text-3xl md:text-xl"><Link to="/popular/1">Popular</Link></p>
-//                 <p className="website_name text-xl font-extrabold leading-none text-black sm:text-3xl md:text-xl"><Link to="/rated/1">Top Rated</Link></p>
-//                 <p className="website_name text-xl font-extrabold leading-none text-black sm:text-3xl md:text-xl"><Link to="/genres">Genres</Link></p>
-//                 {/* <Search /> */}
-//                 <div className="menu_links">
-//                     {isAuthenticated ? isAuthenticatedNavBar() : unAuthenticatedNavBar()
-//                     }
-//                 </div>
-//                 <div className="menu_icon">
-//                     <span className="icon" />
-//                 </div>
-//             </div>
-//         </nav>
-//     );
-// }
+// Git version to view what was here
 
 const Nav = (props) => {
   const { user, setUser, isAuthenticated, setIsAuthenticated } = useContext(
     AuthContext
   );
+
+  const [searchToggle, setSearchToggle] = useState(false);
 
   const logoutHandler = () => {
     AuthService.logout().then((data) => {
@@ -50,8 +33,21 @@ const Nav = (props) => {
         {/* <Link to="/login" className="link">Login</Link>
                 <Link to='/register' className="link">Register</Link> */}
         <div className="hidden md:flex items-center justify-end md:flex-1 lg:w-0">
-          <div className="cursor-pointer mx-auto">
-            <BsSearch style={{ fontWeight: "bold", fontSize: 18 }} />
+          <div className="cursor-pointer mx-auto flex flex-row">
+            {searchToggle ? (
+              <AiOutlineCloseCircle
+                style={{ fontWeight: "bold", fontSize: 18 }}
+                onClick={() => setSearchToggle(false)}
+              />
+            ) : (
+              <BsSearch
+                style={{ fontWeight: "bold", fontSize: 18 }}
+                onClick={() => setSearchToggle(!searchToggle)}
+              />
+            )}
+            {searchToggle ? (
+              <Search history={history} setMovies={setMovies} />
+            ) : null}
           </div>
           <Link
             to="/login"
@@ -81,8 +77,21 @@ const Nav = (props) => {
                     Logout
                     </Link> */}
         <div className="hidden md:flex items-center justify-end md:flex-1 lg:w-0">
-          <div className="cursor-pointer mx-auto items-center">
-            <BsSearch style={{ fontWeight: "bold", fontSize: 18 }} />
+          <div className="cursor-pointer mx-auto items-center flex flex-row">
+            {searchToggle ? (
+              <AiOutlineCloseCircle
+                style={{ fontWeight: "bold", fontSize: 18 }}
+                onClick={() => setSearchToggle(false)}
+              />
+            ) : (
+              <BsSearch
+                style={{ fontWeight: "bold", fontSize: 18 }}
+                onClick={() => setSearchToggle(!searchToggle)}
+              />
+            )}
+            {searchToggle ? (
+              <Search history={history} setMovies={setMovies} />
+            ) : null}
           </div>
           <Link
             to="/profile"
@@ -189,20 +198,32 @@ const Nav = (props) => {
   const [open, setOpen] = useState(false);
   const [flyer, setFlyer] = useState(false);
   const [flyerTwo, setFlyerTwo] = useState(false);
+  const { history, setMovies } = props;
+  let scrolling = true;
 
-  // useEffect(() => {
-
-  //     unAuthenticatedNavBar()
-  //     isAuthenticatedNavBar()
-
-  // }, [])
+  // const onScroll = (e) => {
+  //   setScrolling(e.target.scrollTop > 300);
+  //   // console.log(e.target);
+  // };
 
   return (
     <nav className="transition delay-150 duration-300 ease-in-out">
-      {/* This example requires Tailwind CSS v2.0+ */}
-      <div className="relative bg-white z-30">
+      {/* Tailwind CSS v2.0+ */}
+      <div
+        className={
+          scrolling
+            ? "relative bg-white z-30"
+            : "relative bg-white z-30 bg-opacity-70"
+        }
+      >
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <div className="flex justify-between items-center border-b-2 border-gray-100 py-6 md:justify-start md:space-x-10">
+          <div
+            className={
+              scrolling
+                ? "flex justify-between items-center border-b-2 border-gray-100 py-6 md:justify-start md:space-x-10"
+                : "flex justify-between items-center border-b-2 border-gray-100 border-opacity-20 py-6 md:justify-start md:space-x-10"
+            }
+          >
             <div className="flex justify-start lg:w-0 lg:flex-1">
               <Link to="/">
                 <span className="sr-only">Brando</span>
@@ -248,7 +269,7 @@ const Nav = (props) => {
                 <button
                   type="button"
                   className="
-                     group bg-white rounded-md text-gray-500 inline-flex items-center text-base font-medium hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 pb-8'
+                     group bg-white p-1 bg-opacity-90 rounded-md text-gray-500 inline-flex items-center text-base font-medium hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 pb-8'
                     "
                   onClick={() => {
                     setFlyer(!flyer);
@@ -421,13 +442,13 @@ const Nav = (props) => {
 
               <Link
                 to="/actor"
-                className="text-base font-medium text-gray-500 hover:text-gray-900"
+                className="text-base p-1 font-medium text-gray-500 hover:text-gray-900"
               >
                 Actors
               </Link>
               <Link
                 to="/about"
-                className="text-base font-medium text-gray-500 hover:text-gray-900"
+                className="text-base p-1 font-medium text-gray-500 hover:text-gray-900"
               >
                 About
               </Link>
@@ -435,7 +456,7 @@ const Nav = (props) => {
                 {/* Item active: "text-gray-900", Item inactive: "text-gray-500" */}
                 <button
                   type="button"
-                  className="group bg-white rounded-md text-gray-500 inline-flex items-center text-base font-medium hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                  className="group bg-white p-1 bg-opacity-90 rounded-md text-gray-500 inline-flex items-center text-base font-medium hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
                   onClick={() => {
                     setFlyerTwo(!flyerTwo);
                     setFlyer(false);

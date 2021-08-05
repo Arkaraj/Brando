@@ -21,8 +21,12 @@ const WishList = () => {
 
       {towatch.length > 0 ? (
         towatch.map((wish, index) => (
-          <Wish key={index} tmdbId={wish.id} />
-          // <p>Workssss</p>
+          <Wish
+            key={index}
+            tmdbId={wish.id}
+            _id={wish._id}
+            setToWatch={setToWatch}
+          />
         ))
       ) : (
         <p>Sorry, you have got no WatchList!!</p>
