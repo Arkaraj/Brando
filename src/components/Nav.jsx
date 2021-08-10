@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { BsSearch } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import AuthService from "../Services/AuthService";
@@ -51,7 +51,7 @@ const Nav = (props) => {
           </div>
           <Link
             to="/login"
-            className="whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-900"
+            className="whitespace-nowrap text-base font-medium text-gray-800 hover:text-gray-900"
           >
             Sign in
           </Link>
@@ -95,7 +95,7 @@ const Nav = (props) => {
           </div>
           <Link
             to="/profile"
-            className="whitespace-nowrap font-bold text-lg text-gray-500 hover:text-gray-900"
+            className="whitespace-nowrap font-bold text-lg text-gray-800 hover:text-gray-900"
           >
             {user.username}
           </Link>
@@ -133,6 +133,28 @@ const Nav = (props) => {
   const unAuthenticatedMobileNavBar = () => {
     return (
       <>
+        {searchToggle ? (
+          <AiOutlineCloseCircle
+            style={{ fontWeight: "bold", fontSize: 18 }}
+            onClick={() => setSearchToggle(false)}
+          />
+        ) : (
+          <>
+            <Link
+              to="/search/godfather"
+              className="flex flex-row justify-items-center items-center text-base font-medium text-gray-900 hover:text-gray-700"
+            >
+              Search For Movies
+              <BsSearch
+                style={{ fontWeight: "bold", fontSize: 18 }}
+                onClick={() => setSearchToggle(!searchToggle)}
+              />
+            </Link>
+          </>
+        )}
+        {searchToggle ? (
+          <Search history={history} setMovies={setMovies} />
+        ) : null}
         <div className="menu">
           <Link
             to="/register"
@@ -181,6 +203,28 @@ const Nav = (props) => {
             >
               Other Users
             </Link>
+            {searchToggle ? (
+              <AiOutlineCloseCircle
+                style={{ fontWeight: "bold", fontSize: 18 }}
+                onClick={() => setSearchToggle(false)}
+              />
+            ) : (
+              <>
+                <Link
+                  to="/search/godfather"
+                  className="flex flex-row justify-items-center items-center text-base font-medium text-gray-900 hover:text-gray-700"
+                >
+                  Search For Movies
+                  <BsSearch
+                    style={{ fontWeight: "bold", fontSize: 18 }}
+                    onClick={() => setSearchToggle(!searchToggle)}
+                  />
+                </Link>
+              </>
+            )}
+            {searchToggle ? (
+              <Search history={history} setMovies={setMovies} />
+            ) : null}
           </div>
         </div>
         <div>
@@ -199,28 +243,39 @@ const Nav = (props) => {
   const [flyer, setFlyer] = useState(false);
   const [flyerTwo, setFlyerTwo] = useState(false);
   const { history, setMovies } = props;
-  let scrolling = true;
+  const [scrolling, setScrolling] = useState(false);
 
-  // const onScroll = (e) => {
-  //   setScrolling(e.target.scrollTop > 300);
-  //   // console.log(e.target);
-  // };
+  const handleScroll = () => {
+    // setScrolling(e.target.scrollTop > 300);
+    if (window.scrollY >= 50) {
+      setScrolling(true);
+    } else {
+      setScrolling(false);
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  });
 
   return (
-    <nav className="transition delay-150 duration-300 ease-in-out">
+    <nav
+      className={
+        scrolling
+          ? "blur transition delay-150 duration-300 ease-in-out"
+          : " transition delay-150 duration-300 ease-in-out"
+      }
+    >
       {/* Tailwind CSS v2.0+ */}
-      <div
-        className={
-          scrolling
-            ? "relative bg-white z-30"
-            : "relative bg-white z-30 bg-opacity-70"
-        }
-      >
+      <div className={scrolling ? "relative z-30" : "relative bg-white z-30"}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div
             className={
               scrolling
-                ? "flex justify-between items-center border-b-2 border-gray-100 py-6 md:justify-start md:space-x-10"
+                ? "flex justify-between items-center py-6 md:justify-start md:space-x-10"
                 : "flex justify-between items-center border-b-2 border-gray-100 border-opacity-20 py-6 md:justify-start md:space-x-10"
             }
           >
@@ -442,13 +497,13 @@ const Nav = (props) => {
 
               <Link
                 to="/actor"
-                className="text-base p-1 font-medium text-gray-500 hover:text-gray-900"
+                className="text-base p-1 font-medium text-gray-900 hover:text-gray-500 hover:underline"
               >
                 Actors
               </Link>
               <Link
                 to="/about"
-                className="text-base p-1 font-medium text-gray-500 hover:text-gray-900"
+                className="text-base p-1 font-medium text-gray-900 hover:text-gray-500 hover:underline"
               >
                 About
               </Link>

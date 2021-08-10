@@ -43,7 +43,9 @@ router.get("/:_id/:id", (req, res) => {
           const wish = document.wishlist.filter((w) => w.id == req.params.id);
           res.status(200).json({ msg: "Done", msgError: false, wish: wish[0] });
         } else {
-          res.status(500).json({ msg: "Error has occured", msgError: true });
+          res
+            .status(404)
+            .json({ msg: "Movie Not in WishList", msgError: true });
         }
       }
     });

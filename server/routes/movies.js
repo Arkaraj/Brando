@@ -19,6 +19,7 @@ router.get("/", async (req, res) => {
 router.get("/:_id", async (req, res) => {
   // _id: req.user._id
   Users.findById({ _id: req.params._id })
+    .lean()
     .populate("favourites")
     .exec((err, document) => {
       if (err)
@@ -37,6 +38,7 @@ router.get("/:_id", async (req, res) => {
 
 router.get("/:_id/:id", (req, res) => {
   Users.findById({ _id: req.params._id })
+    .lean()
     .populate("favourites")
     .exec((err, document) => {
       if (err) {
@@ -55,8 +57,10 @@ router.get("/:_id/:id", (req, res) => {
           res.status(200).json({ fav: fav[0] });
         } else {
           res
-            .status(500)
-            .json({ message: { msg: "Error has occured", msgError: true } });
+            .status(404)
+            .json({
+              message: { msg: "Movie not in Favourites", msgError: true },
+            });
         }
       }
     });
