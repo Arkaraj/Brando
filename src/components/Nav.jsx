@@ -47,7 +47,7 @@ const Nav = (props) => {
               />
             )}
             {searchToggle ? (
-              <Search history={history} setMovies={setMovies} />
+              <Search history={history} setMovies={setMovies} navbar={true} />
             ) : null}
           </div>
           <Link
@@ -91,7 +91,7 @@ const Nav = (props) => {
               />
             )}
             {searchToggle ? (
-              <Search history={history} setMovies={setMovies} />
+              <Search history={history} setMovies={setMovies} navbar={true} />
             ) : null}
           </div>
           <Link
@@ -154,7 +154,7 @@ const Nav = (props) => {
           </>
         )}
         {searchToggle ? (
-          <Search history={history} setMovies={setMovies} />
+          <Search history={history} setMovies={setMovies} navbar={true} />
         ) : null}
         <div className="menu">
           <Link
@@ -224,7 +224,7 @@ const Nav = (props) => {
               </>
             )}
             {searchToggle ? (
-              <Search history={history} setMovies={setMovies} />
+              <Search history={history} setMovies={setMovies} navbar={true} />
             ) : null}
           </div>
         </div>

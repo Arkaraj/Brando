@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { BsSearch } from "react-icons/bs";
 
-const Search = ({ history }) => {
+const Search = ({ history, navbar = false }) => {
   const [text, setText] = useState("");
 
   const Submit = (e) => {
@@ -17,8 +17,14 @@ const Search = ({ history }) => {
   };
 
   return (
-    <form className="p-8 z-50 w-full" onSubmit={Submit}>
-      <div className="bg-transparent w-full sm:w-1/4 h-1/2 flex items-center rounded-none border-b-2 focus-within:border-blue-500">
+    <form className={navbar ? "z-50" : "p-8 z-50"} onSubmit={Submit}>
+      <div
+        className={
+          navbar
+            ? "bg-transparent w-full flex items-center rounded-none border-b-2 focus-within:border-blue-500"
+            : "bg-transparent w-full sm:w-1/4 h-1/2 flex items-center rounded-none border-b-2 focus-within:border-blue-500"
+        }
+      >
         <input
           className="bg-transparent w-full py-4 px-6 text-gray-700 leading-tight focus:outline-none"
           id="search"
