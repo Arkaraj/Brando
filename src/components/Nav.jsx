@@ -67,6 +67,17 @@ const Nav = (props) => {
     );
   };
 
+  const [sideBar, setSideBar] = useState(false);
+
+  const handleSideBar = () => {
+    if (sideBar.counter === 1) {
+      setSideBar((sb) => ({ counter: 2, toggle: !sb.toggle }));
+      return;
+    }
+    setSideBar((sb) => ({ counter: 1, toggle: !sb.toggle }));
+    return;
+  };
+
   const isAuthenticatedNavBar = () => {
     return (
       <>
@@ -95,11 +106,38 @@ const Nav = (props) => {
             ) : null}
           </div>
           <Link
-            to="/profile"
+            onClick={handleSideBar}
             className="whitespace-nowrap font-bold text-lg text-gray-800 hover:text-gray-900"
           >
             {user.username}
           </Link>
+          <Menu right customBurgerIcon={false} isOpen={sideBar.toggle}>
+            <Link
+              to="/profile"
+              className="whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-900"
+            >
+              {user.username}
+            </Link>
+            <Link
+              to="/favourite"
+              className="whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-900"
+            >
+              Favorites
+            </Link>
+            <Link
+              to="/wishlist"
+              className="whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-900"
+            >
+              WishList
+            </Link>
+            <Link
+              to="/connect"
+              className="whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-900"
+            >
+              Other Users
+            </Link>
+          </Menu>
+
           {/* Sidebar */}
 
           {/* <Link
@@ -255,9 +293,16 @@ const Nav = (props) => {
     }
   };
 
+  // const handleCrossClick = () => {
+  //   setSideBar(false);
+  // };
+
   useEffect(() => {
+    // const burgerCrossButton = document.querySelector("#react-burger-cross-btn");
+    // burgerCrossButton.addEventListener("click", handleCrossClick);
     window.addEventListener("scroll", handleScroll);
     return () => {
+      // burgerCrossButton.removeEventListener("click", handleCrossClick);
       window.removeEventListener("scroll", handleScroll);
     };
   });
@@ -914,7 +959,7 @@ const Nav = (props) => {
         </>
       ) : (
         // <Search history={history} setMovies={setMovies} />
-        <Menu>
+        <Menu right customBurgerIcon={<h2>hello</h2>}>
           <Link
             to="/profile"
             className="whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-900"

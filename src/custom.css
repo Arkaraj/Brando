@@ -606,16 +606,20 @@ img.actorImg {
   color: #fffce1;
 }
 
-.bm-burger-button {
+div > div.bm-overlay {
+  display: none;
+}
+
+/* .bm-burger-button {
   position: fixed;
   width: 36px;
   height: 30px;
   left: 36px;
   top: 36px;
-}
+} */
 .bm-burger-button button:focus {
-  outline: 2px solid #c94e50;
-  outline-offset: 8px;
+  outline: none;
+  /* outline-offset: 8px; */
 }
 .bm-burger-button button:focus + span span.bm-burger-bars {
   background-color: #c94e50;
@@ -751,6 +755,11 @@ img.actorImg {
 #reveal .bm-cross {
   background: #bdc3c7;
 }
+
+.bm-cross {
+  background: #bdc3c7;
+}
+
 #slide .bm-menu,
 #stack .bm-menu,
 #reveal .bm-menu {
