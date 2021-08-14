@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import Movies from "./Movies";
 import Search from "./Search";
 import Pagination from "./Pagination";
+import Shows from "./Shows";
 
-const Popular = (props) => {
-  const [movies, setMovies] = useState([]);
+const TvPopular = (props) => {
+  const [shows, setShows] = useState([]);
 
   let pageNumber = props.match.params.page || 1;
 
@@ -18,11 +18,11 @@ const Popular = (props) => {
     }
 
     fetch(
-      `https://api.themoviedb.org/3/movie/${props.case}?api_key=${process.env.REACT_APP_API_KEY}&page=${pageNumber}`
+      `https://api.themoviedb.org/3/tv/popular?api_key=${process.env.REACT_APP_API_KEY}&page=${pageNumber}`
     )
       .then((res) => res.json())
       .then((data) => {
-        setMovies(data.results);
+        setShows(data.results);
       });
   }, [pageNumber, props.case, props.history]);
 
@@ -30,9 +30,9 @@ const Popular = (props) => {
     <>
       <Search history={props.history} />
       <div className="gridx">
-        {movies ? (
-          movies.length > 0 ? (
-            movies.map((movie) => <Movies key={movie.id} movie={movie} />)
+        {shows ? (
+          shows.length > 0 ? (
+            shows.map((show) => <Shows key={show.id} show={show} />)
           ) : (
             <p></p>
           )
@@ -40,9 +40,9 @@ const Popular = (props) => {
           <p>You have Ventured out to far!!</p>
         )}
       </div>
-      <Pagination pcase={props.case} page={pageNumber} />
+      <Pagination pcase={props.case} page={pageNumber} ptype={"tv"} />
     </>
   );
 };
 
-export default Popular;
+export default TvPopular;

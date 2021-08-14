@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { BsSearch } from "react-icons/bs";
 
-const Search = ({ history, navbar = false }) => {
+const Search = ({ history, navbar = false, footer = false }) => {
   const [text, setText] = useState("");
 
   const Submit = (e) => {
@@ -15,9 +15,10 @@ const Search = ({ history, navbar = false }) => {
 
     history.push(`/search/${searchTerm}`);
   };
+  let formClass = navbar ? "z-50" : footer ? "flex justify-center" : "p-8 z-50";
 
   return (
-    <form className={navbar ? "z-50" : "p-8 z-50"} onSubmit={Submit}>
+    <form className={formClass} onSubmit={Submit}>
       <div
         className={
           navbar

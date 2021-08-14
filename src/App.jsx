@@ -24,6 +24,8 @@ import Person from "./components/Person";
 import Artist from "./components/Artist";
 import About from "./components/About";
 import Contact from "./components/Contact";
+import TvPopular from "./components/TvPopular";
+import ShowPage from "./components/ShowPage";
 
 function App() {
   const [movies, setMovies] = useState([]);
@@ -32,11 +34,13 @@ function App() {
 
   // useEffect's effect can't be async function, we have to use .then to resolve the promise
   useEffect(() => {
+    // redis cache this
     fetch(process.env.REACT_APP_MOVIE_API)
       .then((res) => res.json())
       .then((data) => {
         setMovies(data.results);
       });
+
     // setServer(movies.map(mov => [{ id: mov.id }]))
   }, []);
 
@@ -83,6 +87,12 @@ function App() {
               exact
               component={MoviePage}
             />
+            <Route
+              path="/tv/:id"
+              setMovies={setMovies}
+              exact
+              component={ShowPage}
+            />
             <PrivateRoute path="/favourite" exact component={Favourite} />
             <PrivateRoute path="/wishlist" exact component={WishList} />
             <Route
@@ -99,6 +109,11 @@ function App() {
             <Route path="/actor" exact component={Artist} />
             <Route path="/genres/:name" exact component={SGenres} />
             <Route path="/genres" exact component={Genres} />
+            <Route
+              path="/tv/popular/:page"
+              exact
+              render={(props) => <TvPopular case="popular" {...props} />}
+            />
             <PrivateRoute
               key="1"
               exact

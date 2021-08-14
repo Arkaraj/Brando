@@ -556,6 +556,10 @@ img.actorImg {
 
 /* Sidebar */
 
+nav.bm-item-list {
+  margin: 1rem;
+}
+
 .demo-buttons {
   font-size: 1em;
   max-width: 1200px;
@@ -610,6 +614,10 @@ div > div.bm-overlay {
   display: none;
 }
 
+.bm-menu-wrap {
+  top: 5rem;
+}
+
 /* .bm-burger-button {
   position: fixed;
   width: 36px;
@@ -636,6 +644,7 @@ div > div.bm-overlay {
 }
 .bm-menu {
   background: #373a47;
+  border-radius: 1rem;
 }
 .bm-menu a {
   color: #b8b7ad;
@@ -643,6 +652,7 @@ div > div.bm-overlay {
 .bm-menu a:hover,
 .bm-menu a:focus {
   color: #c94e50;
+  text-decoration: line-through;
 }
 .bm-item-list a {
   padding: 0.8em;

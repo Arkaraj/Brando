@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import Tag from "./Tag";
 import Actor from "./Actor";
-import Movies from "./Movies";
 import Search from "./Search";
+import Shows from "./Shows";
 
 const poster = "http://image.tmdb.org/t/p/w154/";
 
@@ -32,7 +32,7 @@ const MoviePage = (props) => {
 
   useEffect(() => {
     fetch(
-      `https://api.themoviedb.org/3/movie/${id}?api_key=${process.env.REACT_APP_API_KEY}`
+      `https://api.themoviedb.org/3/tv/${id}?api_key=${process.env.REACT_APP_API_KEY}`
     )
       .then((res) => res.json())
       .then((data) => {
@@ -47,7 +47,7 @@ const MoviePage = (props) => {
       });
 
     fetch(
-      `https://api.themoviedb.org/3/movie/${id}/videos?api_key=${process.env.REACT_APP_API_KEY}`
+      `https://api.themoviedb.org/3/tv/${id}/videos?api_key=${process.env.REACT_APP_API_KEY}`
     )
       .then((res) => res.json())
       .then((data) => {
@@ -69,7 +69,7 @@ const MoviePage = (props) => {
     // /movie/{movie_id}/credits
 
     fetch(
-      `https://api.themoviedb.org/3/movie/${id}/credits?api_key=${process.env.REACT_APP_API_KEY}`
+      `https://api.themoviedb.org/3/tv/${id}/credits?api_key=${process.env.REACT_APP_API_KEY}`
     )
       .then((res) => res.json())
       .then((data) => {
@@ -84,7 +84,7 @@ const MoviePage = (props) => {
     // /movie/{movie_id}/similar
 
     fetch(
-      `https://api.themoviedb.org/3/movie/${id}/similar?api_key=${process.env.REACT_APP_API_KEY}`
+      `https://api.themoviedb.org/3/tv/${id}/similar?api_key=${process.env.REACT_APP_API_KEY}`
     )
       .then((res) => res.json())
       .then((data) => {
@@ -211,8 +211,8 @@ const MoviePage = (props) => {
                   </h1>
                   <div className="gridx">
                     {similar.length > 0
-                      ? similar.map((movies, index) => (
-                          <Movies key={index} movie={movies} />
+                      ? similar.map((show, index) => (
+                          <Shows key={index} show={show} />
                         ))
                       : "Couldn't find any Similar movies for the movie"}
                   </div>

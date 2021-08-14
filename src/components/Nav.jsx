@@ -70,12 +70,7 @@ const Nav = (props) => {
   const [sideBar, setSideBar] = useState(false);
 
   const handleSideBar = () => {
-    if (sideBar.counter === 1) {
-      setSideBar((sb) => ({ counter: 2, toggle: !sb.toggle }));
-      return;
-    }
-    setSideBar((sb) => ({ counter: 1, toggle: !sb.toggle }));
-    return;
+    setSideBar(!sideBar);
   };
 
   const isAuthenticatedNavBar = () => {
@@ -111,7 +106,7 @@ const Nav = (props) => {
           >
             {user.username}
           </Link>
-          <Menu right customBurgerIcon={false} isOpen={sideBar.toggle}>
+          <Menu right customBurgerIcon={false} isOpen={sideBar}>
             <Link
               to="/profile"
               className="whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-900"
@@ -645,7 +640,7 @@ const Nav = (props) => {
                             </div>
                           </Link>
                           <Link
-                            to="/"
+                            to="/tv/popular/1"
                             className="-m-3 p-3 flex items-start rounded-lg hover:bg-gray-50"
                           >
                             {/* Heroicon name: outline/bookmark-alt */}
