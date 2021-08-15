@@ -6,9 +6,14 @@ const bcrypt = require("bcrypt");
 const passport = require("passport");
 const passportConfig = require("./passport");
 const movies = require("./movies");
+const tvshows = require("./tvshows");
+const Shows = require("../models/Shows");
 
 // For movies
 router.use("/movies", passport.authenticate("jwt", { session: false }), movies);
+
+// For tvs
+router.use("/tv", passport.authenticate("jwt", { session: false }), tvshows);
 
 const signToken = (id) => {
   return JWT.sign(
@@ -23,7 +28,7 @@ const signToken = (id) => {
 
 // Gets all Users
 router.get("/", async (req, res) => {
-  const user = await Users.find();
+  const user = await Users.find().lean();
   try {
     res.status(200).json(user);
   } catch (err) {
@@ -66,7 +71,7 @@ router.get(
   passport.authenticate("jwt", { session: false }),
   async (req, res) => {
     try {
-      const user = await Users.findById(req.params.id);
+      const user = await Users.findById(req.params.id).lean();
       if (user) {
         res.status(200).json(user);
       } else {
@@ -99,16 +104,31 @@ router.post("/register", async (req, res) => {
         .json({ message: { msg: "email is already taken", msgError: true } });
     else {
       const newUser = new Users({ username, password, email });
-      newUser.save((err) => {
+
+      newUser.save(async (err) => {
         if (err) {
           //console.log('Error ' + err)
           res
             .status(500)
-            .json({ message: { msg: "Error has occured", msgError: true } });
-        } else
+            .json({
+              message: {
+                msg: "Error has occured",
+                msgError: true,
+                error: err.message,
+              },
+            });
+        } else {
+          const newShows = new Shows({
+            user: newUser._id,
+            favourites: [],
+            wishlist: [],
+          });
+          await newShows.save();
+
           res.status(201).json({
             message: { msg: "Account successfully created", msgError: false },
           });
+        }
       });
     }
   });

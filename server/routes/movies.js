@@ -10,7 +10,7 @@ router.use("/wishlist", wish);
 
 // For all entries, Not necessery
 router.get("/", async (req, res) => {
-  const movie = await Movies.find();
+  const movie = await Movies.find().lean();
 
   res.status(200).send(movie);
 });
@@ -56,11 +56,9 @@ router.get("/:_id/:id", (req, res) => {
           );
           res.status(200).json({ fav: fav[0] });
         } else {
-          res
-            .status(404)
-            .json({
-              message: { msg: "Movie not in Favourites", msgError: true },
-            });
+          res.status(404).json({
+            message: { msg: "Movie not in Favourites", msgError: true },
+          });
         }
       }
     });

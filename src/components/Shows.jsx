@@ -1,141 +1,29 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useContext } from "react";
 import { Route, Link } from "react-router-dom";
 import { AuthContext } from "../Context/AuthContext";
-import MovieService from "../Services/MovieService";
 import { TiStarFullOutline } from "react-icons/ti";
 import { BsFillBookmarkFill } from "react-icons/bs";
-
-// import MoviePage from './MoviePage'
 
 const Show_Img = "http://image.tmdb.org/t/p/w220_and_h330_face/";
 
 const Shows = ({ show }) => {
   // if user is logged in only then
-  const { user, isAuthenticated } = useContext(AuthContext);
+  const { isAuthenticated } = useContext(AuthContext);
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const getData = async (id) => {
-    fetch(`/user/tv/${user._id}/${id}`)
-      .then(async (res) => {
-        if (res.status == 200) {
-          const data = await res.json();
-          setFav(data.fav.fav);
-          // setSame(!same)
-          if (!data.fav.fav) {
-            await deleteServer(data.fav._id);
-          } else {
-            return;
-          }
-        } else {
-          return;
-        }
-      })
-      .catch((err) => console.log("Error: " + err));
-  };
+  const [fav, setFav] = useState(show.favourites);
 
-  const getWish = async (id) => {
-    MovieService.getMovieWishList(user._id, id).then((data) => {
-      if (data) {
-        setWish(data.wishlist);
-        setWishId(data._id);
-      } else {
-        return;
-      }
-    });
-  };
-
-  const [fav, setFav] = useState(false);
-
-  const [wish, setWish] = useState(false);
-
-  const [wishId, setWishId] = useState(0);
-
-  // const [same, setSame] = useState(false)
-
-  useEffect(() => {
-    const fetchData = async () => {
-      if (isAuthenticated) {
-        await getData(show.id);
-        await getWish(show.id);
-        return;
-      } else {
-        return;
-      }
-    };
-
-    fetchData();
-  }, [getData, getWish, isAuthenticated, show.id]);
+  const [wish, setWish] = useState(show.wishlist);
 
   const noImage =
     "https://upload.wikimedia.org/wikipedia/commons/f/fc/No_picture_available.png";
   const poster = Show_Img + show.poster_path;
-
-  const postMovie = async (id) => {
-    const cine = {
-      id,
-      fav: false, // it will change in the modifyServer
-    };
-
-    const res = await fetch(`/user/tv/`, {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json",
-      },
-      body: JSON.stringify(cine),
-    });
-    const data = res.json();
-    return data;
-  };
-
-  const modifyServer = async (data) => {
-    const cine = {
-      id: data.id,
-      fav: !fav,
-    };
-
-    await fetch(`/user/tv/${data._id}`, {
-      method: "PUT",
-      headers: {
-        "Content-type": "application/json",
-      },
-      body: JSON.stringify(cine),
-    });
-  };
-
-  // id is the book id
-  const deleteServer = async (id) => {
-    await fetch(`/user/tv/${id}`, {
-      method: "DELETE",
-    });
-  };
-
-  const getServer = async (id) => {
-    fetch(`/user/tv/${user._id}/${id}`).then(async (res) => {
-      // if !res.ok delete that entry
-      if (res.status == 200) {
-        const data = await res.json();
-        await modifyServer(data.fav);
-      } else {
-        // await deleteServer(id)
-        const data = await postMovie(id);
-        await modifyServer(data);
-      }
-    });
-    // const data = res.json()
-
-    // const cines = data.map(m => m.id === id)
-
-    // return true
-  };
 
   const favourite = async (id) => {
     // UI changes
     setFav((fav) => !fav);
     // setSame(same => !same)
     // Server Side Storing
-
-    await getServer(id);
   };
 
   const wishList = async (id) => {
@@ -143,18 +31,6 @@ const Shows = ({ show }) => {
     setWish((wish) => !wish);
 
     // Server Side Storing
-    if (!wish) {
-      MovieService.postWish(id).then((data) => {
-        console.log(data);
-        return;
-      });
-    } else {
-      // movies mongo id
-      MovieService.deleteWish(wishId).then((data) => {
-        console.log(data);
-        return;
-      });
-    }
   };
 
   const setTagColour = (vote) => {

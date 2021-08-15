@@ -1,42 +1,57 @@
-import React, { useState, useEffect } from 'react';
-import Search from './Search'
-import Movies from './Movies'
-
+import React, { useState, useEffect } from "react";
+import Search from "./Search";
+import Movies from "./Movies";
+import Shows from "./Shows";
 
 const MovieSearch = (props) => {
+  const [flim, setFlim] = useState([]);
 
-    const [flim, setFlim] = useState([])
+  const [isLoaded, setIsLoaded] = useState(false);
+  // get flim
+  const name = props.match.params.movieName;
 
-    const [isLoaded, setIsLoaded] = useState(false)
-    // get flim
-    const name = props.match.params.movieName
+  const [mode, setMode] = useState("movie");
 
-    useEffect(() => {
-        fetch(`https://api.themoviedb.org/3/search/movie?api_key=${process.env.REACT_APP_API_KEY}&query=${name}`)
-            .then(res => res.json())
-            .then(data => {
-                setFlim(data.results)
-                setIsLoaded(true)
-            })
+  const handleChange = (e) => {
+    setMode(e.target.value);
+  };
 
-    }, [name]) // Runs when name changes
+  useEffect(() => {
+    fetch(
+      `https://api.themoviedb.org/3/search/${mode}?api_key=${process.env.REACT_APP_API_KEY}&query=${name}`
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        setFlim(data.results);
+        setIsLoaded(true);
+      });
+  }, [name, mode]);
 
-    return (
-        <>
-            <Search history={props.history} />
-            <div className="gridx">
-                {
-                    isLoaded ?
-                        flim.length > 0 ? flim.map(flim => (
-                            <Movies key={flim.id} movie={flim} />
-                        )) : (
-                            <p>No Moives</p>
-                        ) : (<p className="loading"></p>)
-                }
-            </div>
-            {/* Pagination needed */}
-        </>
-    );
-}
+  return (
+    <>
+      <Search history={props.history} />
+      <select onChange={(e) => handleChange(e)}>
+        <option value="movie">Movies</option>
+        <option value="tv">Shows/Series</option>
+      </select>
+      <div className="gridx">
+        {isLoaded ? (
+          flim.length > 0 ? (
+            mode === "movie" ? (
+              flim.map((flim) => <Movies key={flim.id} movie={flim} />)
+            ) : (
+              flim.map((flim) => <Shows key={flim.id} show={flim} />)
+            )
+          ) : (
+            <p>No Moives</p>
+          )
+        ) : (
+          <p className="loading"></p>
+        )}
+      </div>
+      {/* Pagination needed */}
+    </>
+  );
+};
 
 export default MovieSearch;

@@ -27,6 +27,7 @@ const UserSchema = new mongoose.Schema({
     default: 0,
     min: 0,
   },
+  // Needs change
   upvotes: {
     type: Number,
     default: 0,

@@ -114,6 +114,11 @@ function App() {
               exact
               render={(props) => <TvPopular case="popular" {...props} />}
             />
+            <Route
+              path="/tv/rated/:page"
+              exact
+              render={(props) => <TvPopular case="top_rated" {...props} />}
+            />
             <PrivateRoute
               key="1"
               exact

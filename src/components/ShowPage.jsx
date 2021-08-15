@@ -21,8 +21,6 @@ const MoviePage = (props) => {
 
   const [similar, setSimilar] = useState([]);
 
-  const [crew, setCrew] = useState([]);
-
   const [loaded, isLoaded] = useState(false);
 
   const noImage =
@@ -36,7 +34,7 @@ const MoviePage = (props) => {
     )
       .then((res) => res.json())
       .then((data) => {
-        // console.log(data)
+        // console.log(data);
         setData(data);
         // setName(data.original_title)
         // setDescription(data.overview)
@@ -73,7 +71,6 @@ const MoviePage = (props) => {
     )
       .then((res) => res.json())
       .then((data) => {
-        setCrew(data.crew.filter((crew) => crew.job == "Director"));
         if (data.cast) {
           setCast(data.cast);
         } else {
@@ -97,13 +94,16 @@ const MoviePage = (props) => {
   }, [id]);
 
   const {
-    original_title,
-    title,
+    original_name,
+    name,
     overview,
-    release_date,
+    first_air_date,
     tagline,
     vote_average,
-    runtime,
+    episode_run_time,
+    number_of_seasons,
+    number_of_episodes,
+    created_by,
   } = data;
 
   let tag = tagline ? tagline : "None";
@@ -119,17 +119,10 @@ const MoviePage = (props) => {
     backgroundRepeat: "no-repeat",
   };
 
-  const minToHrs = (minutes) => {
-    let hour = Math.floor(minutes / 60);
-    let seconds = minutes - 60 * hour;
-
-    return `${hour}hr ${seconds}min`;
-  };
-
   return (
     <>
       {loaded ? (
-        original_title == "" ? (
+        original_name === "" ? (
           <div className="loading"></div>
         ) : (
           <div>
@@ -137,16 +130,16 @@ const MoviePage = (props) => {
               <div className="flex-col">
                 <div className="MovieInfo">
                   <img
-                    src={image == "" ? noImage : image}
-                    className={image == "" ? "noImage" : ""}
+                    src={image === "" ? noImage : image}
+                    className={image === "" ? "noImage" : ""}
                     alt={data.title}
                   />
                   <div>
                     <div className="sm:flex sm:justify-between">
                       <h2 className="font-bold text-2xl">
-                        {title}{" "}
-                        {release_date ? (
-                          <span>({release_date.split("-")[0]})</span>
+                        {name}{" "}
+                        {first_air_date ? (
+                          <span>({first_air_date.split("-")[0]})</span>
                         ) : (
                           ""
                         )}
@@ -159,17 +152,31 @@ const MoviePage = (props) => {
                     </div>
 
                     <h3>
-                      Director:{" "}
-                      {crew.map((crw, index) => (
-                        <span className="pl-1">
-                          {crw.name}
-                          {index == crew.length - 1 ? null : ","}
-                        </span>
-                      ))}
+                      Creators:{" "}
+                      {created_by.length > 0 ? (
+                        created_by.map((dir, index) => (
+                          <span className="pl-1">
+                            {dir.name}
+                            {index === created_by.length - 1 ? null : ","}
+                          </span>
+                        ))
+                      ) : (
+                        <span className="pl-1">Can't find the Creator</span>
+                      )}
                     </h3>
                     <h3>Rating: {vote_average}</h3>
                     {/* <h3>Date of Release: {release_date}</h3> */}
-                    <h3>Run Time: {minToHrs(runtime)}</h3>
+                    <h3>
+                      Run Time:{" "}
+                      {episode_run_time.map((rt, index) => (
+                        <span className="pl-1">
+                          {rt + " min"}
+                          {index === episode_run_time.length - 1 ? null : ","}
+                        </span>
+                      ))}
+                    </h3>
+                    <h3>No. of Seasons: {number_of_seasons}</h3>
+                    <h3>Total No. of Episodes: {number_of_episodes}</h3>
                     <h4>Plot</h4>
                     <hr />
                     <p>{overview}</p>
@@ -182,7 +189,7 @@ const MoviePage = (props) => {
                     <div id="video">
                       {trailer ? (
                         <iframe
-                          title={`${title} trailer`}
+                          title={`${name} trailer`}
                           width="560"
                           height="315"
                           className="mt-2"
