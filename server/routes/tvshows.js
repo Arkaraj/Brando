@@ -30,21 +30,21 @@ router.get("/", async (req, res) => {
  */
 router.post("/:id", async (req, res) => {
   const { favourite } = req.query;
-  const { tvid } = req.params.id;
+  const { id } = req.params;
 
   try {
     const show = await Show.findOne(
       {
         user: req.user._id,
       },
-      { _id: 0, favourites: 1, wishlist: 1 }
+      { favourites: 1, wishlist: 1 }
     );
 
-    if (favourite) {
-      show.favourites.push(tvid);
+    if (favourite === "true") {
+      show.favourites.push(id);
       await show.save();
     } else {
-      show.wishlist.push(tvid);
+      show.wishlist.push(id);
       await show.save();
     }
 
@@ -61,19 +61,19 @@ router.post("/:id", async (req, res) => {
 /**
  * Remove show from user's favourites or wishlists
  */
-router.delete("/:id", async (req, res) => {
+router.delete("/:tvid", async (req, res) => {
   const { favourite } = req.query;
-  const { tvid } = req.params.id;
+  const { tvid } = req.params;
 
   try {
     const show = await Show.findOne(
       {
         user: req.user._id,
       },
-      { _id: 0, favourites: 1, wishlist: 1 }
+      { favourites: 1, wishlist: 1 }
     );
 
-    if (favourite) {
+    if (favourite === "true") {
       show.favourites.pull(tvid);
       await show.save();
     } else {

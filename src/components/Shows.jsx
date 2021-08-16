@@ -4,6 +4,7 @@ import { Route, Link } from "react-router-dom";
 import { AuthContext } from "../Context/AuthContext";
 import { TiStarFullOutline } from "react-icons/ti";
 import { BsFillBookmarkFill } from "react-icons/bs";
+import ShowService from "../Services/ShowService";
 
 const Show_Img = "http://image.tmdb.org/t/p/w220_and_h330_face/";
 
@@ -19,18 +20,54 @@ const Shows = ({ show }) => {
     "https://upload.wikimedia.org/wikipedia/commons/f/fc/No_picture_available.png";
   const poster = Show_Img + show.poster_path;
 
-  const favourite = async (id) => {
-    // UI changes
-    setFav((fav) => !fav);
-    // setSame(same => !same)
-    // Server Side Storing
+  const favourite = async (tvId) => {
+    if (!fav) {
+      const data = await ShowService.postShow(tvId, true);
+
+      if (data.msgError) {
+        alert(data.err);
+      } else {
+        // UI changes
+        setFav((fav) => !fav);
+      }
+    } else {
+      const data = await ShowService.deleteShowFromFavouriteOrWishList(
+        tvId,
+        true
+      );
+
+      if (data.msgError) {
+        alert(data.err);
+      } else {
+        // UI changes
+        setFav((fav) => !fav);
+      }
+    }
   };
 
-  const wishList = async (id) => {
-    // UI changes
-    setWish((wish) => !wish);
+  const wishList = async (tvId) => {
+    if (!wish) {
+      const data = await ShowService.postShow(tvId, false);
 
-    // Server Side Storing
+      if (data.msgError) {
+        alert(data.err);
+      } else {
+        // UI changes
+        setWish((wish) => !wish);
+      }
+    } else {
+      const data = await ShowService.deleteShowFromFavouriteOrWishList(
+        tvId,
+        false
+      );
+
+      if (data.msgError) {
+        alert(data.err);
+      } else {
+        // UI changes
+        setWish((wish) => !wish);
+      }
+    }
   };
 
   const setTagColour = (vote) => {
@@ -52,7 +89,6 @@ const Shows = ({ show }) => {
           className="max-h-1/6 mx-auto rounded-lg overflow-hidden bg-white"
           style={{ maxWidth: "13.7rem" }}
         >
-          {/* background: '#22254b' */}
           <div
             className="relative overflow-hidden z-10"
             style={{

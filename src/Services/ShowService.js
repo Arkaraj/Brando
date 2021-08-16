@@ -5,14 +5,9 @@ const ShowService = {
     return data;
   },
 
-  postShow: async (tvId) => {
-    const schemaWish = {
-      wish: true,
-    };
-
-    const res = await fetch(`/user/tv/${tvId}`, {
+  postShow: async (tvId, details = true) => {
+    const res = await fetch(`/user/tv/${tvId}?favourite=${details}`, {
       method: "POST",
-      body: JSON.stringify(schemaWish),
       headers: {
         "Content-Type": "application/json",
       },
@@ -21,8 +16,8 @@ const ShowService = {
     return data;
   },
 
-  deleteShowFromFavouriteOrWishList: async (id) => {
-    const res = await fetch(`/user/tv/${id}`, {
+  deleteShowFromFavouriteOrWishList: async (tvId, details = true) => {
+    const res = await fetch(`/user/tv/${tvId}?favourite=${details}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",

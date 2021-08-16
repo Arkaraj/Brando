@@ -1,10 +1,22 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { AuthContext } from "../Context/AuthContext";
 import Tag from "./Tag";
 import Actor from "./Actor";
 import Search from "./Search";
 import Shows from "./Shows";
+import ShowService from "../Services/ShowService";
 
 const poster = "http://image.tmdb.org/t/p/w154/";
+
+/**
+ * Checks if the id is present in the Shows favourite or not.
+ * @param {Number[]} array This is the array of numbers
+ * @param {Number} tvId The id to check
+ * @returns {Boolean} Returns if the number is is found or not
+ */
+const isPresentInShows = (array, tvId) => {
+  return array.includes(tvId);
+};
 
 const MoviePage = (props) => {
   const id = props.match.params.id;
@@ -22,6 +34,8 @@ const MoviePage = (props) => {
   const [similar, setSimilar] = useState([]);
 
   const [loaded, isLoaded] = useState(false);
+
+  const { isAuthenticated } = useContext(AuthContext);
 
   const noImage =
     "https://upload.wikimedia.org/wikipedia/commons/f/fc/No_picture_available.png";
@@ -78,20 +92,60 @@ const MoviePage = (props) => {
         }
       });
 
-    // /movie/{movie_id}/similar
+    /**
+     * This function will check if the user has any shows in favourites or wishlist or not
+     * @param {Number[]} arrayOfIds This will contain the ids of all the shows
+     * @param {any[]} showData This contains all the show data
+     * @returns {Promise<any[]>} This will return the show data along with two new parameters, favorite and wishlist both being boolean
+     */
+    const newShowObject = async (arrayOfIds, showData) => {
+      const data = await ShowService.getShows();
+      if (data.msgError) {
+        alert(data.message);
+        return;
+      } else {
+        let { favourites, wishlist } = data;
+
+        // O(n^2)
+        arrayOfIds.forEach((tvId, idx) => {
+          if (isPresentInShows(favourites, tvId)) {
+            showData[idx].favourites = true;
+            showData[idx].wishlist = false;
+          } else if (isPresentInShows(wishlist, tvId)) {
+            showData[idx].favourites = false;
+            showData[idx].wishlist = true;
+          } else {
+            showData[idx].favourites = false;
+            showData[idx].wishlist = false;
+          }
+        });
+
+        return showData;
+      }
+    };
 
     fetch(
       `https://api.themoviedb.org/3/tv/${id}/similar?api_key=${process.env.REACT_APP_API_KEY}`
     )
       .then((res) => res.json())
-      .then((data) => {
+      .then(async (data) => {
         if (data.results) {
-          setSimilar(data.results);
+          if (isAuthenticated) {
+            let fullData = data.results;
+
+            let arrayId = fullData.map((d) => d.id);
+
+            let newData = await newShowObject(arrayId, fullData);
+
+            setSimilar(newData);
+          } else {
+            setSimilar(data.results);
+          }
         } else {
           return;
         }
       });
-  }, [id]);
+  }, [id, isAuthenticated]);
 
   const {
     original_name,

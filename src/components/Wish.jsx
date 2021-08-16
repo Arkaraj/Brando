@@ -15,35 +15,37 @@ const Wish = ({ _id, tmdbId, setToWatch }) => {
 
   const poster = "http://image.tmdb.org/t/p/w154/";
 
-  const noImage =
-    "https://upload.wikimedia.org/wikipedia/commons/f/fc/No_picture_available.png";
-
-  const fetchMovie = async () => {
-    const res = await fetch(
-      `https://api.themoviedb.org/3/movie/${tmdbId}?api_key=${process.env.REACT_APP_API_KEY}`
-    );
-    const data = await res.json();
-    // console.log(data);
-    const image_path = data.poster_path ? poster + data.poster_path : "";
-    const backdrop_path = data.backdrop_path ? poster + data.backdrop_path : "";
-    setBackdrop(backdrop_path);
-
-    const gen = data.genres.map((genre) => genre.name);
-    setGenre(gen);
-
-    setImage(image_path);
-    setLoaded(true);
-    return data;
-  };
+  // const noImage =
+  //   "https://upload.wikimedia.org/wikipedia/commons/f/fc/No_picture_available.png";
 
   useEffect(() => {
+    const fetchMovie = async () => {
+      const res = await fetch(
+        `https://api.themoviedb.org/3/movie/${tmdbId}?api_key=${process.env.REACT_APP_API_KEY}`
+      );
+      const data = await res.json();
+      // console.log(data);
+      const image_path = data.poster_path ? poster + data.poster_path : "";
+      const backdrop_path = data.backdrop_path
+        ? poster + data.backdrop_path
+        : "";
+      setBackdrop(backdrop_path);
+
+      const gen = data.genres.map((genre) => genre.name);
+      setGenre(gen);
+
+      setImage(image_path);
+      setLoaded(true);
+      return data;
+    };
+
     const getMovie = async () => {
       const movieFromServer = await fetchMovie();
       setFlim(movieFromServer);
     };
 
     getMovie();
-  }, []);
+  }, [tmdbId]);
 
   const minToHrs = (minutes) => {
     let hour = Math.floor(minutes / 60);

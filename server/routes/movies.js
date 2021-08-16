@@ -19,7 +19,6 @@ router.get("/", async (req, res) => {
 router.get("/:_id", async (req, res) => {
   // _id: req.user._id
   Users.findById({ _id: req.params._id })
-    .lean()
     .populate("favourites")
     .exec((err, document) => {
       if (err)
@@ -38,7 +37,6 @@ router.get("/:_id", async (req, res) => {
 
 router.get("/:_id/:id", (req, res) => {
   Users.findById({ _id: req.params._id })
-    .lean()
     .populate("favourites")
     .exec((err, document) => {
       if (err) {

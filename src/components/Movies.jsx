@@ -18,10 +18,10 @@ const Movies = ({ movie }) => {
   const getData = async (id) => {
     fetch(`/user/movies/${user._id}/${id}`)
       .then(async (res) => {
-        if (res.status == 200) {
+        if (res.status === 200) {
           const data = await res.json();
           setFav(data.fav.fav);
-          // setSame(!same)
+
           if (!data.fav.fav) {
             await deleteServer(data.fav._id);
           } else {
@@ -50,8 +50,6 @@ const Movies = ({ movie }) => {
   const [wish, setWish] = useState(false);
 
   const [wishId, setWishId] = useState(0);
-
-  // const [same, setSame] = useState(false)
 
   useEffect(() => {
     const fetchData = async () => {
@@ -113,7 +111,7 @@ const Movies = ({ movie }) => {
   const getServer = async (id) => {
     fetch(`/user/movies/${user._id}/${id}`).then(async (res) => {
       // if !res.ok delete that entry
-      if (res.status == 200) {
+      if (res.status === 200) {
         const data = await res.json();
         await modifyServer(data.fav);
       } else {
@@ -193,8 +191,9 @@ const Movies = ({ movie }) => {
           </div>
           <div className="relative flex justify-between items-center flex-row px-2 z-10 -mt-8">
             <p
-              className="flex items-center text-gray-400"
-              className={`tag ${setTagColour(movie.vote_average)}`}
+              className={`tag ${setTagColour(
+                movie.vote_average
+              )} flex items-center text-gray-400`}
             >
               {/* className={`tag ${setTagColour(movie.vote_average)}`} */}
               <span className={`dot ${setTagColour(movie.vote_average)}`} />
