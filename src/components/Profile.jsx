@@ -3,6 +3,7 @@ import { Route, Link } from "react-router-dom";
 import authService from "../Services/AuthService";
 import { AuthContext } from "../Context/AuthContext";
 import UserService from "../Services/UserService";
+import ProfilePic from "../Images/link.jpg";
 
 const Profile = (props) => {
   const { user, setIsAuthenticated } = useContext(AuthContext);
@@ -26,7 +27,6 @@ const Profile = (props) => {
       alert("Updated!");
     });
   };
-
   //   const rating = user.rating ? user.rating.toFixed(2) : 0;
   const rating = user.rating;
 
@@ -38,7 +38,7 @@ const Profile = (props) => {
           <div className="flex justify-center mt-4">
             <img
               className="shadow sm:w-12 sm:h-12 w-10 h-10 rounded-full"
-              src="https://tailwindtemplates.io/wp-content/uploads/2019/03/link.jpg"
+              src={ProfilePic}
               alt="Avatar"
             />
           </div>

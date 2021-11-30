@@ -906,6 +906,22 @@ div > div.bm-overlay {
   background-color: #c94e50;
 }
 
+.prdct-qty-btn {
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 4px;
+  background-color: #5a8dee2e;
+  color: #5a8dee;
+  font-size: 11px;
+  transition: 0.3s;
+}
+
+.prdct-qty-btn:hover {
+  background-color: #5a8dee;
+  color: #fff;
+}
+
 /* Footer */
 
 footer {

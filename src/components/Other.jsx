@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Route, Link } from "react-router-dom";
 import UserService from "../Services/UserService";
+import ProfilePic from "../Images/link.jpg";
 
 const Other = ({ other }) => {
   const { username, rating, _id, views, status, upvotes } = other;
@@ -15,6 +16,8 @@ const Other = ({ other }) => {
     vote ? setUpVote((vote) => vote - 1) : setUpVote((vote) => vote + 1);
   };
 
+  // https://tailwindtemplates.io/wp-content/uploads/2019/03/link.jpg
+
   return (
     <Route>
       <div className="bg-white shadow p-4 rounded lg:w-64">
@@ -25,7 +28,7 @@ const Other = ({ other }) => {
         <div className="flex justify-center mt-4">
           <img
             className="shadow sm:w-12 sm:h-12 w-10 h-10 rounded-full"
-            src="https://tailwindtemplates.io/wp-content/uploads/2019/03/link.jpg"
+            src={ProfilePic}
             alt="Avatar"
           />
         </div>

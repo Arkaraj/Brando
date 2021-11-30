@@ -1,10 +1,12 @@
+/* eslint-disable array-callback-return */
 import React from "react";
 import { Link } from "react-router-dom";
 
 const Pagination = ({ pcase, page, ptype = "" }) => {
   pcase = pcase === "popular" ? pcase : "rated";
   // Converting into Number, toNumber was not working for some reason...
-  page = (page / page) * page;
+  // page = (page / page) * page;
+  page = Number(page);
 
   const array = [2, 1, 0, -1, -2];
 

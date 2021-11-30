@@ -34,7 +34,7 @@ const Nav = (props) => {
         {/* <Link to="/login" className="link">Login</Link>
                 <Link to='/register' className="link">Register</Link> */}
         <div className="hidden md:flex items-center justify-end md:flex-1 lg:w-0">
-          <div className="cursor-pointer mx-auto flex flex-row">
+          <div className="cursor-pointer mx-auto flex flex-row items-center">
             {searchToggle ? (
               <AiOutlineCloseCircle
                 style={{ fontWeight: "bold", fontSize: 18 }}

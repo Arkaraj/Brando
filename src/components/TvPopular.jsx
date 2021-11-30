@@ -14,7 +14,8 @@ const TvPopular = (props) => {
 
   pageNumber = isNaN(pageNumber) ? 0 : pageNumber;
 
-  pageNumber = pageNumber === 0 ? 0 : (pageNumber * pageNumber) / pageNumber;
+  // pageNumber = pageNumber === 0 ? 0 : (pageNumber * pageNumber) / pageNumber;
+  pageNumber = pageNumber === 0 ? 0 : Number(pageNumber);
 
   /**
    * Checks if the id is present in the Shows favourite or not.

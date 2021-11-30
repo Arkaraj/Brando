@@ -41,3 +41,13 @@ In package.json file add proxy, to remove cors error:
 ```
 
 > P.S I know the file structure is messed by the server folder should be outside and the REACT files should be in client.... Also axios could have been used instead of classic fetch
+
+## To Do
+
+Css fixes in:
+
+- [] Sidebar
+- [] Profile Screen
+- [] Other user's Screen
+- [] Other user's fav list
+- [x] Fav List Screen

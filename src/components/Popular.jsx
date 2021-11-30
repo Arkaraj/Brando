@@ -10,7 +10,7 @@ const Popular = (props) => {
 
   pageNumber = isNaN(pageNumber) ? 0 : pageNumber;
 
-  pageNumber = pageNumber === 0 ? 0 : (pageNumber * pageNumber) / pageNumber;
+  pageNumber = pageNumber === 0 ? 0 : Number(pageNumber);
 
   useEffect(() => {
     if (pageNumber < 1) {
