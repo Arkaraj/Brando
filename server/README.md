@@ -26,4 +26,3 @@ $ npm start
 ### To Dos
 
 - [ ] Reduce the Errors (500, internal ones in server side)
-- [ ] Miscellaneous fixes
