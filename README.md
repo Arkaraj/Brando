@@ -2,6 +2,8 @@
 
 A Movie searching web application build with REACT and TMDB API
 
+Website: https://brando-movie.herokuapp.com/
+
 ## Server
 
 ## Install
