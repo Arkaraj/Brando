@@ -138,8 +138,8 @@ const Shows = ({ show }) => {
             ) : null}
           </div>
           <div className="pt-2 pb-2 text-gray-600 text-center">
-            <p>{show.title}</p>
-            <p className="text-sm">{show.release_date}</p>
+            <p>{show.name}</p>
+            {/* <p className="text-sm">{show.number_of_seasons} seasons</p> */}
           </div>
           <div className="pb-1 capitalize text-center tracking-wide flex justify-evenly bg-blue-200">
             <div className="posts">

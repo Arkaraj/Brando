@@ -26,6 +26,18 @@ const ShowService = {
     const data = await res.json();
     return data;
   },
+
+  getUsersFavShows: async () => {
+    const res = await fetch(`/user/tv/fav`);
+    const data = await res.json();
+    return data.favourites || [];
+  },
+
+  getUsersWishlistShows: async () => {
+    const res = await fetch(`/user/tv/wish`);
+    const data = await res.json();
+    return data.wishlist || [];
+  },
 };
 
 export default ShowService;

@@ -84,7 +84,48 @@ router.delete("/:tvid", async (req, res) => {
     res.status(200).json({
       msgError: false,
       msg: "Successfully Removed",
-      show,
+      done: true,
+    });
+  } catch (err) {
+    res.status(500).json({
+      msgError: true,
+      error: err.message,
+      done: false,
+    });
+  }
+});
+
+// whishlist & favourites
+router.get("/wish", async (req, res) => {
+  try {
+    const show = await Show.findOne(
+      {
+        user: req.user._id,
+      },
+      { _id: 0, wishlist: 1 }
+    ).lean();
+
+    res.status(200).json({
+      msgError: false,
+      wishlist: show.wishlist,
+    });
+  } catch (err) {
+    customErrorHandler(res, undefined, undefined, err);
+  }
+});
+
+router.get("/fav", async (req, res) => {
+  try {
+    const show = await Show.findOne(
+      {
+        user: req.user._id,
+      },
+      { _id: 0, favourites: 1 }
+    ).lean();
+
+    res.status(200).json({
+      msgError: false,
+      favourites: show.favourites,
     });
   } catch (err) {
     customErrorHandler(res, undefined, undefined, err);

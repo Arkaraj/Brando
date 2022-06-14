@@ -36,7 +36,7 @@ const Favmovie = ({ movie }) => {
       return "a";
     } else if (vote > 0) {
       return "f";
-    } else if (vote == 0) {
+    } else if (vote === 0) {
       return "n";
     }
   };
@@ -83,8 +83,9 @@ const Favmovie = ({ movie }) => {
           </div>
           <div className="relative flex justify-between items-center flex-row px-2 z-10 -mt-8">
             <p
-              className="flex items-center text-gray-400"
-              className={`tag ${setTagColour(flim.vote_average)}`}
+              className={`flex items-center text-gray-400 tag ${setTagColour(
+                flim.vote_average
+              )}`}
             >
               {/* className={`tag ${setTagColour(flim.vote_average)}`} */}
               <span className={`dot ${setTagColour(flim.vote_average)}`} />

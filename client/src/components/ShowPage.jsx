@@ -268,7 +268,7 @@ const MoviePage = (props) => {
                       : "Couldn't find any Actors for the movie"}
                   </div>
                   <h1 className="font-bold text-2xl underline">
-                    Similar Movies:
+                    Similar Shows:
                   </h1>
                   <div className="gridx">
                     {similar.length > 0

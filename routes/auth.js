@@ -93,8 +93,8 @@ router.post("/register", async (req, res) => {
   const { username, password, email } = req.body;
   Users.findOne({ email }, (err, emailPresent) => {
     if (err) {
-      //console.log('Error ' + err)
-      res
+      console.log(err);
+      return res
         .status(500)
         .json({ message: { msg: "Error has occured", msgError: true } });
     }
@@ -107,16 +107,14 @@ router.post("/register", async (req, res) => {
 
       newUser.save(async (err) => {
         if (err) {
-          //console.log('Error ' + err)
-          res
-            .status(500)
-            .json({
-              message: {
-                msg: "Error has occured",
-                msgError: true,
-                error: err.message,
-              },
-            });
+          console.log("Error " + err);
+          return res.status(500).json({
+            message: {
+              msg: "Error has occured",
+              msgError: true,
+              error: err.message,
+            },
+          });
         } else {
           const newShows = new Shows({
             user: newUser._id,
@@ -138,25 +136,21 @@ router.post("/register", async (req, res) => {
 
 // For Loginnig in User
 // User should not be able to go back once authenticated
-router.post("/login", (req, res) => {
+router.post("/login", async (req, res) => {
   const { email, password } = req.body;
 
-  Users.findOne({ email }, function (err, user) {
-    if (err) {
-      //console.log('Error ' + err)
-      res
-        .status(500)
-        .json({ message: { msg: "Error has occured", msgError: true } });
-    }
+  try {
+    let user = await Users.findOne({ email });
+
     if (!user) {
-      res
+      return res
         .status(400)
         .json({ message: { msg: "Invalid Email", msgError: true } });
     } else {
       bcrypt.compare(password, user.password, function (err, validate) {
         if (err) {
           //console.log('Error ' + err)
-          res.status(500).json({
+          return res.status(500).json({
             message: { msg: "Error has occured in bcrypt", msgError: true },
           });
         }
@@ -177,7 +171,11 @@ router.post("/login", (req, res) => {
         }
       });
     }
-  });
+  } catch (err) {
+    return res
+      .status(500)
+      .json({ message: { msg: "Error has occured", msgError: true } });
+  }
 });
 
 // For checking Authentication

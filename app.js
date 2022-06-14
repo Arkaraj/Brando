@@ -11,11 +11,18 @@ const auth = require("./routes/auth");
 // mongodb://localhost/Movie
 mongoose.connect(
   `${process.env.URI}`,
-  { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true },
+  {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useCreateIndex: true,
+  },
   () => {
     console.log("Successfully connected to Database!!");
   }
 );
+if (process.env.NODE_ENV == "development") {
+  mongoose.set("debug", true);
+}
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
