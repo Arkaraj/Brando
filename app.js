@@ -4,6 +4,7 @@ const app = express();
 const mongoose = require("mongoose");
 require("dotenv").config();
 const cookieParser = require("cookie-parser");
+const path = require("path");
 
 const auth = require("./routes/auth");
 
@@ -28,6 +29,10 @@ const port = process.env.PORT || 8080;
 app.get("/", (req, res) => {
   res.status(200).json({ msg: "Working" });
 });
+
+if (process.env.NODE_ENV == "production") {
+  app.use(express.static(path.join(__dirname, "/client/build")));
+}
 
 app.listen(port, () => {
   console.log(`Listening on port ${port} 🚀`);

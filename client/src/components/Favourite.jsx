@@ -9,10 +9,12 @@ const Favourite = () => {
 
   useEffect(() => {
     const fetchCine = async () => {
-      const res = await fetch(`/user/movies/${user._id}`);
-      const data = await res.json();
+      if (user) {
+        const res = await fetch(`/user/movies/${user._id}`);
+        const data = await res.json();
 
-      return data.favourites;
+        return data.favourites;
+      }
     };
 
     const getCine = async () => {
@@ -21,7 +23,7 @@ const Favourite = () => {
     };
 
     getCine();
-  }, [user._id]);
+  }, [user, user._id]);
 
   return (
     <div>

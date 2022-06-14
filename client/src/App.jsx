@@ -35,11 +35,14 @@ function App() {
   // useEffect's effect can't be async function, we have to use .then to resolve the promise
   useEffect(() => {
     // redis cache this
-    fetch(process.env.REACT_APP_MOVIE_API)
-      .then((res) => res.json())
-      .then((data) => {
-        setMovies(data.results);
-      });
+    const fetchMovies = async () => {
+      fetch(process.env.REACT_APP_MOVIE_API)
+        .then((res) => res.json())
+        .then((data) => {
+          setMovies(data.results);
+        });
+    };
+    fetchMovies();
 
     // setServer(movies.map(mov => [{ id: mov.id }]))
   }, []);
