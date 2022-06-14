@@ -36,6 +36,8 @@ function App() {
   useEffect(() => {
     // redis cache this
     const fetchMovies = async () => {
+      console.log("movie api: " + process.env.REACT_APP_MOVIE_API);
+      console.log("api key: " + process.env.REACT_APP_API_KEY);
       fetch(process.env.REACT_APP_MOVIE_API)
         .then((res) => res.json())
         .then((data) => {
