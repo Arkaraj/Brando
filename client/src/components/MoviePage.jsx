@@ -193,6 +193,16 @@ const MoviePage = (props) => {
                         <p>The Trailer couldn't be loaded</p>
                       )}
                     </div>
+                    <br />
+
+                    <a
+                      className="text-xl text-blue-500 hover:underline"
+                      href={`https://m4uhd.cc/search/${title}.html`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Watch Movie
+                    </a>
                   </div>
                 </div>
                 <div className="bg-white">

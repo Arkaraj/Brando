@@ -30,13 +30,13 @@ import ShowPage from "./components/ShowPage";
 function App() {
   const [movies, setMovies] = useState([]);
 
-  // https://api.themoviedb.org/3/discover/movie?api_key=dca6ba47ee045002b2c647232f48e550
-
   // useEffect's effect can't be async function, we have to use .then to resolve the promise
   useEffect(() => {
     // redis cache this
     const fetchMovies = async () => {
-      fetch(process.env.REACT_APP_MOVIE_API)
+      fetch(
+        `https://api.themoviedb.org/3/discover/movie?api_key=${process.env.REACT_APP_API_KEY}`
+      )
         .then((res) => res.json())
         .then((data) => {
           setMovies(data.results);

@@ -204,7 +204,6 @@ const MoviePage = (props) => {
                           ))
                         : null}
                     </div>
-
                     <h3>
                       Creators:{" "}
                       {created_by.length > 0 ? (
@@ -254,6 +253,15 @@ const MoviePage = (props) => {
                         <p>The Trailer couldn't be loaded</p>
                       )}
                     </div>
+                    <br />
+                    <a
+                      className="text-xl text-blue-500 hover:underline"
+                      href={`https://m4uhd.cc/search/${name}.html`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Watch Show
+                    </a>
                   </div>
                 </div>
                 <div className="bg-white">

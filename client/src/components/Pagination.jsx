@@ -17,7 +17,9 @@ const Pagination = ({ pcase, page, ptype = "" }) => {
         aria-label="Pagination"
       >
         <Link
-          to={`/${pcase}/${page - 1}`}
+          to={
+            ptype ? `/${ptype}/${pcase}/${page - 1}` : `/${pcase}/${page - 1}`
+          }
           className="flex w-10 h-10 mr-1 justify-center items-center rounded-full border border-gray-200 bg-white text-black hover:border-gray-300"
           title="Previous Page"
         >
@@ -47,7 +49,11 @@ const Pagination = ({ pcase, page, ptype = "" }) => {
             } else {
               return (
                 <Link
-                  to={`/${ptype}/${pcase}/${page - n}`}
+                  to={
+                    ptype
+                      ? `/${ptype}/${pcase}/${page - n}`
+                      : `/${pcase}/${page - n}`
+                  }
                   className="hidden md:flex w-10 h-10 mx-1 justify-center items-center rounded-full border border-gray-200 bg-white text-black hover:border-gray-300"
                   title="Page 1"
                 >
@@ -59,7 +65,9 @@ const Pagination = ({ pcase, page, ptype = "" }) => {
         })}
 
         <Link
-          to={`/${ptype}/${pcase}/${page + 1}`}
+          to={
+            ptype ? `/${ptype}/${pcase}/${page + 1}` : `/${pcase}/${page + 1}`
+          }
           className="flex w-10 h-10 ml-1 justify-center items-center rounded-full border border-gray-200 bg-white text-black hover:border-gray-300"
           title="Next Page"
         >
