@@ -9,6 +9,7 @@ Website: https://brando-movie.herokuapp.com/
 ## Install
 
 ```sh
+$ cd server
 $ npm i
 ```
 
@@ -22,12 +23,13 @@ Create .env file
 
 URI=
 SECRET=
-REACT_APP_MOVIE_API= 
+REACT_APP_MOVIE_API=
 REACT_APP_API_KEY=
 
 ```
 
 ```sh
+$ cd server
 $ npm start
 ```
 
