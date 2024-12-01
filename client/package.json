@@ -23,7 +23,7 @@
     "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.0.3"
   },
   "scripts": {
-    "start": "env-cmd -f ../.env craco start",
+    "start": "craco start",
     "build": "craco build",
     "test": "env-cmd -f ../.env craco test",
     "eject": "env-cmd -f ../.env craco eject"
@@ -46,7 +46,7 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://localhost:8080",
+  "proxy": "https://brando-backend.vercel.app",
   "devDependencies": {
     "env-cmd": "^10.1.0"
   }
