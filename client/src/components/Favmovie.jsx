@@ -89,7 +89,7 @@ const Favmovie = ({ movie }) => {
             >
               {/* className={`tag ${setTagColour(flim.vote_average)}`} */}
               <span className={`dot ${setTagColour(flim.vote_average)}`} />
-              {flim.vote_average ? flim.vote_average.toFixed(2) * 10 : 0}%
+              {flim.vote_average ? (flim.vote_average.toFixed(2) * 10).toFixed(2) : 0}%
             </p>
           </div>
           <div className="pt-2 pb-2 text-gray-600 text-center">

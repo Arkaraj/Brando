@@ -1,14 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { VscWarning } from "react-icons/vsc";
 
 const Message = ({ message }) => {
 
-    const [overlay, setOverlay] = useState('red')
-
-
-    if (!message.msgError) {
-        setOverlay('green')
-    }
+    const overlay = message.msgError ? 'red' : 'green';
 
     return (
         <div className={`flex bg-${overlay}-200 p-4 rounded-2xl max-h-16`}>
@@ -20,7 +15,7 @@ const Message = ({ message }) => {
             <div className="flex justify-between w-full">
                 <div className={`text-${overlay}-600`}>
                     <p className="mb-2 font-bold">
-                        {overlay == "green" ? 'Success' : 'Error'}
+                        {overlay === "green" ? 'Success' : 'Error'}
                     </p>
                     <p className="text-xs">
                         {message.msg}

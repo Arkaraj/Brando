@@ -16,14 +16,13 @@
     "react-icons": "^4.2.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.2",
-    "typescript": "^4.3.5",
-    "web-vitals": "^1.0.1"
+    "typescript": "^4.3.5"
   },
   "scripts": {
-    "start": "craco start",
-    "build": "craco build",
-    "test": "craco test",
-    "eject": "craco eject"
+    "start": "env-cmd -f ../.env craco start",
+    "build": "env-cmd -f ../.env craco build",
+    "test": "env-cmd -f ../.env craco test",
+    "eject": "env-cmd -f ../.env craco eject"
   },
   "eslintConfig": {
     "extends": [
@@ -47,6 +46,7 @@
   "devDependencies": {
     "@tailwindcss/postcss7-compat": "^2.0.3",
     "autoprefixer": "^9.8.6",
+    "env-cmd": "^10.1.0",
     "postcss": "^7.0.35",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.0.3"
   }

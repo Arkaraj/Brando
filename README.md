@@ -20,8 +20,10 @@ Create .env file
 
 ```text
 
-URI =
-SECRET =
+URI=
+SECRET=
+REACT_APP_MOVIE_API= 
+REACT_APP_API_KEY=
 
 ```
 

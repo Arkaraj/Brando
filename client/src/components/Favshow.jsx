@@ -70,7 +70,7 @@ const Favshow = ({ tv }) => {
             >
               {/* className={`tag ${setTagColour(flim.vote_average)}`} */}
               <span className={`dot ${setTagColour(show.vote_average)}`} />
-              {show.vote_average ? show.vote_average.toFixed(2) * 10 : 0}%
+              {show.vote_average ? (show.vote_average.toFixed(2) * 10).toFixed(2) : 0}%
             </p>
           </div>
           <div className="pt-2 pb-2 text-gray-600 text-center">

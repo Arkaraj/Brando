@@ -1,3 +1,4 @@
 .vscode/
-node_moudles/
+node_modules/
 .env
+build/

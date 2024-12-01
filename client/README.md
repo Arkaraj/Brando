@@ -8,6 +8,8 @@ https://www.themoviedb.org/
 
 ### NOTE
 
+This is deprecated, .env file is being picked from root directory
+
 For .env file: add
 REACT_APP_SECRET_KEY = secret key
 
