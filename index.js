@@ -34,13 +34,13 @@ app.use("/user", auth);
 const port = process.env.PORT || 8080;
 
 if (process.env.NODE_ENV == "production") {
-  app.use(express.static(path.join(__dirname, "/build")));
+  app.use(express.static(path.join(__dirname, "/client/build")));
 
-  app.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname, "build", "index.html"));
+  app.get("*", (_, res) => {
+    res.sendFile(path.join(__dirname, "client", "build", "index.html"));
   });
 } else {
-  app.get("/", (req, res) => {
+  app.get("/", (_, res) => {
     res.status(200).json({ msg: "API Working" });
   });
 }
