@@ -27,7 +27,7 @@ if (process.env.NODE_ENV == 'development') {
 
 app.use(
   cors({
-    origin: [''], // add front end link
+    origin: [`${process.env.FRONT_END_URL}`], // add front end link
     methods: ['POST', 'GET'],
     credentials: true,
   })
