@@ -1,6 +1,9 @@
+import { backendUrl } from "../constants/constants";
+
+// eslint-disable-next-line import/no-anonymous-default-export
 export default {
     register: user => {
-        return fetch('/user/register', {
+        return fetch(`${backendUrl}/user/register`, {
             method: "POST",
             body: JSON.stringify(user),
             headers: {
@@ -10,7 +13,7 @@ export default {
             .then(data => data);
     },
     login: user => {
-        return fetch('/user/login', {
+        return fetch(`${backendUrl}/user/login`, {
             method: "POST",
             body: JSON.stringify(user),
             headers: {
@@ -24,12 +27,12 @@ export default {
         })
     },
     logout: () => {
-        return fetch('/user/logout')
+        return fetch(`${backendUrl}/user/logout`)
             .then(res => res.json())
             .then(data => data);
     },
     delete: (_id) => {
-        return fetch(`/user/${_id}`, {
+        return fetch(`${backendUrl}/user/${_id}`, {
             method: "delete",
             headers: {
                 'Content-Type': 'application/json'
@@ -38,7 +41,7 @@ export default {
     },
     // Sync backend and front end
     isAuthenticated: () => {
-        return fetch('/user/c/authenticated')
+        return fetch(`${backendUrl}/user/c/authenticated`)
             .then(res => {
                 if (res.status !== 401)
                     return res.json().then(data => data);

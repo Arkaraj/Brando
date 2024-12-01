@@ -1,9 +1,11 @@
+import { backendUrl } from "../constants/constants";
+
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
   // For getting userswishList
 
   getWishList: (id) => {
-    return fetch(`/user/movies/wishlist/${id}`)
+    return fetch(`${backendUrl}/user/movies/wishlist/${id}`)
       .then((res) => res.json())
       .then((data) => {
         return data.wishlist;
@@ -11,7 +13,7 @@ export default {
   },
 
   getMovieWishList: (userId, tmdbId) => {
-    return fetch(`/user/movies/wishlist/${userId}/${tmdbId}`)
+    return fetch(`${backendUrl}/user/movies/wishlist/${userId}/${tmdbId}`)
       .then((res) => res.json())
       .then((data) => {
         if (data.msgError) {
@@ -27,7 +29,7 @@ export default {
       wish: true,
     };
 
-    return fetch(`/user/movies/wishlist/${tmdbId}`, {
+    return fetch(`${backendUrl}/user/movies/wishlist/${tmdbId}`, {
       method: "POST",
       body: JSON.stringify(schemaWish),
       headers: {
@@ -41,7 +43,7 @@ export default {
   },
 
   deleteWish: (id) => {
-    return fetch(`/user/movies/wishlist/${id}`, {
+    return fetch(`${backendUrl}/user/movies/wishlist/${id}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",

@@ -1,8 +1,10 @@
+import { backendUrl } from "../constants/constants"
+
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
 
     view: (_id) => {
-        return fetch('/user/').then(res => res.json()).then(data => {
+        return fetch(`${backendUrl}/user/`).then(res => res.json()).then(data => {
             // gives all users, extract from them all expect mine
             // data is an array
             const otherUser = data.filter(d => d._id !== _id)
@@ -12,7 +14,7 @@ export default {
     },
     allFavMovies: (_id) => {
 
-        return fetch(`/user/movies/${_id}`)
+        return fetch(`${backendUrl}/user/movies/${_id}`)
             .then(res => res.json())
             .then(data => {
                 // data.favourites gives array of all the fav movies
@@ -28,7 +30,7 @@ export default {
             rating: score
         }
 
-        return fetch(`/user/movies/rating/${id}`, {
+        return fetch(`${backendUrl}/user/movies/rating/${id}`, {
             method: "PUT",
             headers: {
                 'Content-Type': "application/json"
@@ -43,7 +45,7 @@ export default {
             rating: score
         }
 
-        return fetch(`/user/rating/${id}`, {
+        return fetch(`${backendUrl}/user/rating/${id}`, {
             method: "PUT",
             headers: {
                 'Content-Type': "application/json"
@@ -56,7 +58,7 @@ export default {
             status
         }
 
-        return fetch(`/user/status/${id}`, {
+        return fetch(`${backendUrl}/user/status/${id}`, {
             method: "PUT",
             headers: {
                 'Content-Type': "application/json"
@@ -71,7 +73,7 @@ export default {
             vote: n
         }
 
-        return fetch(`/user/vote/${id}`, {
+        return fetch(`${backendUrl}/user/vote/${id}`, {
             method: "PUT",
             headers: {
                 'Content-Type': "application/json"
