@@ -56,7 +56,7 @@ router.delete(
 );
 
 // Logout Account
-router.get(
+router.post(
   "/logout",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
