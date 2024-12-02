@@ -12,7 +12,3 @@ export function throwDataOnError(error) {
   }
   throw error;
 }
-
-export const fetchCorsConfig = {
-  credentials: 'include',
-};
