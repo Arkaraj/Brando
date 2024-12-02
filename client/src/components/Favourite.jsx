@@ -1,9 +1,10 @@
-import React, { useState, useEffect, useContext } from "react";
-import Favmovie from "./Favmovie";
-import { AuthContext } from "../Context/AuthContext";
-import NoMovie from "../Images/noMovies.svg";
-import ShowService from "../Services/ShowService";
-import Favshow from "./Favshow";
+import React, { useState, useEffect, useContext } from 'react';
+import Favmovie from './Favmovie';
+import { AuthContext } from '../Context/AuthContext';
+import NoMovie from '../Images/noMovies.svg';
+import ShowService from '../Services/ShowService';
+import Favshow from './Favshow';
+import MovieService from '../Services/MovieService';
 
 const Favourite = () => {
   const [cine, setCine] = useState([]);
@@ -11,15 +12,6 @@ const Favourite = () => {
   const { user } = useContext(AuthContext);
 
   useEffect(() => {
-    const fetchCine = async () => {
-      if (user) {
-        const res = await fetch(`/user/movies/${user._id}`);
-        const data = await res.json();
-
-        return data.favourites;
-      } else return [];
-    };
-
     const fetchShow = async () => {
       if (user) {
         return await ShowService.getUsersFavShows();
@@ -27,7 +19,7 @@ const Favourite = () => {
     };
 
     const getCine = async () => {
-      const cineFromServer = await fetchCine();
+      const cineFromServer = await MovieService.getUsersFavMovies(user._id);
       setCine(cineFromServer);
     };
 
@@ -43,7 +35,7 @@ const Favourite = () => {
   return (
     <div>
       <h1 className="text-center text-2xl font-bold">
-        Your Favourite Movies are:{" "}
+        Your Favourite Movies are:{' '}
       </h1>
 
       {cine.length > 0 ? (
@@ -60,7 +52,7 @@ const Favourite = () => {
       )}
 
       <h1 className="text-center text-2xl font-bold">
-        Your Favourite Shows are:{" "}
+        Your Favourite Shows are:{' '}
         {show.length > 0 ? (
           <div className="favgrid">
             {show.map((tv) => (

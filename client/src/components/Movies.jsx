@@ -1,14 +1,15 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState, useEffect, useContext } from "react";
-import { Route, Link } from "react-router-dom";
-import { AuthContext } from "../Context/AuthContext";
-import MovieService from "../Services/MovieService";
-import { TiStarFullOutline } from "react-icons/ti";
-import { BsFillBookmarkFill } from "react-icons/bs";
+import React, { useState, useEffect, useContext } from 'react';
+import { Route, Link } from 'react-router-dom';
+import { AuthContext } from '../Context/AuthContext';
+import MovieService from '../Services/MovieService';
+import { TiStarFullOutline } from 'react-icons/ti';
+import { BsFillBookmarkFill } from 'react-icons/bs';
+import { axiosClient } from '../Services/AxiosService';
 
 // import MoviePage from './MoviePage'
 
-const Movie_Img = "http://image.tmdb.org/t/p/w220_and_h330_face/";
+const Movie_Img = 'http://image.tmdb.org/t/p/w220_and_h330_face/';
 
 const Movies = ({ movie }) => {
   // if user is logged in only then
@@ -16,22 +17,12 @@ const Movies = ({ movie }) => {
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const getData = async (id) => {
-    fetch(`/user/movies/${user._id}/${id}`)
-      .then(async (res) => {
-        if (res.status === 200) {
-          const data = await res.json();
-          setFav(data.fav.fav);
-
-          if (!data.fav.fav) {
-            await deleteServer(data.fav._id);
-          } else {
-            return;
-          }
-        } else {
-          return;
-        }
-      })
-      .catch((err) => console.log("Error: " + err));
+    const data = await MovieService.getUserMovie(user._id, id);
+    setFav(data.fav.fav);
+    if (!data.fav.fav) {
+      await deleteServer(data.fav._id);
+    }
+    return;
   };
 
   const getWish = async (id) => {
@@ -66,7 +57,7 @@ const Movies = ({ movie }) => {
   }, [getData, getWish, isAuthenticated, movie.id]);
 
   const noImage =
-    "https://upload.wikimedia.org/wikipedia/commons/f/fc/No_picture_available.png";
+    'https://upload.wikimedia.org/wikipedia/commons/f/fc/No_picture_available.png';
   const poster = Movie_Img + movie.poster_path;
 
   const postMovie = async (id) => {
@@ -75,15 +66,14 @@ const Movies = ({ movie }) => {
       fav: false, // it will change in the modifyServer
     };
 
-    const res = await fetch(`/user/movies/`, {
-      method: "POST",
+    const res = await axiosClient(`/user/movies/`, {
+      method: 'POST',
       headers: {
-        "Content-type": "application/json",
+        'Content-type': 'application/json',
       },
       body: JSON.stringify(cine),
     });
-    const data = res.json();
-    return data;
+    return res.data;
   };
 
   const modifyServer = async (data) => {
@@ -91,28 +81,19 @@ const Movies = ({ movie }) => {
       id: data.id,
       fav: !fav,
     };
-
-    await fetch(`/user/movies/${data._id}`, {
-      method: "PUT",
-      headers: {
-        "Content-type": "application/json",
-      },
-      body: JSON.stringify(cine),
-    });
+    await MovieService.toggleUserMovieFav(data._id, cine);
   };
 
-  // id is the book id
+  // id is the movie id
   const deleteServer = async (id) => {
-    await fetch(`/user/movies/${id}`, {
-      method: "DELETE",
-    });
+    await MovieService.deleteMovieFromServer(id);
   };
 
   const getServer = async (id) => {
-    fetch(`/user/movies/${user._id}/${id}`).then(async (res) => {
+    axiosClient(`/user/movies/${user._id}/${id}`).then(async (res) => {
       // if !res.ok delete that entry
       if (res.status === 200) {
-        const data = await res.json();
+        const data = res.data;
         await modifyServer(data.fav);
       } else {
         // await deleteServer(id)
@@ -157,13 +138,13 @@ const Movies = ({ movie }) => {
 
   const setTagColour = (vote) => {
     if (vote >= 8) {
-      return "s";
+      return 's';
     } else if (vote >= 5) {
-      return "a";
+      return 'a';
     } else if (vote > 0) {
-      return "f";
+      return 'f';
     } else if (vote === 0) {
-      return "n";
+      return 'n';
     }
   };
   return (
@@ -172,13 +153,13 @@ const Movies = ({ movie }) => {
         <div
           id="movieCard"
           className="max-h-1/6 mx-auto rounded-lg overflow-hidden bg-white"
-          style={{ maxWidth: "13.7rem" }}
+          style={{ maxWidth: '13.7rem' }}
         >
           {/* background: '#22254b' */}
           <div
             className="relative overflow-hidden z-10"
             style={{
-              clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 calc(100% - 3vh))",
+              clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0 calc(100% - 3vh))',
             }}
           >
             <Link to={`/movies/${movie.id}/#Movie`}>
@@ -207,8 +188,8 @@ const Movies = ({ movie }) => {
                     onClick={() => wishList(movie.id)}
                     className={
                       wish
-                        ? "text-yellow-500 text-3xl rounded-full cursor-pointer"
-                        : "text-green-400 hover:bg-yellow-300 text-3xl hover:text-yellow-500 active:text-yellow-500 rounded-full cursor-pointer"
+                        ? 'text-yellow-500 text-3xl rounded-full cursor-pointer'
+                        : 'text-green-400 hover:bg-yellow-300 text-3xl hover:text-yellow-500 active:text-yellow-500 rounded-full cursor-pointer'
                     }
                   />
                 )}
@@ -217,7 +198,7 @@ const Movies = ({ movie }) => {
                     className="p-4 bg-blue-600 rounded-full hover:bg-blue-500 focus:bg-blue-700 transition ease-in duration-200 focus:outline-none"
                     onClick={() => favourite(movie.id)}
                   >
-                    <TiStarFullOutline className={fav ? "blue" : "star"} />
+                    <TiStarFullOutline className={fav ? 'blue' : 'star'} />
                   </button>
                 ) : null}
               </>
