@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 
 const mongoose = require('mongoose');
-require('dotenv').config({ path: '../.env' });
+require('dotenv').config();
 const cookieParser = require('cookie-parser');
 const path = require('path');
 const cors = require('cors');
@@ -18,6 +18,7 @@ mongoose.connect(
     useCreateIndex: true,
   },
   () => {
+    console.log("Environment variables: ", process.env);
     console.log('Successfully connected to Database!!');
   }
 );
