@@ -9,7 +9,7 @@ router.get("/:_id", (req, res) => {
     .populate({
       path: "wishlist",
       options: {
-        sort: { created_at: -1 }, // will work with _id as well
+        sort: { _id: -1 }, // will work with _id as well
       },
     })
     .exec((err, document) => {
