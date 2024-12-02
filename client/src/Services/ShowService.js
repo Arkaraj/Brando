@@ -1,43 +1,66 @@
+import { axiosClient } from "./AxiosService";
+
 const ShowService = {
-  getShows: async () => {
-    const res = await fetch(`/user/tv/`);
-    const data = await res.json();
-    return data;
-  },
+    // Fetch all shows
+    getShows: async () => {
+        try {
+            const res = await axiosClient.get(`/user/tv/`);
+            return res.data;
+        } catch (err) {
+            console.error(err);
+            throw err;
+        }
+    },
 
-  postShow: async (tvId, details = true) => {
-    const res = await fetch(`/user/tv/${tvId}?favourite=${details}`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    const data = await res.json();
-    return data;
-  },
+    // Add a show to favorites or wish list
+    postShow: async (tvId, details = true) => {
+        try {
+            const res = await axiosClient.post(`/user/tv/${tvId}`, null, {
+                params: { favourite: details },
+                headers: { "Content-Type": "application/json" },
+            });
+            return res.data;
+        } catch (err) {
+            console.error(err);
+            throw err;
+        }
+    },
 
-  deleteShowFromFavouriteOrWishList: async (tvId, details = true) => {
-    const res = await fetch(`/user/tv/${tvId}?favourite=${details}`, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    const data = await res.json();
-    return data;
-  },
+    // Remove a show from favorites or wish list
+    deleteShowFromFavouriteOrWishList: async (tvId, details = true) => {
+        try {
+            const res = await axiosClient.delete(`/user/tv/${tvId}`, {
+                params: { favourite: details },
+                headers: { "Content-Type": "application/json" },
+            });
+            return res.data;
+        } catch (err) {
+            console.error(err);
+            throw err;
+        }
+    },
 
-  getUsersFavShows: async () => {
-    const res = await fetch(`/user/tv/fav`);
-    const data = await res.json();
-    return data.favourites || [];
-  },
+    // Get all favorite shows for the user
+    getUsersFavShows: async () => {
+        try {
+            const res = await axiosClient.get(`/user/tv/fav`);
+            return res.data.favourites || [];
+        } catch (err) {
+            console.error(err);
+            throw err;
+        }
+    },
 
-  getUsersWishlistShows: async () => {
-    const res = await fetch(`/user/tv/wish`);
-    const data = await res.json();
-    return data.wishlist || [];
-  },
+    // Get all wishlist shows for the user
+    getUsersWishlistShows: async () => {
+        try {
+            const res = await axiosClient.get(`/user/tv/wish`);
+            return res.data.wishlist || [];
+        } catch (err) {
+            console.error(err);
+            throw err;
+        }
+    },
 };
 
 export default ShowService;

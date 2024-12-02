@@ -1,83 +1,84 @@
+import { axiosClient } from "./AxiosService";
+
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
-
-    view: (_id) => {
-        return fetch(`/user/`).then(res => res.json()).then(data => {
-            // gives all users, extract from them all expect mine
-            // data is an array
-            const otherUser = data.filter(d => d._id !== _id)
-
-            return otherUser
-        })
-    },
-    allFavMovies: (_id) => {
-
-        return fetch(`/user/movies/${_id}`)
-            .then(res => res.json())
-            .then(data => {
-                // data.favourites gives array of all the fav movies
-                // const list = data.favourites
-
-                return data
-
-            })
-    },
-    rateMovies: (id, score) => {
-
-        const rate = {
-            rating: score
+    // Get a list of all users except the current user
+    view: async (_id) => {
+        try {
+            const res = await axiosClient.get(`/user/`);
+            const otherUser = res.data.filter((d) => d._id !== _id);
+            return otherUser;
+        } catch (err) {
+            console.error(err);
+            throw err;
         }
-
-        return fetch(`/user/movies/rating/${id}`, {
-            method: "PUT",
-            headers: {
-                'Content-Type': "application/json"
-            },
-            body: JSON.stringify(rate)
-        }).then(res => res.json()).then(data => data)
-
     },
-    rateUser: (id, score) => {
 
-        const rate = {
-            rating: score
+    // Get all favorite movies for a specific user
+    allFavMovies: async (_id) => {
+        try {
+            const res = await axiosClient.get(`/user/movies/${_id}`);
+            return res.data;
+        } catch (err) {
+            console.error(err);
+            throw err;
         }
-
-        return fetch(`/user/rating/${id}`, {
-            method: "PUT",
-            headers: {
-                'Content-Type': "application/json"
-            },
-            body: JSON.stringify(rate)
-        }).then(res => res.json()).then(data => data)
     },
-    updateStatus: (status, id) => {
-        const feel = {
-            status
-        }
 
-        return fetch(`/user/status/${id}`, {
-            method: "PUT",
-            headers: {
-                'Content-Type': "application/json"
-            },
-            body: JSON.stringify(feel)
-        }).then(res => res.json()).then(data => data)
+    // Rate a specific movie
+    rateMovies: async (id, score) => {
+        try {
+            const rate = { rating: score };
+            const res = await axiosClient.put(`/user/movies/rating/${id}`, rate, {
+                headers: { "Content-Type": "application/json" },
+            });
+            return res.data;
+        } catch (err) {
+            console.error(err);
+            throw err;
+        }
     },
-    updateVote: (vote, id) => {
 
-        const n = vote ? -1 : 1
-        const upvote = {
-            vote: n
+    // Rate a specific user
+    rateUser: async (id, score) => {
+        try {
+            const rate = { rating: score };
+            const res = await axiosClient.put(`/user/rating/${id}`, rate, {
+                headers: { "Content-Type": "application/json" },
+            });
+            return res.data;
+        } catch (err) {
+            console.error(err);
+            throw err;
         }
+    },
 
-        return fetch(`/user/vote/${id}`, {
-            method: "PUT",
-            headers: {
-                'Content-Type': "application/json"
-            },
-            body: JSON.stringify(upvote)
-        }).then(res => res.json()).then(data => data)
-    }
+    // Update the status of a user
+    updateStatus: async (status, id) => {
+        try {
+            const feel = { status };
+            const res = await axiosClient.put(`/user/status/${id}`, feel, {
+                headers: { "Content-Type": "application/json" },
+            });
+            return res.data;
+        } catch (err) {
+            console.error(err);
+            throw err;
+        }
+    },
 
-}
+    // Update vote count for a user
+    updateVote: async (vote, id) => {
+        try {
+            const n = vote ? -1 : 1;
+            const upvote = { vote: n };
+            const res = await axiosClient.put(`/user/vote/${id}`, upvote, {
+                headers: { "Content-Type": "application/json" },
+            });
+            return res.data;
+        } catch (err) {
+            console.error(err);
+            throw err;
+        }
+    },
+};

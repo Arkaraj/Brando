@@ -1,53 +1,53 @@
+import { axiosClient } from "./AxiosService";
+
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
-  // For getting userswishList
+    // Get the user's wish list
+    getWishList: (id) => {
+        return axiosClient.get(`/user/movies/wishlist/${id}`)
+            .then((res) => res.data.wishlist)
+            .catch((err) => {
+                console.error(err);
+                throw err;
+            });
+    },
 
-  getWishList: (id) => {
-    return fetch(`/user/movies/wishlist/${id}`)
-      .then((res) => res.json())
-      .then((data) => {
-        return data.wishlist;
-      });
-  },
+    // Check if a specific movie is in the user's wish list
+    getMovieWishList: (userId, tmdbId) => {
+        return axiosClient.get(`/user/movies/wishlist/${userId}/${tmdbId}`)
+            .then((res) => {
+                const { msgError, wish } = res.data;
+                return msgError ? false : wish;
+            })
+            .catch((err) => {
+                console.error(err);
+                throw err;
+            });
+    },
 
-  getMovieWishList: (userId, tmdbId) => {
-    return fetch(`/user/movies/wishlist/${userId}/${tmdbId}`)
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.msgError) {
-          return false;
-        } else {
-          return data.wish;
-        }
-      });
-  },
+    // Add a movie to the user's wish list
+    postWish: (tmdbId) => {
+        const schemaWish = { wish: true };
 
-  postWish: (tmdbId) => {
-    const schemaWish = {
-      wish: true,
-    };
+        return axiosClient.post(`/user/movies/wishlist/${tmdbId}`, schemaWish, {
+            headers: { "Content-Type": "application/json" }
+        })
+            .then((res) => res.data)
+            .catch((err) => {
+                console.error(err);
+                throw err;
+            });
+    },
 
-    return fetch(`/user/movies/wishlist/${tmdbId}`, {
-      method: "POST",
-      body: JSON.stringify(schemaWish),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        return data;
-      });
-  },
-
-  deleteWish: (id) => {
-    return fetch(`/user/movies/wishlist/${id}`, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => data);
-  },
+    // Remove a movie from the user's wish list
+    deleteWish: (id) => {
+        return axiosClient.delete(`/user/movies/wishlist/${id}`, {
+            headers: { "Content-Type": "application/json" }
+        })
+            .then((res) => res.data)
+            .catch((err) => {
+                console.error(err);
+                throw err;
+            });
+    },
 };

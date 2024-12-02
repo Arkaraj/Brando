@@ -1,50 +1,63 @@
+import { axiosClient } from "./AxiosService";
+
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
-    register: user => {
-        return fetch(`/user/register`, {
-            method: "POST",
-            body: JSON.stringify(user),
+    register: (user) => {
+        return axiosClient.post(`/user/register`, user, {
             headers: {
                 'Content-Type': 'application/json'
             }
-        }).then(res => res.json())
-            .then(data => data);
-    },
-    login: user => {
-        return fetch(`/user/login`, {
-            method: "POST",
-            body: JSON.stringify(user),
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        }).then(res => {
-            if (res.status !== 401)
-                return res.json().then(data => data); // We get the user data
-            else
-                return { isAuthenticated: false }
         })
+            .then((res) => res.data)
+            .catch((err) => {
+                console.error(err);
+                throw err;
+            });
+    },
+    login: (user) => {
+        return axiosClient.post(`/user/login`, user, {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+            .then((res) => res.data)
+            .catch((err) => {
+                if (err.response && err.response.status === 401) {
+                    return { isAuthenticated: false };
+                }
+                console.error(err);
+                throw err;
+            });
     },
     logout: () => {
-        return fetch(`/user/logout`)
-            .then(res => res.json())
-            .then(data => data);
+        return axiosClient.get(`/user/logout`)
+            .then((res) => res.data)
+            .catch((err) => {
+                console.error(err);
+                throw err;
+            });
     },
     delete: (_id) => {
-        return fetch(`/user/${_id}`, {
-            method: "delete",
+        return axiosClient.delete(`/user/${_id}`, {
             headers: {
                 'Content-Type': 'application/json'
             }
-        }).then(res => res.json()).then(data => data)
+        })
+            .then((res) => res.data)
+            .catch((err) => {
+                console.error(err);
+                throw err;
+            });
     },
-    // Sync backend and front end
     isAuthenticated: () => {
-        return fetch(`/user/c/authenticated`)
-            .then(res => {
-                if (res.status !== 401)
-                    return res.json().then(data => data);
-                else
-                    return { isAuthenticated: false, user: {} }
+        return axiosClient.get(`/user/c/authenticated`)
+            .then((res) => res.data)
+            .catch((err) => {
+                if (err.response && err.response.status === 401) {
+                    return { isAuthenticated: false, user: {} };
+                }
+                console.error(err);
+                throw err;
             });
     }
-}
+};
