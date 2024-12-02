@@ -162,7 +162,11 @@ router.post("/login", async (req, res) => {
           // Logged in
           const token = signToken(user._id);
           // httpOnly doen't let client side js touch the cookie saves from cross scripting attacks
-          res.cookie("access_token", token, { httpOnly: true, sameSite: true });
+          res.cookie('access_token', token, {
+            httpOnly: true,
+            sameSite: 'none',
+            secure: true,
+          });
           res.status(200).json({
             user,
             isAuthenticated: true,
