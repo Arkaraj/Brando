@@ -5,6 +5,7 @@ import Movies from "./Movies";
 import Search from "./Search";
 
 const poster = "http://image.tmdb.org/t/p/w154/";
+const videoSrcBaseUrl = "https://vidsrc.me/embed/movie?tmdb=";
 
 const MoviePage = (props) => {
   const id = props.match.params.id;
@@ -24,6 +25,8 @@ const MoviePage = (props) => {
   const [crew, setCrew] = useState([]);
 
   const [loaded, isLoaded] = useState(false);
+
+  const [showPlayer, setShowPlayer] = useState(false);
 
   const noImage =
     "https://upload.wikimedia.org/wikipedia/commons/f/fc/No_picture_available.png";
@@ -126,6 +129,10 @@ const MoviePage = (props) => {
     return `${hour}hr ${seconds}min`;
   };
 
+  const getVidSrcSource = () => {
+    return videoSrcBaseUrl + id;
+  };
+
   return (
     <>
       {loaded ? (
@@ -195,14 +202,70 @@ const MoviePage = (props) => {
                     </div>
                     <br />
 
-                    <a
-                      className="text-xl text-blue-500 hover:underline"
-                      href={`https://m4uhd.cc/search/${title}.html`}
-                      target="_blank"
-                      rel="noopener noreferrer"
+                    <button
+                      className="text-xl text-blue-500 hover:underline bg-transparent border-none p-0 cursor-pointer"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        if (!showPlayer) setShowPlayer(true);
+                      }}
+                      type="button"
                     >
                       Watch Movie
-                    </a>
+                    </button>
+                    {showPlayer && (
+                      <div
+                        style={{
+                          position: "fixed",
+                          top: 0,
+                          left: 0,
+                          width: "100vw",
+                          height: "100vh",
+                          background: "rgba(0,0,0,0.8)",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          zIndex: 1000,
+                        }}
+                        onClick={() => setShowPlayer(false)}
+                      >
+                        <div
+                          style={{
+                            position: "relative",
+                            width: "80vw",
+                            height: "80vh",
+                            background: "#000",
+                          }}
+                          onClick={(e) => e.stopPropagation()}
+                        >
+                          <button
+                            style={{
+                              position: "absolute",
+                              top: 10,
+                              right: 10,
+                              zIndex: 1001,
+                              background: "#fff",
+                              border: "none",
+                              borderRadius: "50%",
+                              width: 32,
+                              height: 32,
+                              fontSize: 18,
+                              cursor: "pointer",
+                            }}
+                            onClick={() => setShowPlayer(false)}
+                          >
+                            x
+                          </button>
+                          <iframe
+                            src={getVidSrcSource()}
+                            style={{ width: "100%", height: "100%" }}
+                            frameBorder="0"
+                            referrerPolicy="origin"
+                            allowFullScreen
+                            title="Watch Movie"
+                          ></iframe>
+                        </div>
+                      </div>
+                    )}
                   </div>
                 </div>
                 <div className="bg-white">
