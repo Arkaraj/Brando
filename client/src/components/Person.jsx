@@ -28,7 +28,7 @@ const Person = (props) => {
       .then((res) => res.json())
       .then((data) => {
         // console.log(data.cast)
-        let x = data.cast ? setActorMovies(data.cast) : null;
+        if (data.cast) setActorMovies(data.cast)
       });
   };
 

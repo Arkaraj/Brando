@@ -5,12 +5,12 @@ const Tag = ({ genre }) => {
 
     let clr = 'blue'
 
-    if (genre == 'Action' || genre == 'Animation' || genre == 'Science Fiction' || genre == 'Western' || genre == 'Mystery') {
+    if (genre === 'Action' || genre === 'Animation' || genre === 'Science Fiction' || genre === 'Western' || genre === 'Mystery') {
         clr = 'blue'
-    } else if (genre == 'Adventure' || genre == 'Comedy' || genre == 'Documentary' || genre == 'Fantasy' || genre == 'Thriller') {
+    } else if (genre === 'Adventure' || genre === 'Comedy' || genre === 'Documentary' || genre === 'Fantasy' || genre === 'Thriller') {
         clr = 'green'
     }
-    else if (genre == 'Crime' || genre == 'Horror' || genre == 'History' || genre == 'Romance' || genre == 'War') {
+    else if (genre === 'Crime' || genre === 'Horror' || genre === 'History' || genre === 'Romance' || genre === 'War') {
         clr = 'red'
     } else {
         clr = 'yellow'

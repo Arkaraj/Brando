@@ -16,7 +16,7 @@ const Connect = () => {
             setOther(data)
         })
 
-    }, [])
+    }, [user._id])
 
     return (
         <>

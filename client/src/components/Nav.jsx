@@ -13,9 +13,8 @@ import { slide as Menu } from "react-burger-menu";
 // Git version to view what was here
 
 const Nav = (props) => {
-  const { user, setUser, isAuthenticated, setIsAuthenticated } = useContext(
-    AuthContext
-  );
+  const { user, setUser, isAuthenticated, setIsAuthenticated } =
+    useContext(AuthContext);
 
   const [searchToggle, setSearchToggle] = useState(false);
 
@@ -728,49 +727,6 @@ const Nav = (props) => {
                             </div>
                           </Link>
                         </div>
-                        <div className="px-5 py-5 bg-gray-50 sm:px-8 sm:py-8">
-                          <div>
-                            <h3 className="text-sm tracking-wide font-medium text-gray-500 uppercase">
-                              Recent Posts
-                            </h3>
-                            <ul className="mt-4 space-y-4">
-                              <li className="text-base truncate">
-                                <Link
-                                  to="/"
-                                  className="font-medium text-gray-900 hover:text-gray-700"
-                                >
-                                  Boost your conversion rate
-                                </Link>
-                              </li>
-                              <li className="text-base truncate">
-                                <Link
-                                  to="/"
-                                  className="font-medium text-gray-900 hover:text-gray-700"
-                                >
-                                  How to use search engine optimization to drive
-                                  traffic to your site
-                                </Link>
-                              </li>
-                              <li className="text-base truncate">
-                                <Link
-                                  to="/"
-                                  className="font-medium text-gray-900 hover:text-gray-700"
-                                >
-                                  Improve your customer experience
-                                </Link>
-                              </li>
-                            </ul>
-                          </div>
-                          <div className="mt-5 text-sm">
-                            <Link
-                              to="/"
-                              className="font-medium text-blue-600 hover:text-blue-500"
-                            >
-                              {" "}
-                              View all posts <span aria-hidden="true">→</span>
-                            </Link>
-                          </div>
-                        </div>
                       </div>
                     </div>
                   </div>
@@ -810,8 +766,8 @@ const Nav = (props) => {
                     <div>
                       <img
                         className="h-8 w-auto"
-                        src="https://tailwindui.com/img/logos/workflow-mark-blue-600.svg"
-                        alt="Workflow"
+                        src={brandoLogo}
+                        alt="Brando"
                       />
                     </div>
                     <div className="-mr-2">
