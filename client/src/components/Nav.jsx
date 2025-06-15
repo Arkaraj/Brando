@@ -308,7 +308,7 @@ const Nav = (props) => {
     <nav
       className={
         scrolling
-          ? "blur transition delay-150 duration-300 ease-in-out"
+          ? "blur_new transition delay-150 duration-300 ease-in-out"
           : " transition delay-150 duration-300 ease-in-out"
       }
     >

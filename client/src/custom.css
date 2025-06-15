@@ -43,7 +43,7 @@ nav.main {
   box-shadow: 0 0 15px rgb(0 0 0 / 10%);
 }
 
-nav.blur {
+nav.blur_new {
   position: fixed;
   z-index: 90;
   min-width: -webkit-fill-available;
@@ -95,7 +95,7 @@ nav .menu .menu_links:hover {
     display: none;
   }
 
-  nav.blur {
+  nav.blur_new {
     backdrop-filter: blur(0px);
   }
 

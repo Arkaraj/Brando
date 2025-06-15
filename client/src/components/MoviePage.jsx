@@ -16,7 +16,7 @@ const MoviePage = (props) => {
 
   const [genre, setGenre] = useState([]);
 
-  const [trailer, settrailer] = useState("");
+  const [trailer, setTrailer] = useState("");
 
   const [cast, setCast] = useState([]);
 
@@ -59,9 +59,10 @@ const MoviePage = (props) => {
         if (data.results) {
           if (data.results[0]) {
             if (data.results[0].key != null) {
-              settrailer(youtube + data.results[0].key);
+              setTrailer(youtube + data.results[0].key);
             }
           } else {
+            setTrailer("");
             return;
           }
         } else {
@@ -76,7 +77,7 @@ const MoviePage = (props) => {
     )
       .then((res) => res.json())
       .then((data) => {
-        setCrew(data.crew.filter((crew) => crew.job == "Director"));
+        setCrew(data.crew.filter((crew) => crew.job === "Director"));
         if (data.cast) {
           setCast(data.cast);
         } else {
@@ -136,7 +137,7 @@ const MoviePage = (props) => {
   return (
     <>
       {loaded ? (
-        original_title == "" ? (
+        original_title === "" ? (
           <div className="loading"></div>
         ) : (
           <div>
@@ -144,8 +145,8 @@ const MoviePage = (props) => {
               <div className="flex-col">
                 <div className="MovieInfo">
                   <img
-                    src={image == "" ? noImage : image}
-                    className={image == "" ? "noImage" : ""}
+                    src={image === "" ? noImage : image}
+                    className={image === "" ? "noImage" : ""}
                     alt={data.title}
                   />
                   <div>
@@ -170,7 +171,7 @@ const MoviePage = (props) => {
                       {crew.map((crw, index) => (
                         <span className="pl-1">
                           {crw.name}
-                          {index == crew.length - 1 ? null : ","}
+                          {index === crew.length - 1 ? null : ","}
                         </span>
                       ))}
                     </h3>
