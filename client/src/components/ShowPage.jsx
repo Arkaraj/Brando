@@ -27,13 +27,17 @@ const MoviePage = (props) => {
 
   const [genre, setGenre] = useState([]);
 
-  const [trailer, settrailer] = useState("");
+  const [trailer, setTrailer] = useState("");
 
   const [cast, setCast] = useState([]);
 
   const [similar, setSimilar] = useState([]);
 
   const [loaded, isLoaded] = useState(false);
+
+  const [showPlayer, setShowPlayer] = useState(false);
+  const [selectedSeason, setSelectedSeason] = useState(null);
+  const [selectedEpisode, setSelectedEpisode] = useState(1);
 
   const { isAuthenticated } = useContext(AuthContext);
 
@@ -68,9 +72,10 @@ const MoviePage = (props) => {
         if (data.results) {
           if (data.results[0]) {
             if (data.results[0].key != null) {
-              settrailer(youtube + data.results[0].key);
+              setTrailer(youtube + data.results[0].key);
             }
           } else {
+            setTrailer("");
             return;
           }
         } else {
@@ -173,6 +178,12 @@ const MoviePage = (props) => {
     backgroundRepeat: "no-repeat",
   };
 
+  const seasons = (data.seasons || []).filter((s) => s.season_number !== 0);
+        const episodeCount =
+    selectedSeason && seasons.length
+      ? seasons.find((s) => s.season_number === Number(selectedSeason))?.episode_count || 1
+      : 1;
+
   return (
     <>
       {loaded ? (
@@ -254,14 +265,125 @@ const MoviePage = (props) => {
                       )}
                     </div>
                     <br />
-                    <a
+                    {/* <a
                       className="text-xl text-blue-500 hover:underline"
                       href={`https://m4uhd.cc/search/${name}.html`}
                       target="_blank"
                       rel="noopener noreferrer"
                     >
                       Watch Show
-                    </a>
+                    </a> */}
+                    <button
+                    className="text-xl text-blue-500 hover:underline bg-transparent border-none p-0 cursor-pointer"
+                    onClick={() => setShowPlayer(true)}
+                    type="button"
+                  >
+                    Watch Show
+                  </button>
+                  {showPlayer && (
+                    <div
+                      style={{
+                        position: "fixed",
+                        top: 0,
+                        left: 0,
+                        width: "100vw",
+                        height: "100vh",
+                        background: "rgba(0,0,0,0.8)",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        zIndex: 1000,
+                      }}
+                      onClick={() => setShowPlayer(false)}
+                    >
+                      <div
+                        style={{
+                          position: "relative",
+                          width: "80vw",
+                          height: "80vh",
+                          background: "#000",
+                          display: "flex",
+                          flexDirection: "column",
+                          alignItems: "center",
+                          justifyContent: "center",
+                        }}
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        <button
+                          style={{
+                            position: "absolute",
+                            top: 10,
+                            right: 10,
+                            zIndex: 1001,
+                            background: "#fff",
+                            border: "none",
+                            borderRadius: "50%",
+                            width: 32,
+                            height: 32,
+                            fontSize: 18,
+                            cursor: "pointer",
+                          }}
+                          onClick={() => setShowPlayer(false)}
+                        >
+                          ×
+                        </button>
+                        <div style={{ marginBottom: 16 }}>
+                          <label>
+                            Season:{" "}
+                            <select
+                              value={selectedSeason || ""}
+                              onChange={(e) => {
+                                setSelectedSeason(e.target.value);
+                                setSelectedEpisode(1);
+                              }}
+                            >
+                              <option value="" disabled>
+                                Select Season
+                              </option>
+                              {seasons.map((season) => (
+                                <option
+                                  key={season.season_number}
+                                  value={season.season_number}
+                                >
+                                  {season.name}
+                                </option>
+                              ))}
+                            </select>
+                          </label>
+                          {selectedSeason && (
+                            <label style={{ marginLeft: 16, color: "black" }}>
+                              Episode:{" "}
+                              <select
+                                value={selectedEpisode}
+                                onChange={(e) =>
+                                  setSelectedEpisode(Number(e.target.value))
+                                }
+                              >
+                                {Array.from(
+                                  { length: episodeCount },
+                                  (_, i) => i + 1
+                                ).map((ep) => (
+                                  <option key={ep} value={ep}>
+                                    {ep}
+                                  </option>
+                                ))}
+                              </select>
+                            </label>
+                          )}
+                        </div>
+                        {selectedSeason && selectedEpisode && (
+                          <iframe
+                            src={`https://vidsrc.me/embed/tv?tmdb=${id}&season=${selectedSeason}&episode=${selectedEpisode}`}
+                            style={{ width: "100%", height: "80%", color: "black" }}
+                            frameBorder="0"
+                            referrerPolicy="origin"
+                            allowFullScreen
+                            title="Watch Show"
+                          ></iframe>
+                        )}
+                      </div>
+                    </div>
+                  )}
                   </div>
                 </div>
                 <div className="bg-white">
