@@ -89,7 +89,10 @@ const Favmovie = ({ movie }) => {
             >
               {/* className={`tag ${setTagColour(flim.vote_average)}`} */}
               <span className={`dot ${setTagColour(flim.vote_average)}`} />
-              {flim.vote_average ? (flim.vote_average.toFixed(2) * 10).toFixed(2) : 0}%
+              {flim.vote_average
+                ? (flim.vote_average.toFixed(2) * 10).toFixed(2)
+                : 0}
+              %
             </p>
           </div>
           <div className="pt-2 pb-2 text-gray-600 text-center">
@@ -97,8 +100,8 @@ const Favmovie = ({ movie }) => {
             <p className="text-sm">Your Rating: {movie.rating}</p>
           </div>
           <div className="pb-1 capitalize text-center tracking-wide flex justify-evenly bg-blue-200">
-            <div className="posts">
-              <p className=" border-t-2 w-screen border-blue-400" />
+            <div className="posts w-full">
+              <p className=" border-t-2 border-blue-400" />
               <Link
                 to={`/movies/${flim.id}`}
                 className="text-lg underline cursor-pointer hover:text-blue-600 font-semibold text-blue-500"

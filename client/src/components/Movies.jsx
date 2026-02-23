@@ -209,8 +209,8 @@ const Movies = ({ movie }) => {
             <p className="text-sm">{movie.release_date}</p>
           </div>
           <div className="pb-1 capitalize text-center tracking-wide flex justify-evenly bg-blue-200">
-            <div className="posts">
-              <p className=" border-t-2 w-screen border-blue-400" />
+            <div className="posts w-full">
+              <p className="border-t-2 border-blue-400" />
               <Link
                 to={`/movies/${movie.id}/#Movie`}
                 className="text-lg underline cursor-pointer hover:text-blue-600 font-semibold text-blue-500"

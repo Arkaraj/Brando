@@ -70,15 +70,18 @@ const Favshow = ({ tv }) => {
             >
               {/* className={`tag ${setTagColour(flim.vote_average)}`} */}
               <span className={`dot ${setTagColour(show.vote_average)}`} />
-              {show.vote_average ? (show.vote_average.toFixed(2) * 10).toFixed(2) : 0}%
+              {show.vote_average
+                ? (show.vote_average.toFixed(2) * 10).toFixed(2)
+                : 0}
+              %
             </p>
           </div>
           <div className="pt-2 pb-2 text-gray-600 text-center">
             <p>{show.name}</p>
           </div>
           <div className="pb-1 capitalize text-center tracking-wide flex justify-evenly bg-blue-200">
-            <div className="posts">
-              <p className=" border-t-2 w-screen border-blue-400" />
+            <div className="posts w-full">
+              <p className=" border-t-2 border-blue-400" />
               <Link
                 to={`/tv/${show.id}`}
                 className="text-lg underline cursor-pointer hover:text-blue-600 font-semibold text-blue-500"
